@@ -7,6 +7,7 @@
 - Nisasu Bozkurt: Product Owner / Developer
 - Onur Özkınacı: Developer
 - Selin Güzel: Developer
+- Gizem Yavuz: Developer
 
 ## Ürün İsmi: Scrap App
 
