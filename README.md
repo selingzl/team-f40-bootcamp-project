@@ -1,4 +1,4 @@
-# Takım F-40 - Scrap App
+# Takım F-40
 
  Takım F-40 
 
