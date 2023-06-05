@@ -9,7 +9,7 @@
 - Selin Nur Güzel: Developer
 - Gizem Yavuz: Developer
 
-## Ürün İsmi: Scrap App
+## Ürün İsmi: 
 
 ## Ürün İle İlgili Bilgiler
 
