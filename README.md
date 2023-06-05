@@ -1,7 +1,7 @@
-# Takım F-40
+# Takım İsmi
 
  Takım F-40 
-
+## Ürün İle İlgili Bilgiler
 ## Takım Elemanları
 - Eren Malkoç: Scrum Master / Developer
 - Nisasu Bozkurt: Product Owner / Developer
