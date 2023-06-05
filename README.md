@@ -6,7 +6,7 @@
 - Eren Malkoç: Scrum Master / Developer
 - Nisasu Bozkurt: Product Owner / Developer
 - Onur Özkınacı: Developer
-- Selin Güzel: Developer
+- Selin Nur Güzel: Developer
 - Gizem Yavuz: Developer
 
 ## Ürün İsmi: Scrap App
