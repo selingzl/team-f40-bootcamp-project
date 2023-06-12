@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../main.dart';
+import 'feed_screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,15 +21,17 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
-      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       final User? user = userCredential.user;
 
       if (user != null) {
-
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));      }
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => FeedPage()));
+      }
     } catch (e) {
       setState(() {
         _errorMessage = 'Giriş yaparken bir hata oluştu: $e';
@@ -42,6 +47,31 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => FeedPage()),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Google ile oturum açarken bir hata oluştu: $e';
+      });
+      print(_errorMessage);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +103,24 @@ class _LoginPageState extends State<LoginPage> {
               child: Text('Kayıt Ol'),
             ),
             SizedBox(height: 8.0),
+            TextButton(
+              onPressed:(){
+                _signInWithGoogle();
+                MaterialPageRoute(builder: (context) => FeedPage());
+
+
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(FontAwesomeIcons.google),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('Google ile devam et'),
+                ],
+              ),
+            ),
             Text(
               _errorMessage,
               style: TextStyle(color: Colors.red),
@@ -99,15 +147,16 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
-      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       final User? user = userCredential.user;
 
       if (user != null) {
-
-         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
       }
     } catch (e) {
       setState(() {
@@ -153,4 +202,3 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
-
