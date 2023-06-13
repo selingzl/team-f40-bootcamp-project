@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../main.dart';
 import 'feed_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -97,6 +98,15 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: _login,
               child: Text('Giriş Yap'),
             ),
+            SizedBox(height: 8.0,),
+            TextButton(onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
+              );
+
+
+            }, child: Text('Şifremi Unuttum')),
             SizedBox(height: 8.0),
             TextButton(
               onPressed: _goToRegister,
