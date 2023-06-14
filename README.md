@@ -15,7 +15,7 @@
 ## Ürün İle İlgili Bilgiler
 
 ## Ürün Açıklaması:
-Kitapseverler için kitaplara ulaşabilmeyi kolaylaştıran, kitap okumayı sevmeyenler için kitap okumaya teşvik eden ve hatırlatan bir uygulama.
+Kitapseverlere kitaplara kolaylıkla erişim sağlayan, kitap okumayı sevmeyenleri teşvik eden ve hatırlatan bir uygulama.
 - 
 
 ## Ürün Özellikleri:
@@ -26,7 +26,7 @@ Kitapseverler için kitaplara ulaşabilmeyi kolaylaştıran, kitap okumayı sevm
 5. Kitap takası yapabilmek için bir chat sistemi
 
 
-- Uygulama içerisinde coin sistemi bulunmakta. Bu coin sistemi kullanıcının kitap okuduğu süreye dayanarak kitap bağışı yapabilmesini sağlıyor. Kitap okuduğun süre, kitap değiş tokuşu veya ödünç verme, başarı sıralamasında bir üst seviyeye atlama olayları sana coin kazandırıyor. Ayrıca bu coinlerle maskot mağazasından maskotuna bir şeyler alabilirsin. 
+- Uygulama içerisinde coin sistemi bulunmakta. Bu coin sistemi kullanıcının kitap okuduğu süreye dayanarak sizin adınıza kitap bağışında bulunuyoruz ve sizlerin de emeğiyle toplumumuzu daha fazla kitap okumaya teşvik ediyoruz.. Kitap okuduğun süre, kitap değiş tokuşu veya ödünç verme, başarı sıralamasında bir üst seviyeye atlama olayları sana coin kazandırıyor. Ayrıca bu coinlerle maskot mağazasından maskotuna bir şeyler alabilirsin. 
 - Ödünç alma veya değiş tokuş yapabilmek için belirlediğin kullanıcıya “… kitap sende varsa ödünç alabilir miyim?” veya “… kitap sende varsa … kitapla değiş tokuş yapmak ister misin?” sorularıyla chatbot üzerinden konuşabilirsin. Böylelikle aradığın kitapları para vermeden bulabilir ve okuyabilirsin. - Maskot sen uygulamaya uzun süre girmediğinde acıkabilir veya birlikte kitap okumadığınız için sıkılabilir. Bu yüzden sana “Çok Acıktım!” Veya “Çok sıkıldım hadi kitap okuyalım :3” gibi bildirimler yollayabilir. Bu sistem kullanıcının uygulamaya girmesini hatırlatmak için düşünüldü. 
 - Kütüphane 100 temel eserden oluşacak. 
 - Kronometre kısmında kullanıcı bir süre belirleyecek ve bu süre içerisinde belirlediği birkaç uygulama hariç diğer uygulamaları kullanmadan kitap okumalı. Süre ilerledikçe temsili kitap sayfaları çevrilecek, süre dolmadan çıkıldığında veya kurallar bozulduğunda ise kitap yanacak ve maskot üzülecek.
