@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../navigation/bottom_navigation_bar.dart';
 import 'login_screen.dart';
 
 class FeedPage extends StatelessWidget {
@@ -22,11 +23,7 @@ class FeedPage extends StatelessWidget {
               icon: Icon(Icons.exit_to_app))
         ],
       ),
-      body: Column(
-        children: [
-          Center(child: Text('hi')),
-        ],
-      ),
+      body: BottomNavigationBarPage()
     );
   }
 }

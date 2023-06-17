@@ -41,31 +41,33 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         title: Text('Register'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'E-posta'),
-            ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(labelText: 'Şifre'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _register,
-              child: Text('Kayıt Ol'),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              _errorMessage,
-              style: TextStyle(color: Colors.red),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'E-posta'),
+              ),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'Şifre'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: _register,
+                child: Text('Kayıt Ol'),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                _errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ],
+          ),
         ),
       ),
     );
