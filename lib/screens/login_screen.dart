@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../main.dart';
 import 'feed_screen.dart';
 import 'forgot_password_screen.dart';
 
@@ -79,63 +77,64 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'E-posta'),
-            ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(labelText: 'Şifre'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text('Giriş Yap'),
-            ),
-            SizedBox(height: 8.0,),
-            TextButton(onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
-              );
-
-
-            }, child: Text('Şifremi Unuttum')),
-            SizedBox(height: 8.0),
-            TextButton(
-              onPressed: _goToRegister,
-              child: Text('Kayıt Ol'),
-            ),
-            SizedBox(height: 8.0),
-            TextButton(
-              onPressed:(){
-                _signInWithGoogle();
-                MaterialPageRoute(builder: (context) => FeedPage());
-
-
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(FontAwesomeIcons.google),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('Google ile devam et'),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'E-posta'),
               ),
-            ),
-            Text(
-              _errorMessage,
-              style: TextStyle(color: Colors.red),
-            ),
-          ],
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'Şifre'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: _login,
+                child: Text('Giriş Yap'),
+              ),
+              SizedBox(height: 8.0,),
+              TextButton(onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
+                );
+
+
+              }, child: Text('Şifremi Unuttum')),
+              SizedBox(height: 8.0),
+              TextButton(
+                onPressed: _goToRegister,
+                child: Text('Kayıt Ol'),
+              ),
+              SizedBox(height: 8.0),
+              TextButton(
+                onPressed:(){
+                  _signInWithGoogle();
+                  MaterialPageRoute(builder: (context) => FeedPage());
+
+
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(FontAwesomeIcons.google),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Google ile devam et'),
+                  ],
+                ),
+              ),
+              Text(
+                _errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ],
+          ),
         ),
       ),
     );
