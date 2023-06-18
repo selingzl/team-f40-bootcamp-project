@@ -26,6 +26,7 @@ Takım F-40
 
 ## Ürün Açıklaması:
 
+
 - “ReadMe!” uygulaması, kitapseverlerin ilgisini çeken kitaplara kolaylıkla erişebilmesini, kitap okuma alışkanlığı
   olmayan teşvik etmeyi ve bu doğrultuda kitap okumayı devamlı hale getirecek şekilde hatırlatmalar sunmayı
   hedeflemektedir. İçerisinde bulundurduğu zamanlayıcı, okuyucu sıralaması ve iletişim opsiyonu sunan fonksiyonlar
@@ -34,13 +35,8 @@ Takım F-40
   erişimini sağlamanın yanında, belirli ölçütler çerçevesinde bağış yapılmasını da temel hedeflerden birisi haline
   getirerek sosyal sorumluluk açısından da önem arz etmektedir.
 
-## Ürün Özellikleri:
 
-1. Kitap puanlama sistemi ile sevilen kitapları gösterme
-2. Kitap okurken kronometre kullanabilme
-3. En çok okuyan insanlar için başarı sıralama sayfası
-4. Kitapların bulunduğu bir kitaplık
-5. Kitap takası yapabilmek için bir chat sistemi
+
 
 
 - Uygulama içerisinde coin sistemi bulunmakta. Bu coin sistemi kullanıcının kitap okuduğu süreye dayanarak kitap bağışı
@@ -57,6 +53,7 @@ Takım F-40
 - Kronometre kısmında kullanıcı bir süre belirleyecek ve bu süre içerisinde belirlediği birkaç uygulama hariç diğer
   uygulamaları kullanmadan kitap okumalı. Süre ilerledikçe temsili kitap sayfaları çevrilecek, süre dolmadan
   çıkıldığında veya kurallar bozulduğunda ise kitap yanacak ve maskot üzülecek.
+
 
 ## Hedef Kitle:
 
