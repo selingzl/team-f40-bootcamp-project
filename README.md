@@ -26,6 +26,7 @@ Takım F-40
 
 ## Ürün Açıklaması:
 
+
 - “ReadMe!” uygulaması, kitapseverlerin ilgisini çeken kitaplara kolaylıkla erişebilmesini, kitap okuma alışkanlığı
   olmayan teşvik etmeyi ve bu doğrultuda kitap okumayı devamlı hale getirecek şekilde hatırlatmalar sunmayı
   hedeflemektedir. İçerisinde bulundurduğu zamanlayıcı, okuyucu sıralaması ve iletişim opsiyonu sunan fonksiyonlar
@@ -34,13 +35,8 @@ Takım F-40
   erişimini sağlamanın yanında, belirli ölçütler çerçevesinde bağış yapılmasını da temel hedeflerden birisi haline
   getirerek sosyal sorumluluk açısından da önem arz etmektedir.
 
-## Ürün Özellikleri:
 
-1. Kitap puanlama sistemi ile sevilen kitapları gösterme
-2. Kitap okurken kronometre kullanabilme
-3. En çok okuyan insanlar için başarı sıralama sayfası
-4. Kitapların bulunduğu bir kitaplık
-5. Kitap takası yapabilmek için bir chat sistemi
+
 
 
 - Uygulama içerisinde coin sistemi bulunmakta. Bu coin sistemi kullanıcının kitap okuduğu süreye dayanarak kitap bağışı
@@ -58,6 +54,7 @@ Takım F-40
   uygulamaları kullanmadan kitap okumalı. Süre ilerledikçe temsili kitap sayfaları çevrilecek, süre dolmadan
   çıkıldığında veya kurallar bozulduğunda ise kitap yanacak ve maskot üzülecek.
 
+
 ## Hedef Kitle:
 
 - Kitap okurken odaklanamayanlar
@@ -72,6 +69,7 @@ Takım F-40
 
 ### Sprint 1 Çıktıları
 
+<<<<<<< HEAD
 - Uygulama sayfaları belirlendi, database örnek modeli oluşturuldu.
   ![Sprint 1](ProjectManagement/Sprint1Documents/sprint1.png)
 
@@ -80,6 +78,11 @@ Takım F-40
 
 - Login ve Register Page için örnek tasarımlar oluşturuldu. Uygulama renkleri belirlendi.
   ![Tasarımlar](ProjectManagement/Sprint1Documents/tasarımlar.png)
+=======
+- ![Uygulama sayfaları belirlendi,database örnek modeli oluşturuldu.](ProjectManagement/Sprint1Documents/sprint1.png)
+- ![Login ve Register Page oluşturuldu,çeşitli oturum açma seçenekleri eklendi.](ProjectManagement/Sprint1Documents/login.PNG)
+- ![Login ve Register Page için örnek tasarımlar oluşturuldu.Uygulama renkleri belirlendi.](ProjectManagement/Sprint1Documents/tasarımlar.PNG)
+>>>>>>> 7472b19dd3bef20ea45406c1a0d4d7523c706dd7
 
 ### Sprint Review
 -Uygulama Firebase'e bağlandı,çeşitli servisler (authentication,firestore database) eklendi.
