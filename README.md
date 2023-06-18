@@ -70,8 +70,8 @@ Takım F-40
 ### Sprint 1 Çıktıları
 
 - ![Uygulama sayfaları belirlendi,database örnek modeli oluşturuldu.](ProjectManagement/Sprint1Documents/sprint1.png)
-- ![Login ve Register Page oluşturuldu,çeşitli oturum açma seçenekleri eklendi. ](ProjectManagement/Sprint1Documents/login.png)
-- ![Login ve Register Page için örnek tasarımlar oluşturuldu.Uygulama renkleri belirlendi. ](ProjectManagement/Sprint1Documents/tasarımlar.png)
+- ![Login ve Register Page oluşturuldu,çeşitli oturum açma seçenekleri eklendi.](ProjectManagement/Sprint1Documents/login.PNG)
+- ![Login ve Register Page için örnek tasarımlar oluşturuldu.Uygulama renkleri belirlendi.](ProjectManagement/Sprint1Documents/tasarımlar.PNG)
 
 ### Sprint Review
 -Uygulama Firebase'e bağlandı,çeşitli servisler (authentication,firestore database) eklendi.
