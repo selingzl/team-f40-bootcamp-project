@@ -2,8 +2,6 @@
 
 Takım F-40
 
-## Ürün İle İlgili Bilgiler
-
 ## Takım Elemanları
 
 - Eren Malkoç: Scrum Master / Developer
@@ -18,11 +16,11 @@ Takım F-40
 
 ## Ürün İle İlgili Bilgiler
 
--1. Kitap puanlama sistemi ile sevilen kitapları sıralama.
--2. Kitap okurken odaklanma süresini artırmak için kronometre kullanımı.
--3. En çok okuyan insanlar için başarı sıralama sayfası.
--4. Kitapların bulunduğu bir kitaplık.
--5. Kitap takası yapabilmek için bir chat sistemi.
+- 1. Kitap puanlama sistemi ile sevilen kitapları sıralama.
+- 2. Kitap okurken odaklanma süresini artırmak için kronometre kullanımı.
+- 3. En çok okuyan insanlar için başarı sıralama sayfası.
+- 4. Kitapların bulunduğu bir kitaplık.
+- 5. Kitap takası yapabilmek için bir chat sistemi.
 
 ## Ürün Açıklaması:
 
@@ -78,10 +76,6 @@ Takım F-40
 
 - Login ve Register Page için örnek tasarımlar oluşturuldu. Uygulama renkleri belirlendi.
   ![Tasarımlar](ProjectManagement/Sprint1Documents/tasarımlar.png)
-
-- ![Uygulama sayfaları belirlendi,database örnek modeli oluşturuldu.](ProjectManagement/Sprint1Documents/sprint1.png)
-- ![Login ve Register Page oluşturuldu,çeşitli oturum açma seçenekleri eklendi.](ProjectManagement/Sprint1Documents/login.PNG)
-- ![Login ve Register Page için örnek tasarımlar oluşturuldu.Uygulama renkleri belirlendi.](ProjectManagement/Sprint1Documents/tasarımlar.PNG)
 
 
 ### Sprint Review
