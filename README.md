@@ -68,6 +68,14 @@ Takım F-40
 ### Sprint 1 Çıktıları
 
 
+- Sprint notları: Sprint notları [product backlog](https://miro.com/app/board/uXjVM_hL6MI=/?share_link_id=525118540066) içine eklenmiştir.
+- Sprint İçinde Tamamlanması Tahmin Edilen Puan: 100 Puan.
+- İş Yükü: Çıkardığımız iş listesinin toplam puanını 600 olarak belirledik. Bu sprintte ekip arkadaşlarımızın genelinin yoğunluğundan dolayı sprintin puanını düşük tutmaya karar vererek, sprinti 100 puan olarak ayarladık.
+- Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri, notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
+
+- User Stories.
+  ![Sprint 1](ProjectManagement/Sprint1Documents/user_sto.png)
+
 - Uygulama sayfaları belirlendi, database örnek modeli oluşturuldu.
   ![Sprint 1](ProjectManagement/Sprint1Documents/sprint1.png)
 
@@ -80,7 +88,7 @@ Takım F-40
 
 ### Sprint Review
 -Uygulama Firebase'e bağlandı,çeşitli servisler (authentication,firestore database) eklendi.
- Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanılacak paketler eklendi.
+Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanılacak paketler eklendi.
 
 ### Sprint Retrospective
 -Proje yönetim aracı değiştirildi.
