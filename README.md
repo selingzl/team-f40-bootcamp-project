@@ -59,6 +59,7 @@ Takım F-40
 - Kitapseverler
 - Bağışseverler
 - Okumayı bilen her yaştan insanlar
+- Yeni kitaplar keşfetmek isteyenler
 
 ## Juriye Not
 - 
