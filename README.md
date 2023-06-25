@@ -12,7 +12,6 @@ Takım F-40
 
 ## Ürün İsmi:
 
--ReadMe!
 
 ## Ürün İle İlgili Bilgiler
 
