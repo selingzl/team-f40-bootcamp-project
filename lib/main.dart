@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/login_screen.dart';
 
 void main() async {
@@ -17,10 +19,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
+  late FirebaseAuth firebaseAuth;
   @override
   void initState() {
     super.initState();
+    firebaseAuth = FirebaseAuth.instance;
+
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
@@ -39,11 +43,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   void navigateToLogin() async {
-    await Future.delayed(Duration(seconds: 3)); // Adjust the duration as needed
+    await Future.delayed(Duration(seconds: 2)); // Adjust the duration as needed
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(builder: (context) => firebaseAuth.currentUser!=null  ? FeedPage()  : LoginPage()),
     );
   }
   Widget build(BuildContext context) {
@@ -57,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'lib/assets/Firefly a small cute sleeping orange cat in the middle of the photo and light purple library backgro.jpg'),
+                      'lib/assets/splash_img.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),

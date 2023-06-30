@@ -92,19 +92,33 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(labelText: 'Şifre'),
               ),
               SizedBox(height: 16.0),
+              Row(
+                children: [
+                  Checkbox(
+                    value: true,
+                    onChanged: (value) {
+                      setState(() {
+                       value=true;
+                      });
+                    },
+                  ),
+                  Text('Beni Hatırla'),
+                ],
+              ),
               ElevatedButton(
                 onPressed: _login,
                 child: Text('Giriş Yap'),
               ),
-              SizedBox(height: 8.0,),
-              TextButton(onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
-                );
-
-
-              }, child: Text('Şifremi Unuttum')),
+              SizedBox(height: 8.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
+                  );
+                },
+                child: Text('Şifremi Unuttum'),
+              ),
               SizedBox(height: 8.0),
               TextButton(
                 onPressed: _goToRegister,
@@ -112,19 +126,18 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 8.0),
               TextButton(
-                onPressed:(){
+                onPressed: () {
                   _signInWithGoogle();
-                  MaterialPageRoute(builder: (context) => FeedPage());
-
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FeedPage()),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(FontAwesomeIcons.google),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     Text('Google ile devam et'),
                   ],
                 ),
@@ -139,6 +152,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+
 }
 
 class RegisterPage extends StatefulWidget {
