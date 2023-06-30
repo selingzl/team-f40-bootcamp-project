@@ -26,6 +26,10 @@ class _BottomNavigationBarPageState
       'Index 2: School',
       style: optionStyle,
     ),
+    Text(
+      'Index 3: Profile',
+      style: optionStyle,
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -43,22 +47,27 @@ class _BottomNavigationBarPageState
       ),
       bottomNavigationBar: BottomNavigationBar(
 
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Image.asset('lib/assets/icons/ic_time.png',width: 40,height: 40,),
+            label: 'Sayaç',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Image.asset('lib/assets/icons/ic_add.png',width: 40,height: 40,),
+            label: 'Bağış',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Image.asset('lib/assets/icons/ic_book.png',width: 40,height: 40,),
+            label: 'Kitaplık',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Image.asset('lib/assets/icons/ic_profile.png',width: 40,height: 40,),
+            label: 'Profil',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.indigo,
         onTap: _onItemTapped,
       ),
     );
