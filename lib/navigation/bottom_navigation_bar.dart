@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:read_reminder/screens/library_screen.dart';
+import 'package:read_reminder/screens/profile_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
   const BottomNavigationBarPage({super.key});
@@ -8,16 +10,11 @@ class BottomNavigationBarPage extends StatefulWidget {
       _BottomNavigationBarPageState();
 }
 
-class _BottomNavigationBarPageState
-    extends State<BottomNavigationBarPage> {
+class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -26,10 +23,8 @@ class _BottomNavigationBarPageState
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Profile',
-      style: optionStyle,
-    ),
+    LibraryScreen(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
@@ -41,28 +36,41 @@ class _BottomNavigationBarPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Image.asset('lib/assets/icons/ic_time.png',width: 40,height: 40,),
+            icon: Image.asset(
+              'lib/assets/icons/ic_time.png',
+              width: 40,
+              height: 40,
+            ),
             label: 'Sayaç',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('lib/assets/icons/ic_add.png',width: 40,height: 40,),
+            icon: Image.asset(
+              'lib/assets/icons/ic_add.png',
+              width: 40,
+              height: 40,
+            ),
             label: 'Bağış',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('lib/assets/icons/ic_book.png',width: 40,height: 40,),
+            icon: Image.asset(
+              'lib/assets/icons/ic_book.png',
+              width: 40,
+              height: 40,
+            ),
             label: 'Kitaplık',
           ),
-
           BottomNavigationBarItem(
-            icon: Image.asset('lib/assets/icons/ic_profile.png',width: 40,height: 40,),
+            icon: Image.asset(
+              'lib/assets/icons/ic_profile.png',
+              width: 40,
+              height: 40,
+            ),
             label: 'Profil',
           ),
         ],
