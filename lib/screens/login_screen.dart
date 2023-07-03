@@ -1,11 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'feed_screen.dart';
-import 'forgot_password_screen.dart';
-import 'register_screen.dart';
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -16,7 +8,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String _errorMessage = '';
-
+  var error = Icon(IconData(0x200B, fontFamily: 'MaterialIcons'),) ;
+  var errorgoogle = Icon(IconData(0x200B, fontFamily: 'MaterialIcons'),
+    );
   Future<void> _login() async {
     try {
       final String email = _emailController.text.trim();
@@ -34,6 +28,11 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       setState(() {
+         error = Icon(
+           FontAwesomeIcons.circleExclamation,
+          size: 15.0,
+          color: Color(0xFF878ECD),
+        );
         _errorMessage = 'Giriş yaparken bir hata oluştu. E-postanızı veya '
             'şifrenizi kontrol ediniz!';
       });
@@ -70,6 +69,10 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       setState(() {
+        errorgoogle =Icon(FontAwesomeIcons.circleExclamation,
+          size: 24.0,
+          color: Color(0xFF878ECD),
+        );
         _errorMessage = 'Google ile oturum açarken bir hata oluştu: $e';
       });
       print(_errorMessage);
@@ -152,11 +155,10 @@ class _LoginPageState extends State<LoginPage> {
                       contentPadding: EdgeInsets.symmetric(horizontal: 15,
                           vertical: 30),),),
                 ),
-
-
-
-                Text(
-                  _errorMessage,
+                  SizedBox(height: 10),
+                  error,
+                  Text(
+                   _errorMessage,
                   style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1),
                   ),
                 ),
@@ -221,5 +223,3 @@ class _LoginPageState extends State<LoginPage> {
   }
 
 }
-
-
