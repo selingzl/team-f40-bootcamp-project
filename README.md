@@ -103,6 +103,7 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 
 ### Sprint 2 Çıktıları
 
+
 - Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri,
   notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
 - Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
@@ -129,3 +130,4 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 -Tüm sayfaların tasarımı figmada tamamlandı.
 -Login ve Register sayfalarının backend kısımları tamamlandı.
 -Splash ekranı hayata geçirildi.
+
