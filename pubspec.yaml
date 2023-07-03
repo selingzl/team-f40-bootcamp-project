@@ -60,7 +60,7 @@ flutter:
   assets:
     - lib/assets/Firefly a small cute sleeping orange cat in the middle of the photo and light purple library backgro.jpg
     - lib/assets/Firefly a cute orange cat in a clock and a light purple circle background 42614.jpg
-
+    - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

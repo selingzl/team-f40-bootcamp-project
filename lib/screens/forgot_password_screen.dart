@@ -69,9 +69,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Şifremi Unuttum'),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
