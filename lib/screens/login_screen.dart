@@ -224,29 +224,33 @@ class _LoginPageState extends State<LoginPage> {
                     color:Color.fromRGBO(135, 142, 205, 1),
                     fontWeight: FontWeight.bold ),)),
                 SizedBox(height: 8.0),
-                TextButton(
-                  onPressed:(){
-                    _signInWithGoogle();
-                    MaterialPageRoute(builder: (context) => FeedPage());
-                  },
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                    ),
+                    textStyle: MaterialStateProperty.all(
+                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(51.16),
+                      ),
+                    ),
+                  ),
+                  onPressed: _signInWithGoogle,
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.google,
-                          size: 30.0,
-                          color: Color.fromRGBO(235, 134, 134, 1),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-
-                        Text(
-                          'Google ile devam et',
-                          style:
-                          TextStyle(color: Color.fromRGBO(255, 234, 220,1),fontWeight:FontWeight.bold,fontSize: 16),
-                        ),
-                      ]
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.google,
+                        size: 18.0,
+                      ),
+                      SizedBox(width: 10.0),
+                      Text('Google ile Giriş Yap'),
+                    ],
                   ),
                 ),
                 SizedBox(height: 10,),
