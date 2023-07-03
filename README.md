@@ -107,7 +107,7 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 - Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri,
   notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
 - Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
-  ![Figma Tasarımları](ProjectManagement/Sprint2Documents/tasarımlar.png)
+  ![Figma Tasarımları](ProjectManagement/Sprint2Documents/tasarımlar.PNG)
 - Puan Tamamlama Mantığı: Toplamda proje boyunca tamamlanması gereken 300 puanlık backlog bulunmaktadır. 3 sprint'e
   bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
 
