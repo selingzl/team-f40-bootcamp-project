@@ -103,7 +103,8 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 
 ### Sprint 2 Çıktıları
 
-
+- Sprint notları: Sprint notları [product backlog](https://miro.com/app/board/uXjVM_hL6MI=/?share_link_id=525118540066)
+  içine eklenmiştir.
 - Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri,
   notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
 - Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
