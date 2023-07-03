@@ -97,3 +97,14 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 
 - [Bootcamp Team F-40 Miro Backlog Board](https://miro.com/app/board/uXjVM_hL6MI=/?share_link_id=525118540066)
 
+### Sprint 2 Çıktıları
+- Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri, notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
+- Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
+- ![Uploading Ekran Resmi 2023-07-03 09.00.16.png…]()
+İş Yükü: Bu sprintte ekip arkadaşlarımızın genelinin yoğunluğundan dolayı sprintin puanımızı 200 olarak belirledik. Miro üstündeki belgede de takım arkadaşlarımız ile iş bölümünü yaptık .
+
+### Sprint Review
+-Uygulama Firebase'e bağlandı,çeşitli servisler (authentication,firestore database) eklendi.
+-Uygulama tasarımı figma üstünde tamamlandı.
+-Login ve Register sayfalarının backend kısımları tamamlandı.
+-Splash ekranı hayata geçirildi.
