@@ -135,3 +135,6 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 - Login ve Register sayfalarının backend kısımları tamamlandı.
 - Splash ekranı hayata geçirildi.
 
+### Sprint Retrospective
+
+- İş yükü dağılımı değiştirildi.
