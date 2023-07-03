@@ -112,15 +112,19 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
   bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
 
 - İş yükü tablo haline getirildi.
+- 
   ![Sprint 2](ProjectManagement/Sprint1Documents/miroo.PNG)
 
 - Profil Sayafası Oluşturuldu.
+- 
   ![Profil](ProjectManagement/Sprint1Documents/profile.PNG)
 
 - Kitaplar Sayfası Oluşturuldu.
+- 
   ![Kitaplar](ProjectManagement/Sprint1Documents/books.PNG)
   
 - Kitap Detay Sayfası Oluşturuldu.
+- 
   ![Kitap Detay](ProjectManagement/Sprint1Documents/book_det.PNG)
 
 ### Sprint Review
