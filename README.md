@@ -100,7 +100,7 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 ### Sprint 2 Çıktıları
 - Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri, notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
 - Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
-  ![Figma Tasarımları](https://www.figma.com/file/MfPDoJ9CBEKPqTdGQqYX7K/F-40?type=design&node-id=0-1&mode=design&t=vCsCRydAnHyYHywo-0)
+  ![Figma Tasarımları](https://www.figma.com/file/MfPDoJ9CBEKPqTdGQqYX7K/F-40?type=design&node-id=0%3A1&mode=design&t=vCsCRydAnHyYHywo-1)
   
 -İş Yükü: Bu sprintte ekip arkadaşlarımızın genelinin yoğunluğundan dolayı sprintin puanımızı 200 olarak belirledik. Miro üstündeki belgede de takım arkadaşlarımız ile iş bölümünü yaptık .
 
