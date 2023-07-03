@@ -90,12 +90,12 @@ ReadMe!
 
 ### Sprint Review
 
--Uygulama Firebase'e bağlandı,çeşitli servisler (authentication,firestore database) eklendi.
+- Uygulama Firebase'e bağlandı,çeşitli servisler (authentication,firestore database) eklendi.
 Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanılacak paketler eklendi.
 
 ### Sprint Retrospective
 
--Proje yönetim aracı değiştirildi.
+- Proje yönetim aracı değiştirildi.
 
 ## Product Backlog URL
 
@@ -125,9 +125,9 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 
 ### Sprint Review
 
--Firebase database oluşturuldu
--Google Book API kullanıldı
--Tüm sayfaların tasarımı figmada tamamlandı.
--Login ve Register sayfalarının backend kısımları tamamlandı.
--Splash ekranı hayata geçirildi.
+- Firebase database oluşturuldu
+- Google Book API kullanıldı
+- Tüm sayfaların tasarımı figmada tamamlandı.
+- Login ve Register sayfalarının backend kısımları tamamlandı.
+- Splash ekranı hayata geçirildi.
 
