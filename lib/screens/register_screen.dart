@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      padding: EdgeInsets.all(50),
+      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
       decoration: BoxDecoration(
         gradient: RadialGradient(
           colors: [
@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               SizedBox(
-                height: 150,
+                height: 50,
               ),
               Container(
                 height: 68,

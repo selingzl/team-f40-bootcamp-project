@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:read_reminder/book_details.dart';
@@ -18,7 +17,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   Widget build(BuildContext context) {
     Future<List<dynamic>> getBookList() async {
       var url =
-          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDedRdVFM3Sep1EwTxmVqLG9bZzC1H9X8Q';
+          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDedRdVFM3Sep1EwTxC1H9X8Q';
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -88,6 +87,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 CircularProgressIndicator(),
                 SizedBox(height: 16),
                 Text('Veriler Yükleniyor'),

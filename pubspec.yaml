@@ -26,15 +26,6 @@ dependencies:
   #Fonts
   google_fonts: ^4.0.0
   font_awesome_flutter: ^10.4.0
-  http: ^1.1.0
-  url_launcher: ^6.1.11
-  sqflite: ^2.2.8+4
-  share: ^2.0.4
-  transparent_image: ^2.0.1
-  path_provider: ^2.0.15
-  path: ^1.8.3
-  connectivity: ^3.0.6
-  html: ^0.15.4
 
 
 
@@ -69,15 +60,17 @@ flutter:
   assets:
 
     - lib/assets/splash_img.jpg
+    - lib/assets/Firefly a cute orange cat in a clock and a light purple circle background 42614.jpg
+    - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
     - lib/assets/icons/ic_add.png
+    - lib/assets/icons/ic_book.png
+    - lib/assets/icons/ic_coin.png
+    - lib/assets/icons/ic_notif.png
     - lib/assets/icons/ic_profile.png
     - lib/assets/icons/ic_time.png
-    - lib/assets/icons/ic_book.png
-    - lib/assets/icons/ic_notif.png
-    - lib/assets/icons/ic_coin.png
     - lib/assets/background/bg_profile.png
+    - lib/assets/timer.png
     - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

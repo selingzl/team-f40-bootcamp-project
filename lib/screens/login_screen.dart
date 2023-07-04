@@ -97,23 +97,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Flexible(
           child: Container(
+
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 80),
-                Text(
-                  'Giriş Yap',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
+                SizedBox(height: 20),
+                Text('Giriş Yap', textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w900,
                       fontSize: 32,
-                      color: Color.fromRGBO(135, 142, 205, 1)),
-                ),
-                Image.asset(
-                  'lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png',
-                  width: 320,
-                  height: 230,
-                ),
+                      color: Color.fromRGBO(135, 142, 205, 1)),),
+                Image.asset('lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png', width: 280, height: 180,),
                 Container(
                   height: 68,
                   width: 320,
@@ -128,21 +121,16 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
+
                   ),
-                  child: TextFormField(
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'E-posta',
-                      labelStyle:
-                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                    ),
+                  Image.asset(
+                    'lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png',
+                    width: 320,
+                    height: 230,
                   ),
+
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0),
                 Container(
                   height: 68,
                   width: 320,
@@ -157,143 +145,199 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
+
                   ),
                   child: TextFormField(
                     controller: _passwordController,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold ),
                     obscureText: !_passwordVisible,
-                    decoration: InputDecoration(
-                      labelText: 'Şifre',
-                      labelStyle:
-                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                    decoration: InputDecoration(labelText: 'Şifre',
+
+                      labelStyle: TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _passwordVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                if (error)
-                  Flexible(
-                    child: Row(
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.exclamationCircle,
-                          size: 15.0,
-                          color: Color(0xFF878ECD),
-                        ),
-                        SizedBox(width: 9),
-                        Flexible(
-                          child: Text(
-                            _errorMessage,
-                            style: TextStyle(
-                              color: Color.fromRGBO(135, 142, 205, 1),
-                            ),
-                          ),
+                  SizedBox(height: 15.0),
+                  Container(
+                    height: 68,
+                    width: 320,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0.0,
+                          blurRadius: 1.0,
+                          offset: Offset(0, 3),
                         ),
                       ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Color.fromRGBO(135, 142, 205, 1)),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
-                    ),
-                    textStyle: MaterialStateProperty.all(
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(51.16),
+                    child:TextFormField(
+                      controller: _passwordController,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      obscureText: !_passwordVisible,
+                      decoration: InputDecoration(
+                        labelText: 'Şifre',
+                        labelStyle: TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                     ),
+
+
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  if (error)
+                    Flexible(
+                      child: Row(
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.circleExclamation,
+                            size: 15.0,
+                            color: Color(0xFF878ECD),
+                          ),
+                          SizedBox(width: 9),
+                          Flexible(
+                            child: Text(
+                              _errorMessage,
+                              style: TextStyle(
+                                color: Color.fromRGBO(135, 142, 205, 1),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Color.fromRGBO(135, 142, 205, 1)),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                      ),
+                      textStyle: MaterialStateProperty.all(
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(51.16),
+                        ),
+                      ),
+                    ),
+                    onPressed: _login,
+                    child: Text('Giriş Yap'),
+                  ),
+
                   onPressed: _login,
+
                   child: Text('Giriş Yap'),
                 ),
-                SizedBox(
-                  height: 8.0,
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordPage()),
-                      );
-                    },
-                    child: Text('Şifremi Unuttum')),
-                SizedBox(
-                  height: 10.0,
-                ),
+                SizedBox(height: 8.0,),
+                TextButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
+                  );
+                }, child: Text('Şifremi Unuttum', style: TextStyle(fontSize:14 ,
+                    color:Color.fromRGBO(135, 142, 205, 1),
+                    fontWeight: FontWeight.bold ),)),
+                SizedBox(height: 8.0),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                     ),
                     textStyle: MaterialStateProperty.all(
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
                     ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(51.16),
+                        borderRadius: BorderRadius.circular(25.16),
+
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(51.16),
+                        ),
                       ),
                     ),
-                  ),
-                  onPressed: _signInWithGoogle,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.google,
-                        size: 18.0,
-                      ),
-                      SizedBox(width: 10.0),
-                      Text('Google ile Giriş Yap'),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextButton(
-                  onPressed: _goToRegister,
-                  child: RichText(
-                    text: TextSpan(
-                      text: "Hesabınız yok mu? ",
-                      style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: "Kaydolun",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    onPressed: _signInWithGoogle,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.google,
+                          size: 18.0,
                         ),
+                        SizedBox(width: 10.0),
+                        Text('Google ile Giriş Yap'),
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Hesabın yok mu? Hemen',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                      TextButton(
+                        onPressed: _goToRegister,
+                        child: Text(
+                          'Kayıt Ol',
+                          style: TextStyle(
+                              color: Color.fromRGBO(135, 142, 205, 1),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+
                 ),
+                SizedBox(height: 5,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Hesabın yok mu? Hemen', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                    TextButton(
+                      onPressed: _goToRegister,
+                      child: Text('Kayıt Ol', style: TextStyle(color:Color.fromRGBO(135, 142, 205, 1),fontWeight: FontWeight.bold,fontSize: 18),),
+                    ),
+                  ],
+                ),
+
               ],
+
             ),
           ),
         ),
