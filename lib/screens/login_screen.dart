@@ -99,12 +99,12 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 80),
+                SizedBox(height: 20),
                 Text('Giriş Yap', textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.w900,
                       fontSize: 32,
                       color: Color.fromRGBO(135, 142, 205, 1)),),
-                Image.asset('lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png', width: 320, height: 230,),
+                Image.asset('lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png', width: 280, height: 180,),
                 Container(
                   height: 68,
                   width: 320,
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0),
                 Container(
                   height: 68,
                   width: 320,
@@ -231,14 +231,14 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                     ),
                     textStyle: MaterialStateProperty.all(
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
                     ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(51.16),
+                        borderRadius: BorderRadius.circular(25.16),
                       ),
                     ),
                   ),
@@ -255,7 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 5,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -266,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 8.0),
+
               ],
             ),
           ),
