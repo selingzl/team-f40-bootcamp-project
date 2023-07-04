@@ -65,6 +65,9 @@ flutter:
     - lib/assets/icons/ic_notif.png
     - lib/assets/icons/ic_coin.png
     - lib/assets/background/bg_profile.png
+    - lib/assets/icons/ic_profile.png
+    - lib/assets/icons/ic_add.png
+    - lib/assets/icons/ic_time.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
