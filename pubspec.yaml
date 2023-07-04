@@ -69,7 +69,12 @@ flutter:
     - lib/assets/icons/ic_profile.png
     - lib/assets/icons/ic_time.png
     - lib/assets/background/bg_profile.png
+<<<<<<< HEAD
     - lib/assets/timer.png
+=======
+    - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
+
+>>>>>>> 1d1104e (şifremi unuttum ekran tasarımı yapıldı.)
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -85,9 +90,9 @@ flutter:
   fonts:
     - family: Lato
       fonts:
-         - asset: lib/assets/lato/Lato-Regular.ttf
-         - asset: lib/assets/Lato/Lato-Bold.ttf
-         - asset: lib/assets/Lato/Lato-Italic.ttf
+          - asset: lib/assets/Lato/Lato-Regular.ttf
+          - asset: lib/assets/Lato/Lato-Bold.ttf
+          - asset: lib/assets/Lato/Lato-Italic.ttf
 
 
 
