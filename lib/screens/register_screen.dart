@@ -48,11 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-<<<<<<< HEAD
       padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-=======
-      padding: EdgeInsets.all(50),
->>>>>>> 1d1104e (şifremi unuttum ekran tasarımı yapıldı.)
       decoration: BoxDecoration(
         gradient: RadialGradient(
           colors: [
@@ -90,11 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               SizedBox(
-<<<<<<< HEAD
                 height: 50,
-=======
-                height: 150,
->>>>>>> 1d1104e (şifremi unuttum ekran tasarımı yapıldı.)
               ),
               Container(
                 height: 68,

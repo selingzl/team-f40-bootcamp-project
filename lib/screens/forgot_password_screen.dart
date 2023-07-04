@@ -31,10 +31,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           return AlertDialog(
             content:
 <<<<<<< HEAD
+<<<<<<< HEAD
             Text('Şifre sıfırlama bağlantısı mail adresine gönderildi!'),
 =======
                 Text('Şifre sıfırlama bağlantısı mail adresine gönderildi!'),
 >>>>>>> 1d1104e (şifremi unuttum ekran tasarımı yapıldı.)
+=======
+                Text('Şifre sıfırlama bağlantısı mail adresine gönderildi!'),
+>>>>>>> Nisasu
             title: Text('Uyarı'),
             actions: [
               TextButton(
@@ -90,6 +94,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             end: Alignment.bottomCenter,
           ),
         ),
+<<<<<<< HEAD
 <<<<<<< HEAD
         child: Center(
           child: Padding(
@@ -160,6 +165,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               height: 20 * MediaQuery.of(context).size.height / 100 +
                   20, // 20 cm kadar aşağı indirildi
             ),
+=======
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 20 * MediaQuery.of(context).size.height / 100 +
+                  20, // 20 cm kadar aşağı indirildi
+            ),
+>>>>>>> Nisasu
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -254,7 +268,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
             ),
           ],
+<<<<<<< HEAD
 >>>>>>> 1d1104e (şifremi unuttum ekran tasarımı yapıldı.)
+=======
+>>>>>>> Nisasu
         ),
       ),
     );
