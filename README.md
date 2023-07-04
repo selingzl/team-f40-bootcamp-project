@@ -12,11 +12,8 @@ Takım F-40
 
 ## Ürün İsmi:
 
-<<<<<<< HEAD
--ReadMe
-=======
 ReadMe!
->>>>>>> main
+
 
 ## Ürün İle İlgili Bilgiler
 
