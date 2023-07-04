@@ -34,7 +34,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Center(child: Text('Haftanın Kitapları',style: TextStyle(color: Colors.black),)),
+        title: Center(
+            child: Text(
+          'Haftanın Kitapları',
+          style: TextStyle(color: Colors.black),
+        )),
       ),
       body: FutureBuilder<List<dynamic>>(
         future: getBookList(),
@@ -49,16 +53,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 var subtitle = book['volumeInfo']['authors'][0] != null
                     ? book['volumeInfo']['authors'][0]
                     : 'Yazar bilgisi mevcut değil';
-                var imageLinks =
-                    book['volumeInfo']['imageLinks'] != null
-                        ? book['volumeInfo']['imageLinks']['smallThumbnail']
-                        : 'https://placekitten.com/600/800';
+                var imageLinks = book['volumeInfo']['imageLinks'] != null
+                    ? book['volumeInfo']['imageLinks']['smallThumbnail']
+                    : 'https://placekitten.com/600/800';
 
                 return ListTile(
-                  leading: IconButton(icon:Icon(Icons.star_border),onPressed: (){
-
-
-                  },),
+                  leading: IconButton(
+                    icon: Icon(Icons.star_border),
+                    onPressed: () {},
+                  ),
                   title: Text(
                     title,
                     style: TextStyle(fontWeight: FontWeight.w600),
@@ -68,12 +71,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => BookDetails(index: index,),
+                        builder: (context) => BookDetails(
+                          index: index,
+                        ),
                       ),
                     );
-
-
-
                   },
                 );
               },
