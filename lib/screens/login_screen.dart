@@ -97,45 +97,62 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Flexible(
           child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 20),
-                  Text(
-                    'Giriş Yap',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 32,
-                        color: Color.fromRGBO(135, 142, 205, 1)),
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
+                Text('Giriş Yap', textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w900,
+                      fontSize: 32,
+                      color: Color.fromRGBO(135, 142, 205, 1)),),
+                Image.asset('lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png', width: 280, height: 180,),
+                Container(
+                  height: 68,
+                  width: 320,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0.0,
+                        blurRadius: 1.0,
+                        offset: Offset(0, 3), // horizontal, vertical offset
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.0),
+
                   ),
                   Image.asset(
                     'lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png',
                     width: 320,
                     height: 230,
                   ),
-                  Container(
-                    height: 68,
-                    width: 320,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 0.0,
-                          blurRadius: 1.0,
-                          offset: Offset(0, 3), // horizontal, vertical offset
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: TextFormField(
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                      labelText: 'E-posta',
+
+                ),
+                SizedBox(height: 10.0),
+                Container(
+                  height: 68,
+                  width: 320,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0.0,
+                        blurRadius: 1.0,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.0),
+
+                  ),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold ),
+                    obscureText: !_passwordVisible,
+                    decoration: InputDecoration(labelText: 'Şifre',
+
                       labelStyle: TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
@@ -231,34 +248,35 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: _login,
                     child: Text('Giriş Yap'),
                   ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ForgotPasswordPage()),
-                        );
-                      },
-                      child: Text(
-                        'Şifremi Unuttum',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Color.fromRGBO(135, 142, 205, 1),
-                            fontWeight: FontWeight.bold),
-                      )),
-                  SizedBox(height: 8.0),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
-                      ),
-                      textStyle: MaterialStateProperty.all(
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+
+                  onPressed: _login,
+
+                  child: Text('Giriş Yap'),
+                ),
+                SizedBox(height: 8.0,),
+                TextButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
+                  );
+                }, child: Text('Şifremi Unuttum', style: TextStyle(fontSize:14 ,
+                    color:Color.fromRGBO(135, 142, 205, 1),
+                    fontWeight: FontWeight.bold ),)),
+                SizedBox(height: 8.0),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                    ),
+                    textStyle: MaterialStateProperty.all(
+                      TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.16),
+
                       ),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -304,9 +322,22 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 8.0),
-                ],
-              ),
+
+                ),
+                SizedBox(height: 5,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Hesabın yok mu? Hemen', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                    TextButton(
+                      onPressed: _goToRegister,
+                      child: Text('Kayıt Ol', style: TextStyle(color:Color.fromRGBO(135, 142, 205, 1),fontWeight: FontWeight.bold,fontSize: 18),),
+                    ),
+                  ],
+                ),
+
+              ],
+
             ),
           ),
         ),

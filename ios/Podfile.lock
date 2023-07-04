@@ -5,9 +5,11 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+
   - connectivity (0.0.1):
     - Flutter
     - Reachability
+
   - Firebase/Auth (10.10.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.10.0)
@@ -147,7 +149,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
+
   Firebase: facd334e557a979bd03a0b58d90fd56b52b8aba0
   firebase_auth: 27829de4f51a06d305467eebc237157adc145571
   firebase_core: 85b6664038311940ad60584eaabc73103c61f5de

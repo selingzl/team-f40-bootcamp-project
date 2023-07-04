@@ -58,16 +58,19 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/Firefly a cute orange cat in a clock and a light purple circle background 42614.jpg
+
+    - lib/assets/splash_img.jpg
     - lib/assets/Firefly a cute orange cat in a clock and a light purple circle background 42614.jpg
     - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
-    - lib/assets/icons/ic_book.png
-    - lib/assets/icons/ic_notif.png
-    - lib/assets/icons/ic_coin.png
-    - lib/assets/background/bg_profile.png
-    - lib/assets/icons/ic_profile.png
     - lib/assets/icons/ic_add.png
+    - lib/assets/icons/ic_book.png
+    - lib/assets/icons/ic_coin.png
+    - lib/assets/icons/ic_notif.png
+    - lib/assets/icons/ic_profile.png
     - lib/assets/icons/ic_time.png
+    - lib/assets/background/bg_profile.png
+    - lib/assets/timer.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

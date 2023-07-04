@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:read_reminder/screens/book_screen.dart';
 import 'package:read_reminder/screens/library_screen.dart';
 import 'package:read_reminder/screens/profile_screen.dart';
+import 'package:read_reminder/screens/timer_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
   const BottomNavigationBarPage({super.key});
@@ -15,14 +17,8 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    TimerPage(),
+    BookPage(),
     LibraryScreen(),
     ProfilePage()
   ];
@@ -36,10 +32,25 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            colors: [
+              Color.fromRGBO(223, 244, 243, 1),
+              Color.fromRGBO(218, 228, 238, 1),
+              Color.fromRGBO(185, 187, 223, 1),
+            ],
+            radius: 1.65,
+            center: Alignment.topLeft,
+          ),
+        ),
+        child: Stack(
+            children: [_widgetOptions[_selectedIndex]
+            ]),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor:  Color.fromRGBO(185, 187, 223, 1),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -47,7 +58,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
               width: 40,
               height: 40,
             ),
-            label: 'Sayaç',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -55,7 +66,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
               width: 40,
               height: 40,
             ),
-            label: 'Bağış',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -63,7 +74,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
               width: 40,
               height: 40,
             ),
-            label: 'Kitaplık',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -71,7 +82,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
               width: 40,
               height: 40,
             ),
-            label: 'Profil',
+            label: '',
           ),
         ],
         currentIndex: _selectedIndex,
