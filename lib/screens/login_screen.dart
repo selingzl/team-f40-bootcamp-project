@@ -135,13 +135,12 @@ class _LoginPageState extends State<LoginPage> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: 'E-posta',
-                        labelStyle:
-                            TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                      ),
+                      labelText: 'E-posta',
+                      labelStyle: TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
                     ),
                   ),
                   SizedBox(height: 15.0),
@@ -160,23 +159,18 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    child: TextFormField(
+                    child:TextFormField(
                       controller: _passwordController,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       obscureText: !_passwordVisible,
                       decoration: InputDecoration(
                         labelText: 'Şifre',
-                        labelStyle:
-                            TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                        labelStyle: TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                         border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                            _passwordVisible ? Icons.visibility_off : Icons.visibility,
                           ),
                           onPressed: () {
                             setState(() {
@@ -184,8 +178,11 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           },
                         ),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                     ),
+
+
                   ),
                   SizedBox(
                     height: 5,
