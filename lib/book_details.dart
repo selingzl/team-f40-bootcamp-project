@@ -12,7 +12,9 @@ class BookDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getBookDetails() async {
       var url =
+
           'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDedRdVFM3Sep1EwTxmVqLG9bZzC1H9X8Q'
+
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -46,6 +48,7 @@ class BookDetails extends StatelessWidget {
           future: getBookDetails(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
+
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -77,41 +80,37 @@ class BookDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      title,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Image.network(imageLinks),
-                    SizedBox(height: 8),
-                    Text(
-                      'Yazar: $author',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 30),
-                    Text(
-                      description,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        OutlinedButton(
-                            onPressed: () {},
-                            child: Text('Okundu olarak işaretle')),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        OutlinedButton(
-                            onPressed: () {}, child: Text('Bağış yap')),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        OutlinedButton(
-                            onPressed: () {}, child: Text('Satın al')),
+
+                  Text(
+                  title,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Image.network(imageLinks),
+                SizedBox(height: 8),
+                Text(
+                  'Yazar: $author',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 30),
+                Text(
+                  description,
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {}, child: Text('Okundu olarak işaretle')),
+                    SizedBox(width: 5,),
+                    OutlinedButton(
+                        onPressed: () {}, child: Text('Bağış yap')),
+                    SizedBox(width: 5,),
+                    OutlinedButton(
+                        onPressed: () {}, child: Text('Okumaya Başla')),
+
+
+
                       ],
                     )
                   ],

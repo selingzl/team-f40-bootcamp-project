@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/login_screen.dart';
 
 void main() async {
+
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  debugPrintGestureArenaDiagnostics = false;
   runApp(MyApp());
 }
 class SplashScreen extends StatefulWidget {
