@@ -12,7 +12,7 @@ class BookDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getBookDetails() async {
       var url =
-          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDedRdVFM3G9bZzC1H9X8Q';
+          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyC4m3teesNWbfLMWZFxnNhbcSbV7GhaEMg';
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -48,6 +48,7 @@ class BookDetails extends StatelessWidget {
           future: getBookDetails(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
+
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +105,7 @@ class BookDetails extends StatelessWidget {
                         onPressed: () {}, child: Text('Bağış yap')),
                     SizedBox(width: 5,),
                     OutlinedButton(
-                        onPressed: () {}, child: Text('Satın al')),
+                        onPressed: () {}, child: Text('Okumaya Başla')),
 
 
                       ],

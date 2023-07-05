@@ -17,7 +17,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   Widget build(BuildContext context) {
     Future<List<dynamic>> getBookList() async {
       var url =
-          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDedRdVFM3Sep1EwTxC1H9X8Q';
+          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyC4m3teesNWbfLMWZFxnNhbcSbV7GhaEMg';
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
