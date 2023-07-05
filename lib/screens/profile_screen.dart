@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'login_screen.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -8,6 +7,7 @@ class ProfilePage extends StatelessWidget {
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,9 @@ class ProfilePage extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('lib/assets/background/bg_profile.png',), // Kullanıcı resminin yolunu güncelleyin
+              backgroundImage: AssetImage(
+                'lib/assets/background/bg_profile.png',
+              ), // Kullanıcı resminin yolunu güncelleyin
             ),
             SizedBox(height: 16),
             Text(
@@ -55,7 +57,11 @@ class ProfilePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => LoginPage()),
                 );
               },
-              child: Icon(Icons.exit_to_app,color: Colors.deepPurple,size: 30,),
+              child: Icon(
+                Icons.exit_to_app,
+                color: Colors.deepPurple,
+                size: 30,
+              ),
             ),
           ],
         ),
