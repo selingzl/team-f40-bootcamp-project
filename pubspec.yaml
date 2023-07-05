@@ -71,6 +71,7 @@ flutter:
     - lib/assets/icons/ic_time.png
     - lib/assets/background/bg_profile.png
     - lib/assets/timer.png
+    - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -86,6 +87,9 @@ flutter:
   fonts:
     - family: Lato
       fonts:
+- asset: lib/assets/Lato/Lato-Regular.ttf
+          - asset: lib/assets/Lato/Lato-Bold.ttf
+          - asset: lib/assets/Lato/Lato-Italic.ttf
 
 
 
