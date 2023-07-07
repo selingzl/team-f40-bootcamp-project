@@ -6,13 +6,12 @@ import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/login_screen.dart';
 
 void main() async {
-
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   debugPrintGestureArenaDiagnostics = false;
   runApp(MyApp());
 }
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -20,7 +19,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late FirebaseAuth firebaseAuth;
@@ -40,6 +40,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     navigateToLogin();
   }
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -51,9 +52,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => firebaseAuth.currentUser!=null  ? FeedPage()  : LoginPage()),
+      MaterialPageRoute(
+          builder: (context) =>
+              firebaseAuth.currentUser != null ? FeedPage() : LoginPage()),
     );
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedBuilder(
@@ -64,8 +68,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'lib/assets/splash_img.jpg'),
+                  image: AssetImage('lib/assets/splash_img.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -94,9 +97,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 }
 
-
-
-  class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -107,13 +108,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       theme: ThemeData(
         fontFamily: 'Lato',
       ),
-
-
     );
-
   }
 }
-
-
-
-
