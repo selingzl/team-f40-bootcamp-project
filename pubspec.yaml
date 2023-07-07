@@ -23,9 +23,10 @@ dependencies:
   google_sign_in: ^6.1.4
   #StateManagement
   provider: ^6.0.5
-  #Fonts
   google_fonts: ^4.0.0
   font_awesome_flutter: ^10.4.0
+
+  cloud_firestore: ^4.8.2
 
 
 
@@ -70,6 +71,7 @@ flutter:
     - lib/assets/icons/ic_time.png
     - lib/assets/background/bg_profile.png
     - lib/assets/timer.png
+    - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -82,12 +84,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+
   fonts:
     - family: Lato
       fonts:
-         - asset: lib/assets/lato/Lato-Regular.ttf
-         - asset: lib/assets/Lato/Lato-Bold.ttf
-         - asset: lib/assets/Lato/Lato-Italic.ttf
 
 
 

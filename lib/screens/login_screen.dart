@@ -100,7 +100,9 @@ class _LoginPageState extends State<LoginPage> {
       print(_errorMessage);
     }
   }
-  @override
+
+@override
+
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -109,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Center(
         child: Container(
           padding: EdgeInsets.all(30),
@@ -229,6 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: Color.fromRGBO(135, 142, 205, 1),
                         ),
+
                       ),
                     ],
                   ),
@@ -250,6 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(51.16),
                     ),
                   ),
+
                 ),
                 onPressed: _login,
                 child: Text('Giriş Yap'),
@@ -296,11 +301,13 @@ class _LoginPageState extends State<LoginPage> {
                     Icon(
                       FontAwesomeIcons.google,
                       size: 18.0,
+
                     ),
                     SizedBox(width: 10.0),
                     Text('Google ile Giriş Yap'),
                   ],
                 ),
+
               ),
               SizedBox(height: 10.0),
               Row(
@@ -328,6 +335,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ],
+
           ),
         ),
       ),
