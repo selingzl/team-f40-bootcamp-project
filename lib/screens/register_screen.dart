@@ -62,11 +62,9 @@ class _RegisterPageState extends State<RegisterPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => LoginPage(
-
                   email: _emailController.text,
                   password: _passwordController.text,
                 )));
-
       }
     } catch (e) {
       setState(() {
@@ -114,7 +112,6 @@ class _RegisterPageState extends State<RegisterPage> {
     Future<void> addUser() {
       return users
           .add({
-
         'username': _userNameController.text,
         'currentPoint': 0,
         'lastReadDate': DateTime.now(),
@@ -122,13 +119,11 @@ class _RegisterPageState extends State<RegisterPage> {
         'userId': _auth.currentUser!.uid,
         'donationCount': 0
       })
-
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     }
 
     return Scaffold(
-
       body: Center(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -143,7 +138,6 @@ class _RegisterPageState extends State<RegisterPage> {
               center: Alignment.topLeft,
             ),
           ),
-
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -284,16 +278,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(51.16),
-
                           ),
                         ),
-                        onPressed: () async {
-                          await _register();
-                          addUser();
-                        },
-                        child: Text('Kayıt Ol'),
                       ),
-
                       onPressed: () async {
                         await _register();
                         addUser();
@@ -303,7 +290,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ]),
-
         ),
       ),
     );
