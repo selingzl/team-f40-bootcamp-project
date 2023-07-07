@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/login_screen.dart';
+import 'package:read_reminder/screens/profile_screen.dart';
+import 'package:read_reminder/screens/timer_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -91,20 +94,28 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 }
 
 
-
   class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-      theme: ThemeData(
-        fontFamily: 'Lato',
-      ),
+    return
+      ChangeNotifierProvider(
+        create: (context) => CoinProvider(),
+         child: MaterialApp(
+          theme: ThemeData(
+            fontFamily: 'Lato',
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => SplashScreen(),
+            '/first': (context) => TimerPage(),
+            '/second': (context) => FeedPage(),
+          },
+          debugShowCheckedModeBanner: false,
 
 
+         )
     );
 
   }
