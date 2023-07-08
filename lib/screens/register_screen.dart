@@ -30,12 +30,12 @@ class _RegisterPageState extends State<RegisterPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Username Exists'),
-              content: Text(
+              title: const Text('Username Exists'),
+              content: const Text(
                   'The username already exists. Please choose a different username.'),
               actions: <Widget>[
                 TextButton(
-                  child: Text('OK'),
+                  child: const Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -128,8 +128,8 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Container(
           height: 1400,
           width: 600,
-          padding: EdgeInsets.all(50),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(50),
+          decoration: const BoxDecoration(
             gradient: RadialGradient(
               colors: [
                 Color.fromRGBO(185, 187, 223, 1),
@@ -143,22 +143,22 @@ class _RegisterPageState extends State<RegisterPage> {
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
                 children: [
                   IconButton(
                     onPressed: _goToLogin,
-                    icon: Icon(FontAwesomeIcons.caretLeft),
-                    color: Color.fromRGBO(135, 142, 205, 1),
+                    icon: const Icon(FontAwesomeIcons.caretLeft),
+                    color: const Color.fromRGBO(135, 142, 205, 1),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -172,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Container(
                 height: 68,
                 width: 320,
@@ -182,16 +182,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 0.0,
                       blurRadius: 1.0,
-                      offset: Offset(0, 3), // horizontal, vertical offset
+                      offset: const Offset(0, 3), // horizontal, vertical offset
                     ),
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 child: TextFormField(
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                   controller: _userNameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'İsim',
                     labelStyle:
                         TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
@@ -202,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Container(
                 height: 68,
                 width: 320,
@@ -212,16 +213,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 0.0,
                       blurRadius: 1.0,
-                      offset: Offset(0, 3), // horizontal, vertical offset
+                      offset: const Offset(0, 3), // horizontal, vertical offset
                     ),
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 child: TextFormField(
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                   controller: _emailController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'E-posta',
                     labelStyle:
                         TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
@@ -232,7 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 30.0),
+              const SizedBox(height: 30.0),
               Container(
                 height: 68,
                 width: 320,
@@ -242,7 +244,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 0.0,
                       blurRadius: 1.0,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                   color: Colors.white,
@@ -250,8 +252,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 child: TextFormField(
                   controller: _passwordController,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  decoration: const InputDecoration(
                     labelText: 'Şifre',
                     labelStyle:
                         TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
@@ -262,7 +265,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Column(
                 children: [
                   Image.asset(
@@ -273,13 +276,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          Color.fromRGBO(135, 142, 205, 1)),
+                          const Color.fromRGBO(135, 142, 205, 1)),
                       foregroundColor: MaterialStateProperty.all(Colors.white),
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                        const EdgeInsets.symmetric(
+                            vertical: 18.0, horizontal: 40.0),
                       ),
                       textStyle: MaterialStateProperty.all(
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                        const TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
                       ),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -291,7 +296,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       await _register();
                       addUser();
                     },
-                    child: Text('Kayıt Ol'),
+                    child: const Text('Kayıt Ol'),
                   ),
                 ],
               ),

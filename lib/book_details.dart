@@ -32,8 +32,10 @@ class BookDetails extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.star_border))],
-        title: Center(
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.star_border))
+        ],
+        title: const Center(
           child: Text(
             'Kitap Hakkında',
             style: TextStyle(color: Colors.white),
@@ -45,7 +47,7 @@ class BookDetails extends StatelessWidget {
           future: getBookDetails(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -72,52 +74,53 @@ class BookDetails extends StatelessWidget {
                   : 'https://placekitten.com/600/800';
 
               return Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       title,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Image.network(imageLinks),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       'Yazar: $author',
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Text(
                       description,
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
                       children: [
                         OutlinedButton(
                             onPressed: () {},
-                            child: Text('Okundu olarak işaretle')),
-                        SizedBox(
+                            child: const Text('Okundu olarak işaretle')),
+                        const SizedBox(
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {}, child: Text('Bağış yap')),
-                        SizedBox(
+                            onPressed: () {}, child: const Text('Bağış yap')),
+                        const SizedBox(
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {}, child: Text('Okumaya Başla')),
+                            onPressed: () {},
+                            child: const Text('Okumaya Başla')),
                       ],
                     )
                   ],
                 ),
               );
             } else {
-              return Center(child: Text('Veri bulunamadı'));
+              return const Center(child: Text('Veri bulunamadı'));
             }
           },
         ),

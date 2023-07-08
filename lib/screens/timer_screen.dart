@@ -11,7 +11,7 @@ class TimerPage extends StatefulWidget {
 class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Center(
       child: RotatingImages(),
     ));
@@ -19,6 +19,8 @@ class _TimerPageState extends State<TimerPage> {
 }
 
 class RotatingImages extends StatefulWidget {
+  const RotatingImages({super.key});
+
   @override
   _RotatingImagesState createState() => _RotatingImagesState();
 }
@@ -28,7 +30,7 @@ class _RotatingImagesState extends State<RotatingImages>
   late AnimationController _animationController;
   late Animation<double> _animation;
   bool _isRotating = false;
-  Stopwatch _stopwatch = Stopwatch();
+  final Stopwatch _stopwatch = Stopwatch();
   bool _isRunning = false;
   int hours1 = 0;
   int minutes1 = 0;
@@ -116,8 +118,8 @@ class _RotatingImagesState extends State<RotatingImages>
     int hours = duration.inHours;
 
     return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
         gradient: RadialGradient(
           colors: [
             Color.fromRGBO(223, 244, 243, 1),
@@ -132,12 +134,12 @@ class _RotatingImagesState extends State<RotatingImages>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Text(
               getTimerText(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 36,
                 color: Color.fromRGBO(82, 87, 124, 1.0),
               ),
@@ -214,8 +216,8 @@ class _RotatingImagesState extends State<RotatingImages>
               ),
             ),
             Text(
-              'En son geçen süre: ${hours1} s ${minutes1} dk ',
-              style: TextStyle(
+              'En son geçen süre: $hours1 s $minutes1 dk ',
+              style: const TextStyle(
                   fontSize: 16,
                   fontStyle: FontStyle.italic,
                   color: Color.fromRGBO(84, 90, 128, 1.0)),
