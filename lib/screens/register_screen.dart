@@ -62,9 +62,11 @@ class _RegisterPageState extends State<RegisterPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => LoginPage(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                    )));
+
+                  email: _emailController.text,
+                  password: _passwordController.text,
+                )));
+
       }
     } catch (e) {
       setState(() {
@@ -112,13 +114,15 @@ class _RegisterPageState extends State<RegisterPage> {
     Future<void> addUser() {
       return users
           .add({
-            'username': _userNameController.text,
-            'currentPoint': 0,
-            'lastReadDate': DateTime.now(),
-            'totalTime': 0,
-            'userId': _auth.currentUser!.uid,
-            'donationCount': 0
-          })
+
+        'username': _userNameController.text,
+        'currentPoint': 0,
+        'lastReadDate': DateTime.now(),
+        'totalTime': 0,
+        'userId': _auth.currentUser!.uid,
+        'donationCount': 0
+      })
+
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     }
@@ -128,8 +132,10 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Container(
           height: 1400,
           width: 600,
-          padding: const EdgeInsets.all(50),
-          decoration: const BoxDecoration(
+
+          padding: EdgeInsets.all(50),
+          decoration: BoxDecoration(
+
             gradient: RadialGradient(
               colors: [
                 Color.fromRGBO(185, 187, 223, 1),
@@ -141,110 +147,65 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           child: SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: _goToLogin,
-                    icon: const Icon(FontAwesomeIcons.caretLeft),
-                    color: const Color.fromRGBO(135, 142, 205, 1),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const Row(
+
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Kayıt Ol',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 32,
-                      color: Color.fromRGBO(135, 142, 205, 1),
-                    ),
+                  SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _goToLogin,
+                        icon: Icon(FontAwesomeIcons.caretLeft),
+                        color: Color.fromRGBO(135, 142, 205, 1),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 50),
-              Container(
-                height: 68,
-                width: 320,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 0.0,
-                      blurRadius: 1.0,
-                      offset: const Offset(0, 3), // horizontal, vertical offset
+                  SizedBox(height: 50,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Kayıt Ol',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 32,
+                          color: Color.fromRGBO(135, 142, 205, 1),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    height: 68,
+                    width: 320,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0.0,
+                          blurRadius: 1.0,
+                          offset: Offset(0, 3), // horizontal, vertical offset
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: TextFormField(
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  controller: _userNameController,
-                  decoration: const InputDecoration(
-                    labelText: 'İsim',
-                    labelStyle:
+                    child: TextFormField(
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      controller: _userNameController,
+                      decoration: InputDecoration(
+                        labelText: 'İsim',
+                        labelStyle:
                         TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
-                    border: InputBorder.none,
-                    contentPadding:
+                        border: InputBorder.none,
+                        contentPadding:
                         EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                height: 68,
-                width: 320,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 0.0,
-                      blurRadius: 1.0,
-                      offset: const Offset(0, 3), // horizontal, vertical offset
-                    ),
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: TextFormField(
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'E-posta',
-                    labelStyle:
-                        TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30.0),
-              Container(
-                height: 68,
-                width: 320,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 0.0,
-                      blurRadius: 1.0,
-                      offset: const Offset(0, 3),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                      ),
+
                     ),
                   ],
                   color: Colors.white,
@@ -263,34 +224,100 @@ class _RegisterPageState extends State<RegisterPage> {
                         EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              Column(
-                children: [
-                  Image.asset(
-                    'lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png',
-                    height: 90,
-                    width: 90,
+
+                  SizedBox(height: 30),
+                  Container(
+                    height: 68,
+                    width: 320,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0.0,
+                          blurRadius: 1.0,
+                          offset: Offset(0, 3), // horizontal, vertical offset
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: TextFormField(
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'E-posta',
+                        labelStyle:
+                        TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                        border: InputBorder.none,
+                        contentPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                      ),
+                    ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color.fromRGBO(135, 142, 205, 1)),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(
-                            vertical: 18.0, horizontal: 40.0),
+                  SizedBox(height: 30.0),
+                  Container(
+                    height: 68,
+                    width: 320,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0.0,
+                          blurRadius: 1.0,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        labelText: 'Şifre',
+                        labelStyle:
+                        TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                        border: InputBorder.none,
+                        contentPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
-                      textStyle: MaterialStateProperty.all(
-                        const TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png',
+                        height: 90,
+                        width: 90,
                       ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(51.16),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromRGBO(135, 142, 205, 1)),
+                          foregroundColor:
+                          MaterialStateProperty.all(Colors.white),
+                          padding: MaterialStateProperty.all(
+                            EdgeInsets.symmetric(
+                                vertical: 18.0, horizontal: 40.0),
+                          ),
+                          textStyle: MaterialStateProperty.all(
+                            TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(51.16),
+                            ),
+                          ),
+
                         ),
                       ),
+
                     ),
                     onPressed: () async {
                       await _register();
@@ -301,6 +328,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
             ]),
+
           ),
         ),
       ),

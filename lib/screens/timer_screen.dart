@@ -13,8 +13,12 @@ class _TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
         body: Center(
-      child: RotatingImages(),
-    ));
+
+          child: RotatingImages(),
+        )
+
+    );
+
   }
 }
 
@@ -89,11 +93,11 @@ class _RotatingImagesState extends State<RotatingImages>
     });
   }
 
-  void increaseHTime(int amount) {
+  void increaseHTime(int amount){
     hours1 += amount;
   }
+  void increaseMTime(int amount){
 
-  void increaseMTime(int amount) {
     minutes1 += amount;
   }
 
@@ -118,113 +122,104 @@ class _RotatingImagesState extends State<RotatingImages>
     int hours = duration.inHours;
 
     return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-        gradient: RadialGradient(
-          colors: [
-            Color.fromRGBO(223, 244, 243, 1),
-            Color.fromRGBO(218, 228, 238, 1),
-            Color.fromRGBO(185, 187, 223, 1),
-          ],
-          radius: 1.65,
-          center: Alignment.topLeft,
-        ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            Text(
-              getTimerText(),
-              style: const TextStyle(
-                fontSize: 36,
-                color: Color.fromRGBO(82, 87, 124, 1.0),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                if (_isRunning & !_isRotating) {
-                  _stopStopwatch();
-                  _resetStopwatch();
-                  _isRotating = false;
-                  CoinProvider coinProvider =
-                      Provider.of<CoinProvider>(context, listen: false);
-                  TimeProvider timeProvider =
-                      Provider.of<TimeProvider>(context, listen: false);
 
-                  if (hours < 1) {
-                    coinProvider.increaseCoin(0);
-                    timeProvider.increaseTime(0);
-                  } else {
-                    coinProvider.increaseCoin(hours * 100);
-                    timeProvider.increaseTime(hours);
-                  }
-                  increaseHTime(hours);
-                  increaseMTime(minutes);
-                } else {
-                  _toggleRotation();
-                  _startStopwatch();
-                }
-                ;
-              },
-              child: Container(
-                width: 400,
-                height: 400,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: RotationTransition(
-                          turns: _animation,
-                          child: Image.asset(
-                            'lib/assets/halka2.png',
-                            width: 285,
-                            height: 280,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: RotationTransition(
-                          turns: _animation,
-                          child: Image.asset(
-                            'lib/assets/halka1.png',
-                            width: 330,
-                            height: 330,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          'lib/assets/timer.png',
-                          width: 230,
-                          height: 230,
-                        ),
-                      ),
-                    ),
-                  ],
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              colors: [
+                Color.fromRGBO(223, 244, 243, 1),
+                Color.fromRGBO(218, 228, 238, 1),
+                Color.fromRGBO(185, 187, 223, 1),
+              ],
+              radius: 1.65,
+              center: Alignment.topLeft,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 50,),
+                Text(
+                  getTimerText(),
+                  style: TextStyle(fontSize: 36, color: Color.fromRGBO(
+                      82, 87, 124, 1.0),),
                 ),
-              ),
+                GestureDetector(
+                  onTap: (){
+                    if (_isRunning & !_isRotating) {
+                      _stopStopwatch();
+                      _resetStopwatch();
+                      _isRotating = false ;
+                      CoinProvider coinProvider = Provider.of<CoinProvider>(context, listen: false);
+                      TimeProvider timeProvider = Provider.of<TimeProvider>(context, listen: false);
+
+                      if(hours < 1){
+                        coinProvider.increaseCoin(0);
+                        timeProvider.increaseTime(0);
+                      }
+                      else {
+                        coinProvider.increaseCoin(hours*100);
+                        timeProvider.increaseTime(hours);
+                      }
+                      increaseHTime(hours);
+                      increaseMTime(minutes);
+                    } else {
+                      _toggleRotation();
+                      _startStopwatch();
+                    };
+                  },
+                  child: Container(
+                    width: 400,
+                    height: 400,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: RotationTransition(
+                              turns: _animation,
+                              child: Image.asset(
+                                'lib/assets/halka2.png',
+                                width:285,
+                                height: 280,
+                              ),
+                            ),
+                          ),),
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: RotationTransition(
+                              turns: _animation,
+                              child: Image.asset(
+                                'lib/assets/halka1.png',
+                                width:330,
+                                height: 330,
+                              ),
+                            ),
+                          ),),
+                        Positioned(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              'lib/assets/timer.png',
+                              width: 230,
+                              height: 230,
+                            ),
+                          ),),
+                      ],
+                    ),
+                  ),
+                ),
+                Text('En son geçen süre: ${hours1} s ${minutes1} dk ',
+                  style: TextStyle(fontSize:16, fontStyle: FontStyle.italic,
+                      color: Color.fromRGBO(84, 90, 128, 1.0)),),
+              ],
+
             ),
-            Text(
-              'En son geçen süre: $hours1 s $minutes1 dk ',
-              style: const TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
-                  color: Color.fromRGBO(84, 90, 128, 1.0)),
-            ),
-          ],
-        ),
-      ),
+          ),
+
+
     );
   }
 }
@@ -238,11 +233,14 @@ class CoinProvider with ChangeNotifier {
   }
 }
 
-class TimeProvider with ChangeNotifier {
+class TimeProvider with ChangeNotifier{
+
   int time = 0;
 
   void increaseTime(int amount) {
     time += amount;
     notifyListeners();
   }
+
 }
+
