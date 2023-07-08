@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 class BookDetails extends StatelessWidget {
@@ -33,9 +32,7 @@ class BookDetails extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.star_border))
-        ],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.star_border))],
         title: Center(
           child: Text(
             'Kitap Hakkında',
@@ -48,12 +45,13 @@ class BookDetails extends StatelessWidget {
           future: getBookDetails(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 100,),
+                    SizedBox(
+                      height: 100,
+                    ),
                     CircularProgressIndicator(),
                     SizedBox(height: 16),
                     Text('Veriler Yükleniyor'),
@@ -67,10 +65,9 @@ class BookDetails extends StatelessWidget {
               var title = book['volumeInfo']['title'];
               var author = book['volumeInfo']['authors'][0];
               var description = book['volumeInfo']['description'] != null
-              ? book['volumeInfo']['description'] : 'Kitap Açıklaması Bulunamadı!'
-              ;
-              var imageLinks =
-              book['volumeInfo']['imageLinks'] != null
+                  ? book['volumeInfo']['description']
+                  : 'Kitap Açıklaması Bulunamadı!';
+              var imageLinks = book['volumeInfo']['imageLinks'] != null
                   ? book['volumeInfo']['imageLinks']['smallThumbnail']
                   : 'https://placekitten.com/600/800';
 
@@ -79,35 +76,41 @@ class BookDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                  Text(
-                  title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Image.network(imageLinks),
-                SizedBox(height: 8),
-                Text(
-                  'Yazar: $author',
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 30),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 20,),
-                Row(
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {}, child: Text('Okundu olarak işaretle')),
-                    SizedBox(width: 5,),
-                    OutlinedButton(
-                        onPressed: () {}, child: Text('Bağış yap')),
-                    SizedBox(width: 5,),
-                    OutlinedButton(
-                        onPressed: () {}, child: Text('Okumaya Başla')),
-
-
+                    Text(
+                      title,
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+                    Image.network(imageLinks),
+                    SizedBox(height: 8),
+                    Text(
+                      'Yazar: $author',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 30),
+                    Text(
+                      description,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        OutlinedButton(
+                            onPressed: () {},
+                            child: Text('Okundu olarak işaretle')),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        OutlinedButton(
+                            onPressed: () {}, child: Text('Bağış yap')),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        OutlinedButton(
+                            onPressed: () {}, child: Text('Okumaya Başla')),
                       ],
                     )
                   ],

@@ -1,44 +1,56 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/notification_screen.dart';
 
 import '../navigation/bottom_navigation_bar.dart';
-import 'login_screen.dart';
+import 'timer_screen.dart';
 
 class FeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-
           Center(
-            child: Text(
-            '1923',style: GoogleFonts.amaranth(color: Colors.deepPurple,fontWeight: FontWeight.w600,fontSize: 18,fontStyle: FontStyle.italic),
+            child: Consumer<CoinProvider>(
+              builder: (context, coinProvider, _) {
+                int coin = coinProvider.coin;
+                return Text(
+                  'Coin: $coin',
+                  style: TextStyle(color: Color.fromRGBO(54, 56, 84, 1.0)),
+                );
+              },
             ),
           ),
           IconButton(
-            onPressed: () {
-            },
-            icon: Image.asset('lib/assets/icons/ic_coin.png',width: 40,height: 40,),
+            onPressed: () {},
+            icon: Image.asset(
+              'lib/assets/icons/ic_coin.png',
+              width: 40,
+              height: 40,
+            ),
           ),
         ],
         leading: IconButton(
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotifPage()),  );
+              context,
+              MaterialPageRoute(builder: (context) => NotifPage()),
+            );
           },
-          icon: Image.asset('lib/assets/icons/ic_notif.png',width: 40,height: 40,),
+          icon: Image.asset(
+            'lib/assets/icons/ic_notif.png',
+            width: 40,
+            height: 40,
+          ),
         ),
       ),
-      body: BottomNavigationBarPage(),
+      body: Container(
+        child: BottomNavigationBarPage(),
+      ),
     );
-
   }
 }

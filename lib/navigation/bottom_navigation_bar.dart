@@ -44,13 +44,10 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
             center: Alignment.topLeft,
           ),
         ),
-        child: Stack(
-            children: [_widgetOptions[_selectedIndex]
-            ]),
+        child: Stack(children: [_widgetOptions[_selectedIndex]]),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  Color.fromRGBO(185, 187, 223, 1),
+        backgroundColor: Color.fromRGBO(185, 187, 223, 1),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset(

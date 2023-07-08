@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/login_screen.dart';
+import 'package:read_reminder/screens/profile_screen.dart';
+import 'package:read_reminder/screens/timer_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,12 +105,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-      theme: ThemeData(
-        fontFamily: 'Lato',
-      ),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => CoinProvider()),
+          ChangeNotifierProvider(create: (context) => TimeProvider()),
+        ],
+        child: MaterialApp(
+          theme: ThemeData(
+            fontFamily: 'Lato',
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => SplashScreen(),
+            '/first': (context) => TimerPage(),
+            '/feed': (context) => FeedPage(),
+            '/time': (context) => ProfilePage(),
+//routes
+          },
+          debugShowCheckedModeBanner: false,
+        ));
   }
 }
