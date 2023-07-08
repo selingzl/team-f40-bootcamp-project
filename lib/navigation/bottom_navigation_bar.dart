@@ -33,7 +33,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: RadialGradient(
             colors: [
               Color.fromRGBO(223, 244, 243, 1),
@@ -44,43 +44,45 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
             center: Alignment.topLeft,
           ),
         ),
-        child: Stack(
-            children: [_widgetOptions[_selectedIndex]
-            ]),
+        child: Stack(children: [_widgetOptions[_selectedIndex]]),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  Color.fromRGBO(185, 187, 223, 1),
+        elevation: 0,
+        backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
             icon: Image.asset(
               'lib/assets/icons/ic_time.png',
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
             ),
             label: '',
           ),
           BottomNavigationBarItem(
+            backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
             icon: Image.asset(
               'lib/assets/icons/ic_add.png',
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
             ),
             label: '',
           ),
           BottomNavigationBarItem(
+            backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
             icon: Image.asset(
               'lib/assets/icons/ic_book.png',
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
             ),
             label: '',
           ),
           BottomNavigationBarItem(
+            backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
             icon: Image.asset(
               'lib/assets/icons/ic_profile.png',
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
             ),
             label: '',
           ),

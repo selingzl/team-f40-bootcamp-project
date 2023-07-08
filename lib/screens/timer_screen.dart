@@ -9,19 +9,21 @@ class TimerPage extends StatefulWidget {
 }
 
 class _TimerPageState extends State<TimerPage> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Center(
+
           child: RotatingImages(),
         )
 
     );
+
   }
 }
 
 class RotatingImages extends StatefulWidget {
+  const RotatingImages({super.key});
 
   @override
   _RotatingImagesState createState() => _RotatingImagesState();
@@ -32,7 +34,7 @@ class _RotatingImagesState extends State<RotatingImages>
   late AnimationController _animationController;
   late Animation<double> _animation;
   bool _isRotating = false;
-  Stopwatch _stopwatch = Stopwatch();
+  final Stopwatch _stopwatch = Stopwatch();
   bool _isRunning = false;
   int hours1 = 0;
   int minutes1 = 0;
@@ -45,8 +47,8 @@ class _RotatingImagesState extends State<RotatingImages>
       duration: const Duration(seconds: 5),
       vsync: this,
     )..addListener(() {
-      setState(() {});
-    });
+        setState(() {});
+      });
 
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
   }
@@ -56,6 +58,7 @@ class _RotatingImagesState extends State<RotatingImages>
     _animationController.dispose();
     super.dispose();
   }
+
   void _toggleRotation() {
     setState(() {
       if (_isRotating) {
@@ -66,6 +69,7 @@ class _RotatingImagesState extends State<RotatingImages>
       _isRotating = !_isRotating;
     });
   }
+
   void _startStopwatch() {
     setState(() {
       _isRunning = true;
@@ -93,9 +97,9 @@ class _RotatingImagesState extends State<RotatingImages>
     hours1 += amount;
   }
   void increaseMTime(int amount){
+
     minutes1 += amount;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -111,12 +115,14 @@ class _RotatingImagesState extends State<RotatingImages>
 
       return '$hoursStr:$minutesStr:$secondsStr';
     }
+
     Duration duration = _stopwatch.elapsed;
     int second = duration.inSeconds;
     int minutes = duration.inMinutes;
     int hours = duration.inHours;
 
     return Container(
+
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             gradient: RadialGradient(
@@ -213,9 +219,11 @@ class _RotatingImagesState extends State<RotatingImages>
             ),
           ),
 
+
     );
   }
 }
+
 class CoinProvider with ChangeNotifier {
   int coin = 0;
 
@@ -224,11 +232,15 @@ class CoinProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+
 class TimeProvider with ChangeNotifier{
+
   int time = 0;
 
-  void increaseTime(int amount){
+  void increaseTime(int amount) {
     time += amount;
     notifyListeners();
   }
+
 }
+

@@ -9,13 +9,12 @@ import 'package:read_reminder/screens/profile_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
 
 void main() async {
-
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   debugPrintGestureArenaDiagnostics = false;
-  runApp(MyApp());
+  runApp(const MyApp());
 }
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -23,7 +22,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late FirebaseAuth firebaseAuth;
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     navigateToLogin();
   }
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -50,13 +51,17 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   void navigateToLogin() async {
-    await Future.delayed(Duration(seconds: 2)); // Adjust the duration as needed
+    await Future.delayed(
+        const Duration(seconds: 2)); // Adjust the duration as needed
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => firebaseAuth.currentUser!=null  ? FeedPage()  : LoginPage()),
+      MaterialPageRoute(
+          builder: (context) =>
+              firebaseAuth.currentUser != null ? FeedPage() : LoginPage()),
     );
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedBuilder(
@@ -65,14 +70,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           return Opacity(
             opacity: _fadeAnimation.value,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'lib/assets/splash_img.jpg'),
+                  image: AssetImage('lib/assets/splash_img.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Stack(
+              child: const Stack(
                 children: [
                   Positioned(
                     bottom: 90,
@@ -97,23 +101,25 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 }
 
-
-  class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+
         ChangeNotifierProvider(create: (context) => CoinProvider()),
         ChangeNotifierProvider(create: (context) => TimeProvider()),
     ],
       child: MaterialApp(
+
           theme: ThemeData(
             fontFamily: 'Lato',
           ),
           initialRoute: '/',
           routes: {
+
             '/': (context) => SplashScreen(),
             '/first': (context) => TimerPage(),
             '/feed': (context) => FeedPage(),
@@ -126,9 +132,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       )
     );
 
+
   }
 }
-
-
-
-

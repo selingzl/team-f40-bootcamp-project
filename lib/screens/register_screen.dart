@@ -30,12 +30,12 @@ class _RegisterPageState extends State<RegisterPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Username Exists'),
-              content: Text(
+              title: const Text('Username Exists'),
+              content: const Text(
                   'The username already exists. Please choose a different username.'),
               actions: <Widget>[
                 TextButton(
-                  child: Text('OK'),
+                  child: const Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -50,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
       final UserCredential userCredential =
-      await _auth.createUserWithEmailAndPassword(
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -62,9 +62,11 @@ class _RegisterPageState extends State<RegisterPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => LoginPage(
+
                   email: _emailController.text,
                   password: _passwordController.text,
                 )));
+
       }
     } catch (e) {
       setState(() {
@@ -112,6 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Future<void> addUser() {
       return users
           .add({
+
         'username': _userNameController.text,
         'currentPoint': 0,
         'lastReadDate': DateTime.now(),
@@ -119,6 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
         'userId': _auth.currentUser!.uid,
         'donationCount': 0
       })
+
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     }
@@ -128,8 +132,10 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Container(
           height: 1400,
           width: 600,
+
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
+
             gradient: RadialGradient(
               colors: [
                 Color.fromRGBO(185, 187, 223, 1),
@@ -141,6 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           child: SingleChildScrollView(
+
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -198,8 +205,26 @@ class _RegisterPageState extends State<RegisterPage> {
                         EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
+
                     ),
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: TextFormField(
+                  controller: _passwordController,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  decoration: const InputDecoration(
+                    labelText: 'Şifre',
+                    labelStyle:
+                        TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
+
                   SizedBox(height: 30),
                   Container(
                     height: 68,
@@ -289,16 +314,21 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(51.16),
                             ),
                           ),
+
                         ),
-                        onPressed: () async {
-                          await _register();
-                          addUser();
-                        },
-                        child: Text('Kayıt Ol'),
                       ),
-                    ],
+
+                    ),
+                    onPressed: () async {
+                      await _register();
+                      addUser();
+                    },
+                    child: const Text('Kayıt Ol'),
                   ),
-                ]),
+                ],
+              ),
+            ]),
+
           ),
         ),
       ),
