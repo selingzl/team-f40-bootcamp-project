@@ -103,10 +103,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return
-      ChangeNotifierProvider(
-        create: (context) => CoinProvider(),
-         child: MaterialApp(
+    return MultiProvider(
+        providers: [
+        ChangeNotifierProvider(create: (context) => CoinProvider()),
+        ChangeNotifierProvider(create: (context) => TimeProvider()),
+    ],
+      child: MaterialApp(
           theme: ThemeData(
             fontFamily: 'Lato',
           ),
@@ -114,12 +116,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           routes: {
             '/': (context) => SplashScreen(),
             '/first': (context) => TimerPage(),
-            '/second': (context) => FeedPage(),
+            '/feed': (context) => FeedPage(),
+            '/time': (context) => ProfilePage(),
+//routes
           },
           debugShowCheckedModeBanner: false,
 
 
-         )
+      )
     );
 
   }
