@@ -118,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             '/first': (context) => TimerPage(),
             '/feed': (context) => FeedPage(),
             '/time': (context) => ProfilePage(),
-
+//routes
           },
           debugShowCheckedModeBanner: false,
 
