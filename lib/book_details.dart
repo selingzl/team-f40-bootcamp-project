@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:read_reminder/screens/timer_screen.dart';
 
 class BookDetails extends StatelessWidget {
   late int index;
@@ -11,7 +12,7 @@ class BookDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getBookDetails() async {
       var url =
-          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyC4m3teesNWbfLMWZFxnNhbcSbV7GhaEMg';
+          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyAjQXgbDKufunEPUB4U_WrNifggfnvLt78';
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -110,7 +111,15 @@ class BookDetails extends StatelessWidget {
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {}, child: Text('Okumaya Başla')),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TimerPage(bookName: title)),
+                              );
+                            },
+                            child: Text('Oku')),
                       ],
                     )
                   ],
