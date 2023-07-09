@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
+
 
 class BookDetails extends StatelessWidget {
   late int index;
@@ -112,12 +116,17 @@ class BookDetails extends StatelessWidget {
                         ),
                         OutlinedButton(
                             onPressed: () {
-                              Navigator.push(
+                              /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         TimerPage(bookName: title)),
-                              );
+                              );*/
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FeedPage(bookTitle: title)));
                             },
                             child: Text('Oku')),
                       ],

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NotifPage extends StatelessWidget {
-  const NotifPage({super.key});
+class donateListPage extends StatefulWidget {
+  const donateListPage({super.key});
 
+  @override
+  State<donateListPage> createState() => _donateListPageState();
+}
+
+class _donateListPageState extends State<donateListPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
