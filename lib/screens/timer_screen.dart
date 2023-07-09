@@ -236,8 +236,9 @@ class _RotatingImagesState extends State<RotatingImages>
                     }
                     minutes1 = minutes;
 
-                    if (!(userId != null && widget.bookName == ""))
+                    if (!(userId != null && widget.bookName == "")) {
                       addOrUpdateUserBook(); //*
+                    }
                   } else {
                     _toggleRotation();
                     _startStopwatch();
