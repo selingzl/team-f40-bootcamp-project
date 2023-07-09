@@ -34,7 +34,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Center(
+        title: const Center(
             child: Text(
           'Haftanın Kitapları',
           style: TextStyle(color: Colors.black),
@@ -59,12 +59,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                 return ListTile(
                   leading: IconButton(
-                    icon: Icon(Icons.star_border),
+                    icon: const Icon(Icons.star_border),
                     onPressed: () {},
                   ),
                   title: Text(
                     title,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   subtitle: Text(subtitle),
                   trailing: Image.network(imageLinks),
@@ -83,7 +83,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           } else if (snapshot.hasError) {
             return Text('Hata: ${snapshot.error}');
           }
-          return Center(
+          return const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
