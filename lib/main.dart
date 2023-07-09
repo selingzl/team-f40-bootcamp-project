@@ -108,7 +108,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-
         ChangeNotifierProvider(create: (context) => CoinProvider()),
         ChangeNotifierProvider(create: (context) => TimeProvider()),
     ],
@@ -119,7 +118,6 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: '/',
           routes: {
-
             '/': (context) => SplashScreen(),
             '/first': (context) => TimerPage(),
             '/feed': (context) => FeedPage(),
