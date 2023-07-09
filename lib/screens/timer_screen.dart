@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:provider/provider.dart';
 
-import '../navigation/bottom_navigation_bar.dart';
-
 class TimerPage extends StatefulWidget {
   final String bookName;
   const TimerPage({super.key, String? bookName}) : bookName = bookName ?? '';
