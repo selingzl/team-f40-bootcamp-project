@@ -29,9 +29,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            content:
-                Text('Şifre sıfırlama bağlantısı mail adresine gönderildi!'),
-            title: Text('Uyarı'),
+            content: const Text(
+                'Şifre sıfırlama bağlantısı mail adresine gönderildi!'),
+            title: const Text('Uyarı'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -40,7 +40,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     _isEmailSent = true;
                   });
                 },
-                child: Text('Tamam'),
+                child: const Text('Tamam'),
               ),
             ],
           );
@@ -53,13 +53,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         builder: (context) {
           return AlertDialog(
             content: Text(e.message.toString()),
-            title: Text('Uyarı'),
+            title: const Text('Uyarı'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Tamam'),
+                child: const Text('Tamam'),
               ),
             ],
           );
@@ -76,7 +76,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(218, 228, 238, 1),
@@ -98,15 +98,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               children: [
                 IconButton(
                   onPressed: _goToLogin,
-                  icon: Icon(
+                  icon: const Icon(
                     FontAwesomeIcons.caretLeft,
                     color: Color.fromRGBO(135, 142, 205, 1),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 55,
                 ),
-                Text(
+                const Text(
                   'Şifre Sıfırlama',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -123,14 +123,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Şifrenizi Sıfırlamak için E-Posta adresinizi girin!',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Color.fromRGBO(135, 142, 205, 1),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -138,7 +138,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                         child: TextField(
                           controller: _emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'E-posta',
                             border: InputBorder.none,
                             labelStyle: TextStyle(
@@ -151,30 +151,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       Image.asset(
                         'lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png',
                         height: 90,
                         width: 90,
                       ),
-                      SizedBox(height: 0.0),
+                      const SizedBox(height: 0.0),
                       ElevatedButton(
                         onPressed: resetPassword,
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            Color.fromRGBO(135, 142, 205, 1),
+                            const Color.fromRGBO(135, 142, 205, 1),
                           ),
                           foregroundColor:
                               MaterialStateProperty.all(Colors.white),
                           padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(
+                            const EdgeInsets.symmetric(
                                 vertical: 18.0, horizontal: 40.0),
                           ),
                         ),
-                        child: Text('Şifremi Sıfırla'),
+                        child: const Text('Şifremi Sıfırla'),
                       ),
                       if (_isEmailSent)
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           child: Text(
                             'Şifre sıfırlama bağlantısı mail adresinize gönderildi!',

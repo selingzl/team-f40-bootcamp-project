@@ -1,12 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/notification_screen.dart';
-
 import '../navigation/bottom_navigation_bar.dart';
-import 'login_screen.dart';
+import 'timer_screen.dart';
 
 class FeedPage extends StatelessWidget {
+  final String bookTitle;
+  const FeedPage({super.key, String? bookTitle}) : bookTitle = bookTitle ?? '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +18,15 @@ class FeedPage extends StatelessWidget {
         elevation: 0,
         actions: [
           Center(
-            child: Text(
-              '1923',
-              style: GoogleFonts.amaranth(
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
-              ),
+            child: Consumer<CoinProvider>(
+              builder: (context, coinProvider, _) {
+                int coin = coinProvider.coin;
+
+                return Text(
+                  'Coin: $coin',
+                  style: TextStyle(color: Color.fromRGBO(54, 56, 84, 1.0)),
+                );
+              },
             ),
           ),
           IconButton(
@@ -50,13 +53,7 @@ class FeedPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/assets/images/background.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: BottomNavigationBarPage(),
+        child: BottomNavigationBarPage(titleOfBook: bookTitle),
       ),
     );
   }

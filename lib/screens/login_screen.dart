@@ -100,7 +100,9 @@ class _LoginPageState extends State<LoginPage> {
       print(_errorMessage);
     }
   }
+
 @override
+
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -109,25 +111,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(50),
-            decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: [
-                  Color.fromRGBO(223, 244, 243, 1),
-                  Color.fromRGBO(218, 228, 238, 1),
-                  Color.fromRGBO(185, 187, 223, 1),
-                ],
-                radius: 1.65,
-                center: Alignment.topLeft,
-              ),
+      body: Center(
+        child: Container(
+          width: 600,
+          height: 1400,
+          padding: EdgeInsets.all(40),
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              colors: [
+                Color.fromRGBO(223, 244, 243, 1),
+                Color.fromRGBO(218, 228, 238, 1),
+                Color.fromRGBO(185, 187, 223, 1),
+              ],
+              radius: 1.65,
+              center: Alignment.topLeft,
             ),
+          ),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 70),
                 Text(
                   'Giriş Yap',
                   textAlign: TextAlign.center,
@@ -142,7 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                   width: 280,
                   height: 180,
                 ),
-                SizedBox(height: 10.0),
                 Container(
                   height: 68,
                   width: 320,
@@ -216,21 +219,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 5.0),
                 if (error)
-                  Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.exclamationCircle,
-                        size: 15.0,
-                        color: Color(0xFF878ECD),
-                      ),
-                      SizedBox(width: 9),
-                      Text(
-                        _errorMessage,
-                        style: TextStyle(
-                          color: Color.fromRGBO(135, 142, 205, 1),
+                  Flexible(
+                    child: Row(
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.circleExclamation,
+                          size: 15.0,
+                          color: Color(0xFF878ECD),
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 9),
+                        Text(
+                          _errorMessage,
+                          style: TextStyle(
+                            color: Color.fromRGBO(135, 142, 205, 1),
+                          ),
+
+                        ),
+                      ],
+                    ),
                   ),
                 SizedBox(height: 10.0),
                 ElevatedButton(
@@ -249,6 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(51.16),
                       ),
                     ),
+
                   ),
                   onPressed: _login,
                   child: Text('Giriş Yap'),
@@ -277,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal:10.0),
                     ),
                     textStyle: MaterialStateProperty.all(
                       TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
@@ -295,11 +302,13 @@ class _LoginPageState extends State<LoginPage> {
                       Icon(
                         FontAwesomeIcons.google,
                         size: 18.0,
+
                       ),
                       SizedBox(width: 10.0),
                       Text('Google ile Giriş Yap'),
                     ],
                   ),
+
                 ),
                 SizedBox(height: 10.0),
                 Row(
@@ -327,6 +336,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ],
+
             ),
           ),
         ),
