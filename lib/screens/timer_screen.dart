@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:provider/provider.dart';
 
+
 class TimerPage extends StatefulWidget {
   final String bookName;
   const TimerPage({super.key, String? bookName}) : bookName = bookName ?? '';
@@ -18,7 +19,19 @@ class _TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RotatingImages(bookName: widget.bookName),
+        child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromRGBO(185, 187, 223, 1),
+                  Color.fromRGBO(223, 244, 243, 1),
+                  Color.fromRGBO(185, 187, 223, 1),
+                ],
+
+              ),
+            ),
+            child: RotatingImages(bookName: widget.bookName)),
       ),
       //bottomNavigationBar: BottomNavigationBarPage(),
     );
@@ -177,20 +190,7 @@ class _RotatingImagesState extends State<RotatingImages>
     int minutes = duration.inMinutes;
     int hours = duration.inHours;
 
-    return Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            colors: [
-              Color.fromRGBO(223, 244, 243, 1),
-              Color.fromRGBO(218, 228, 238, 1),
-              Color.fromRGBO(185, 187, 223, 1),
-            ],
-            radius: 1.65,
-            center: Alignment.topLeft,
-          ),
-        ),
-        child: Center(
+    return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -297,7 +297,7 @@ class _RotatingImagesState extends State<RotatingImages>
               ),
             ],
           ),
-        ));
+        );
   }
 }
 

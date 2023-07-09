@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                     controller: _emailController,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'E-posta',
                       labelStyle: TextStyle(
                           color: Color.fromRGBO(170, 170, 170, 1)),
@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15.0),
+                const SizedBox(height: 15.0),
                 Container(
                   height: 68,
                   width: 320,
@@ -197,10 +197,10 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: !_passwordVisible,
                     decoration: InputDecoration(
                       labelText: 'Şifre',
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                           color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 30),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -217,20 +217,20 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 if (error)
                   Flexible(
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           FontAwesomeIcons.circleExclamation,
                           size: 15.0,
                           color: Color(0xFF878ECD),
                         ),
-                        SizedBox(width: 9),
+                        const SizedBox(width: 9),
                         Text(
                           _errorMessage,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromRGBO(135, 142, 205, 1),
                           ),
 
@@ -238,17 +238,17 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
-                    MaterialStateProperty.all(Color.fromRGBO(135, 142, 205, 1)),
+                    MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                      const EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
                     ),
                     textStyle: MaterialStateProperty.all(
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                      const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
@@ -258,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   ),
                   onPressed: _login,
-                  child: Text('Giriş Yap'),
+                  child: const Text('Giriş Yap'),
                 ),
                 SizedBox(height: 8.0),
                 TextButton(
@@ -284,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal:10.0),
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal:15.0),
                     ),
                     textStyle: MaterialStateProperty.all(
                       TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
