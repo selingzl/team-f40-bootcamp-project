@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:read_reminder/screens/timer_screen.dart';
 
 class BookDetails extends StatelessWidget {
   late int index;
@@ -32,10 +33,8 @@ class BookDetails extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.star_border))
-        ],
-        title: const Center(
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.star_border))],
+        title: Center(
           child: Text(
             'Kitap Hakkında',
             style: TextStyle(color: Colors.white),
@@ -47,7 +46,7 @@ class BookDetails extends StatelessWidget {
           future: getBookDetails(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -74,53 +73,60 @@ class BookDetails extends StatelessWidget {
                   : 'https://placekitten.com/600/800';
 
               return Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Image.network(imageLinks),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Text(
                       'Yazar: $author',
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30),
                     Text(
                       description,
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     Row(
                       children: [
                         OutlinedButton(
                             onPressed: () {},
-                            child: const Text('Okundu olarak işaretle')),
-                        const SizedBox(
+                            child: Text('Okundu olarak işaretle')),
+                        SizedBox(
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {}, child: const Text('Bağış yap')),
-                        const SizedBox(
+                            onPressed: () {}, child: Text('Bağış yap')),
+                        SizedBox(
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {},
-                            child: const Text('Okumaya Başla')),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TimerPage(bookName: title)),
+                              );
+                            },
+                            child: Text('Oku')),
                       ],
                     )
                   ],
                 ),
               );
             } else {
-              return const Center(child: Text('Veri bulunamadı'));
+              return Center(child: Text('Veri bulunamadı'));
             }
           },
         ),
