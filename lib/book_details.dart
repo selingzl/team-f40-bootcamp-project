@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:read_reminder/screens/timer_screen.dart';
+import 'package:provider/provider.dart';
 
-class BookDetails extends StatelessWidget {
+import 'navigation/bottom_navigation_bar.dart';
+
+class BookDetails extends StatefulWidget {
   late int index;
+  BottomNavigationBarPage bottomNavigationBarPage = BottomNavigationBarPage();
 
   BookDetails({required this.index});
 
+  @override
+  State<BookDetails> createState() => _BookDetailsState();
+}
+
+class _BookDetailsState extends State<BookDetails> {
   @override
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getBookDetails() async {
@@ -18,8 +26,8 @@ class BookDetails extends StatelessWidget {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         var items = data['items'];
-        if (index >= 0 && index < items.length) {
-          return items[index];
+        if (widget.index >= 0 && widget.index < items.length) {
+          return items[widget.index];
         } else {
           throw Exception('Invalid index');
         }
@@ -111,15 +119,11 @@ class BookDetails extends StatelessWidget {
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TimerPage(bookName: title)),
-                              );
-                            },
-                            child: Text('Oku')),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Oku'),
+                        ),
                       ],
                     )
                   ],

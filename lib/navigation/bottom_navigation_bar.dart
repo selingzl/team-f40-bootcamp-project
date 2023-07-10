@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:read_reminder/screens/book_screen.dart';
-import 'package:read_reminder/screens/library_screen.dart';
-import 'package:read_reminder/screens/profile_screen.dart';
-import 'package:read_reminder/screens/timer_screen.dart';
+
+import '../screens/book_screen.dart';
+import '../screens/library_screen.dart';
+import '../screens/profile_screen.dart';
+import '../screens/timer_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
-  const BottomNavigationBarPage({super.key});
+  BottomNavigationBarPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<BottomNavigationBarPage> createState() =>
@@ -14,6 +17,7 @@ class BottomNavigationBarPage extends StatefulWidget {
 
 class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -24,8 +28,20 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   ];
 
   void _onItemTapped(int index) {
+    if (index == 0) {
+      setState(() {
+        _selectedIndex = 0;
+      });
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
+  void resetSelectedIndex() {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = 0;
     });
   }
 
