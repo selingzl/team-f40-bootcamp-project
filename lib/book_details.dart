@@ -1,21 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+import 'package:read_reminder/screens/feed_screen.dart';
+import 'package:read_reminder/screens/timer_screen.dart';
 
-import 'navigation/bottom_navigation_bar.dart';
-
-class BookDetails extends StatefulWidget {
+class BookDetails extends StatelessWidget {
   late int index;
-  BottomNavigationBarPage bottomNavigationBarPage = BottomNavigationBarPage();
 
   BookDetails({required this.index});
 
-  @override
-  State<BookDetails> createState() => _BookDetailsState();
-}
-
-class _BookDetailsState extends State<BookDetails> {
   @override
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getBookDetails() async {
@@ -26,8 +21,8 @@ class _BookDetailsState extends State<BookDetails> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         var items = data['items'];
-        if (widget.index >= 0 && widget.index < items.length) {
-          return items[widget.index];
+        if (index >= 0 && index < items.length) {
+          return items[index];
         } else {
           throw Exception('Invalid index');
         }
@@ -119,11 +114,20 @@ class _BookDetailsState extends State<BookDetails> {
                           width: 5,
                         ),
                         OutlinedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text('Oku'),
-                        ),
+                            onPressed: () {
+                              /*Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TimerPage(bookName: title)),
+                              );*/
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FeedPage(bookTitle: title)));
+                            },
+                            child: Text('Oku')),
                       ],
                     )
                   ],

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
-import '../screens/book_screen.dart';
-import '../screens/library_screen.dart';
-import '../screens/profile_screen.dart';
-import '../screens/timer_screen.dart';
+import 'package:read_reminder/screens/book_screen.dart';
+import 'package:read_reminder/screens/library_screen.dart';
+import 'package:read_reminder/screens/profile_screen.dart';
+import 'package:read_reminder/screens/timer_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
-  BottomNavigationBarPage({
-    Key? key,
-  }) : super(key: key);
+  final String titleOfBook;
+  const BottomNavigationBarPage({super.key, String? titleOfBook})
+      : titleOfBook = titleOfBook ?? '';
 
   @override
   State<BottomNavigationBarPage> createState() =>
@@ -17,31 +16,34 @@ class BottomNavigationBarPage extends StatefulWidget {
 
 class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
+  late String bookTitle;
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    bookTitle = widget.titleOfBook;
+    _widgetOptions = <Widget>[
+      TimerPage(bookName: bookTitle),
+      BookPage(),
+      LibraryScreen(),
+      ProfilePage()
+    ];
+  }
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    TimerPage(),
+
+  /*static const List<Widget> _widgetOptions = <Widget>[
+    TimerPage(bookName: bookTitle),
     BookPage(),
     LibraryScreen(),
     ProfilePage()
-  ];
+  ];*/
 
   void _onItemTapped(int index) {
-    if (index == 0) {
-      setState(() {
-        _selectedIndex = 0;
-      });
-    } else {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-  }
-
-  void resetSelectedIndex() {
     setState(() {
-      _selectedIndex = 0;
+      _selectedIndex = index;
     });
   }
 

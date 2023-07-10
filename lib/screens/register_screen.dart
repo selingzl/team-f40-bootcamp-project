@@ -129,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
           height: 1400,
           width: 600,
           padding: EdgeInsets.all(50),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: RadialGradient(
               colors: [
                 Color.fromRGBO(185, 187, 223, 1),

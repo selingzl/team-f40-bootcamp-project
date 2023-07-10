@@ -50,9 +50,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               itemBuilder: (context, index) {
                 var book = bookList[index];
                 var title = book['volumeInfo']['title'];
-                var subtitle = book['volumeInfo']['authors'][0] != null
-                    ? book['volumeInfo']['authors'][0]
-                    : 'Yazar bilgisi mevcut değil';
+                var subtitle = book['volumeInfo']['authors'][0] ?? 'Yazar bilgisi mevcut değil';
                 var imageLinks = book['volumeInfo']['imageLinks'] != null
                     ? book['volumeInfo']['imageLinks']['smallThumbnail']
                     : 'https://placekitten.com/600/800';
