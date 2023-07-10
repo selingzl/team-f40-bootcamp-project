@@ -27,6 +27,7 @@ class _TimerPageState extends State<TimerPage> {
 
 class RotatingImages extends StatefulWidget {
   final String bookName;
+
   const RotatingImages({super.key, String? bookName})
       : bookName = bookName ?? '';
   _RotatingImagesState createState() => _RotatingImagesState();
@@ -37,6 +38,8 @@ class _RotatingImagesState extends State<RotatingImages>
   late AnimationController _animationController;
   late Animation<double> _animation;
   bool _isRotating = false;
+  late int totalReadingTime;
+
   final Stopwatch _stopwatch = Stopwatch();
   bool _isRunning = false;
   int hours1 = 0;
@@ -48,6 +51,7 @@ class _RotatingImagesState extends State<RotatingImages>
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       duration: const Duration(seconds: 5),
       vsync: this,
@@ -56,12 +60,66 @@ class _RotatingImagesState extends State<RotatingImages>
       });
 
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+
+    //In order to get the logined user's current coin value when the page is opened;
+    if (user != null) {
+      CoinProvider coinProvider =
+          Provider.of<CoinProvider>(context, listen: false);
+      coinProvider.getUsersCoin();
+    }
+  }
+
+  //called whenever the dependencies of the widget change, which includes when the page is first loaded or when the page is revisited;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    fetchTodaysReadingTime();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  //Fetchs the total reading time in a day;
+  Future<void> fetchTodaysReadingTime() async {
+    try {
+      //print(user?.uid);
+      totalReadingTime = 0;
+      DateTime today = DateTime.now();
+      DateTime todayStart = DateTime(today.year, today.month, today.day);
+      DateTime todayEnd = todayStart.add(const Duration(days: 1));
+
+      // Create a collection reference for the bookReadingTimes collection
+      CollectionReference collectionRef =
+          FirebaseFirestore.instance.collection('bookReadingTimes');
+
+      // Create a query to fetch the documents for today
+      QuerySnapshot querySnapshot = await collectionRef
+          .where('userId', isEqualTo: user?.uid)
+          .where('date', isGreaterThanOrEqualTo: todayStart)
+          .where('date', isLessThan: todayEnd)
+          .get();
+
+      //print(querySnapshot);
+
+      if (querySnapshot.docs.isNotEmpty) {
+        for (QueryDocumentSnapshot docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> readingTimeData =
+              docSnapshot.data() as Map<String, dynamic>;
+          int readingTime = readingTimeData['readingTime'];
+          setState(() {
+            totalReadingTime += readingTime;
+          });
+        }
+      } else {
+        print('No reading time data available for today');
+      }
+    } catch (e) {
+      print('Error fetching total reading time: $e');
+    }
   }
 
   void _toggleRotation() {
@@ -159,6 +217,55 @@ class _RotatingImagesState extends State<RotatingImages>
       }
     }
 
+    //Adds read related records to get the read logs of the user in each day to show the reading time in a day;
+    Future<void> addReadRecords(int readingTime) {
+      CollectionReference bookReadingCol =
+          FirebaseFirestore.instance.collection('bookReadingTimes');
+      return bookReadingCol
+          .add({
+            'userId': userId,
+            'date': DateTime.now(),
+            'readingTime': readingTime
+          })
+          .then((value) =>
+              print('Reading time of the user is added successfully'))
+          .catchError((error) =>
+              print('Failed to add reading time of the user record: $error'));
+    }
+
+    //In order to update related fiels under the users collection on Db;
+    Future<void> updateReadInfos(int spentMin) async {
+      try {
+        CollectionReference userBooksCollection =
+            FirebaseFirestore.instance.collection('users');
+        QuerySnapshot querySnapshot =
+            await userBooksCollection.where('userId', isEqualTo: userId).get();
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot userDoc = querySnapshot.docs.first;
+          Map<String, dynamic> userData =
+              userDoc.data() as Map<String, dynamic>;
+          int oldTotalTimeVal = userData['totalTime'];
+          int updatedTotalTime = oldTotalTimeVal +
+              spentMin; //timer durduruldugunda alinan sure eklenecek...
+
+          // Update the related fields
+          DocumentReference userBookDocRef = userDoc.reference;
+          return userBookDocRef
+              .update({
+                'lastReadDate': DateTime.now(),
+                'totalTime': updatedTotalTime
+              })
+              .then((value) => print('User data is updated successfully'))
+              .catchError(
+                  (error) => print('Failed to update user data: $error'));
+        } else {
+          print('User record does not exist.');
+        }
+      } catch (e) {
+        print('Error retrieving user data: $e');
+      }
+    }
+
     String getTimerText() {
       int milliseconds = _stopwatch.elapsedMilliseconds;
       int seconds = (milliseconds / 1000).floor() % 60;
@@ -215,14 +322,15 @@ class _RotatingImagesState extends State<RotatingImages>
                         Provider.of<CoinProvider>(context, listen: false);
                     TimeProvider timeProvider =
                         Provider.of<TimeProvider>(context, listen: false);
-                    if (minutes < 1) {
-                      //?TODO:hours olacak, kontrol amacli min birakildi.
+                    if (hours < 1) {
                       coinProvider.increaseCoin(0);
                       timeProvider.increaseTime(0);
-                    } else {
+                    }
+
+                    /*else {
                       coinProvider.increaseCoin(minutes * 100);
                       timeProvider.increaseTime(hours);
-                    }
+                    }*/
 
                     /*increaseHTime(hours);
                     increaseMTime(minutes);*/
@@ -235,7 +343,15 @@ class _RotatingImagesState extends State<RotatingImages>
                     minutes1 = minutes;
 
                     if (!(userId != null && widget.bookName == "")) {
+                      //*hours olacak, kontrol amacli 'minutes' yapilabilir.
+                      coinProvider.increaseCoin(hours * 100);
+                      timeProvider.increaseTime(hours);
+
                       addOrUpdateUserBook(); //*
+                      updateReadInfos(
+                          minutes1); //* minutes1 / 60 => saat cinsinden aktarilacaksa
+                      addReadRecords(minutes1);
+                      fetchTodaysReadingTime(); //*
                     }
                   } else {
                     _toggleRotation();
@@ -289,7 +405,7 @@ class _RotatingImagesState extends State<RotatingImages>
               ),
               Text(
                 //'En son geçen süre: ${hours1} s ${minutes1} dk ',
-                'Bugün ${minutes1} dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
+                'Bugün $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,
@@ -303,9 +419,63 @@ class _RotatingImagesState extends State<RotatingImages>
 
 class CoinProvider with ChangeNotifier {
   int coin = 0;
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
+
+  //To get the user's coin data from the db;
+  Future<int> fetchCoinData() async {
+    int coinOfUser = 0;
+    try {
+      CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot =
+          await usersCollection.where('userId', isEqualTo: userId).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        coinOfUser = userData['currentPoint'];
+      } else {
+        print('No document found for the given userId.');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+    return coinOfUser;
+  }
+
+  //In order to update related fiels under the users collection on Db;
+  Future<void> updateUserCoin(int coin) async {
+    try {
+      CollectionReference userBooksCollection =
+          FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot =
+          await userBooksCollection.where('userId', isEqualTo: userId).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        // Update the related fields
+        DocumentReference userBookDocRef = userDoc.reference;
+        return userBookDocRef
+            .update({
+              'currentPoint': coin,
+            })
+            .then((value) => print('Coin data is updated successfully'))
+            .catchError((error) => print('Failed to update the coin: $error'));
+      } else {
+        print('User record does not exist.');
+      }
+    } catch (e) {
+      print('Error retrieving user data: $e');
+    }
+  }
+
+  //To get the user's coin data from the db when the timer page is initialized(called in initState);
+  void getUsersCoin() async {
+    coin = await fetchCoinData();
+    notifyListeners();
+  }
 
   void increaseCoin(int amount) {
     coin += amount;
+    updateUserCoin(coin);
     notifyListeners();
   }
 }
