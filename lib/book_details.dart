@@ -54,8 +54,18 @@ class BookDetails extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 60,),
-
+                  SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      IconButton(onPressed:(){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LibraryScreen()),
+                        );
+                      }, icon: Icon(FontAwesomeIcons.backward, color: Color.fromRGBO(54, 56, 84, 1.0),)),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
                   Text(
                     'Kitap Hakkında',
                     style: TextStyle(color: Color.fromRGBO(54, 56, 84, 1.0), fontWeight: FontWeight.w700, fontSize: 24),
@@ -99,8 +109,8 @@ class BookDetails extends StatelessWidget {
                               Text(
                                 title,
                                 style:
-                                TextStyle(fontSize: 20, color: Color.fromRGBO(91, 93,
-                                    140, 1.0), fontWeight: FontWeight.w600),
+                                    TextStyle(fontSize: 20, color: Color.fromRGBO(91, 93,
+                                        140, 1.0), fontWeight: FontWeight.w600),
                               ),
                               SizedBox(height: 18),
                               Image.network(imageLinks),
@@ -120,43 +130,30 @@ class BookDetails extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Kitap kütüphaneye eklendi'),
-                                          backgroundColor: Colors.grey[800],
-                                          duration: Duration(seconds: 2),
-                                          action: SnackBarAction(
-                                            label: 'Geri al',
-                                            onPressed: () {
-                                              // Code to undo the action
-                                            },
-                                          ),
-                                        ),
-                                      );
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => FeedPage(bookTitle: title)),
-                                      );
-                                    },
-                                    child: Text('Okumaya başla',style: TextStyle(color: Color.fromRGBO(
-                                        13, 84, 84, 1.0),fontWeight: FontWeight.bold, fontSize: 18, shadows: [
-                                      Shadow(
-                                        color: Colors.grey,
-                                        offset: Offset(2, 2),
-                                        blurRadius: 3,
-                                      ),
-                                    ],),
-                                  ),),
-                                  Icon(FontAwesomeIcons.bookmark, color:Color.fromRGBO(
-                                      13, 84, 84, 1.0), size: 16,shadows: [
-                                    Shadow(
-                                      color: Colors.grey,
-                                      offset: Offset(2, 2),
-                                      blurRadius: 3,
-                                    ),
-                                  ],)
+                                  OutlinedButton(
+                                      onPressed: () {},
+                                      child: Text('Okundu olarak işaretle', style: TextStyle(color: Color.fromRGBO(
+                                      54, 56, 84, 1.0), fontWeight: FontWeight.bold),)),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+
+                                  OutlinedButton(
+                                      onPressed: () {
+                                        /*Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TimerPage(bookName: title)),
+                                        );*/
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FeedPage(bookTitle: title)));
+                                      },
+                                      child: Text('Oku', style: TextStyle(color: Color.fromRGBO(
+                                          54, 56, 84, 1.0), fontWeight: FontWeight.bold),)),
                                 ],
                               )
                             ],
