@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:read_reminder/screens/feed_screen.dart';
@@ -114,20 +115,28 @@ class BookDetails extends StatelessWidget {
                           width: 5,
                         ),
                         OutlinedButton(
-                            onPressed: () {
-                              /*Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TimerPage(bookName: title)),
-                              );*/
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          FeedPage(bookTitle: title)));
-                            },
-                            child: Text('Oku')),
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Kitap kütüphaneye eklendi'),
+                                backgroundColor: Colors.grey[800],
+                                duration: Duration(seconds: 2),
+                                action: SnackBarAction(
+                                  label: 'Geri al',
+                                  onPressed: () {
+                                    // Code to undo the action
+                                  },
+                                ),
+                              ),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => FeedPage(bookTitle: title)),
+                            );
+                          },
+                          child: Text('Oku'),
+                        ),
+
                       ],
                     )
                   ],

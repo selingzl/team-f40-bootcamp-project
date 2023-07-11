@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:read_reminder/screens/book_screen.dart';
 import 'package:read_reminder/screens/library_screen.dart';
 import 'package:read_reminder/screens/profile_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
+
+import '../screens/book_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
   final String titleOfBook;

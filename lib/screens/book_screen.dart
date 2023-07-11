@@ -1,596 +1,291 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class BookPage extends StatelessWidget {
-  const BookPage({super.key});
+class BookPage extends StatefulWidget {
+  const BookPage({Key? key}) : super(key: key);
 
   @override
-  //book screen
+  State<BookPage> createState() => _BookPageState();
+}
+
+class _BookPageState extends State<BookPage> {
+  late TextEditingController _controller;
+  late TextEditingController _controllerB;
+  late TextEditingController _controllerC;
+  String userId = '';
+  List<Widget> bookList = [];
+
+  @override
+  void initState() {
+    _controller = TextEditingController();
+    _controllerB = TextEditingController();
+    _controllerC = TextEditingController();
+    _getCurrentUser();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _controllerB.dispose();
+    _controllerC.dispose();
+    super.dispose();
+  }
+
+  Future<void> _getCurrentUser() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      setState(() {
+        userId = currentUser.uid;
+      });
+    }
+  }
+
+  void bookAddition(String bookName, int spentTime, String comment) {
+    _addBookToFirestore(bookName, spentTime,comment);
+  }
+
+  final CollectionReference _usersBookCollection =
+  FirebaseFirestore.instance.collection('userBooks');
+
+  Future<void> _addBookToFirestore(String bookName, int spentTime,String comment) async {
+    await _usersBookCollection.add({
+      'userId': userId,
+      'bookName': bookName,
+      'spentTime': spentTime,
+      'comment': comment
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: EdgeInsets.all(5),
-
-        child: Scrollbar(
-          child: ListView(
-            children: [
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Kitaplar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Color.fromRGBO(
-                      82, 87, 124, 1.0),),),
-                ],
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                ),
+                textStyle: MaterialStateProperty.all(
+                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(51.16),
+                  ),
+                ),
               ),
-              const SizedBox(height: 65,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                      Color.fromRGBO(185, 187, 223,1),
-                      Color.fromRGBO(187, 198, 240, 1),
-                      Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                        ,borderRadius: BorderRadius.circular(30.00),
-
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Kitap Ekle',style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _controller,
+                          decoration: const InputDecoration(
+                            labelText: 'Kitap İsmi',
+                          ),
+                        ),
+                        TextField(
+                          controller: _controllerB,
+                          decoration: const InputDecoration(
+                            labelText: 'Harcanan Süre (dakika)',
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                        TextField(
+                          controller: _controllerC,
+                          decoration: const InputDecoration(
+                            labelText: 'Notunuz',
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
                     ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                      labelText: 'Kitap ismi',
-                      labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                          , border: InputBorder.none,),),
+                    actions: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
+                          foregroundColor: MaterialStateProperty.all(Colors.white),
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(vertical: 9.0, horizontal: 15.0),
+                          ),
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(51.16),
+                            ),
+                          ),
+                        ),
 
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
+                        onPressed: () {
+                          final bookName = _controller.text.trim();
+                          final spentTimeText = _controllerB.text.trim();
+                          final comment = _controllerC.text.trim();
+                          int spentTime = 0;
+
+                          if (spentTimeText.isNotEmpty) {
+                            spentTime = int.tryParse(spentTimeText) ?? 0;
+                          }
+
+                          if (bookName.isNotEmpty && spentTime != 0) {
+                            bookAddition(bookName, spentTime,comment);
+                            _controllerB.clear();
+                            _controller.clear();
+                            _controllerC.clear();
+                          }
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Ekle'),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('İptal',style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),),
                       ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(width: 30,),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
+          ),
+          Flexible(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _usersBookCollection
+                  .where('userId', isEqualTo: userId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
 
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        Text('Veriler Yükleniyor'),
+                      ],
                     ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
+                  );
+                }
 
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
+                final documents = snapshot.data!.docs;
+
+                return GridView.builder(
+
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.75,
                   ),
-                ],
-              ),
+                  itemCount: documents.length,
+                  itemBuilder: (context, index) {
+                    final userId = documents[index].get('userId');
+                    final bookName = documents[index].get('bookName');
+                    final spentTime = documents[index].get('spentTime');
+                    final comment = documents[index].get('comment');
 
-              const SizedBox(height: 30,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
+                    return UserBookCard(
+                      userId: userId,
+                      bookName: bookName,
+                      spentTime: spentTime,
+                      comment: comment,
+                      controller: _controller,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-                    ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
+class UserBookCard extends StatelessWidget {
+  final String userId;
+  final String bookName;
+  final int spentTime;
+  final String comment;
+  final TextEditingController controller;
 
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
+  const UserBookCard({
+    required this.userId,
+    required this.bookName,
+    required this.spentTime,
+    required this.comment,
+    required this.controller,
+  });
 
-                    ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: const SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 30,),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: 90,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                        Color.fromRGBO(185, 187, 223,1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1)]), boxShadow: [BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                      offset: Offset(0, 2),)]
-                      ,borderRadius: BorderRadius.circular(30.00),
-
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextField( style: TextStyle(color: Color.fromRGBO(
-                              70, 75, 121, 1.0),fontSize: 15),decoration: InputDecoration(
-                            labelText: 'Kitap ismi',
-                            labelStyle: TextStyle(color:Color.fromRGBO(69, 74, 113, 1), fontSize: 14, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)
-                            , border: InputBorder.none,),),
-
-                          Text('Okunan süre: ', style: TextStyle(color:Color.fromRGBO(72, 86, 215, 1),fontSize: 11),),
-                          SizedBox(height: 5,),
-                          Text('0 saat',style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color:Color.fromRGBO(72, 86, 215, 1),),),
-                          SizedBox(height: 2,),
-                          TextField(style: TextStyle(fontSize: 10,color: Color.fromRGBO(64, 64, 64, 1)),decoration: InputDecoration(labelText:'Not: ', labelStyle: TextStyle(fontSize: 12,color: Color.fromRGBO(64, 64, 64, 1)), border: InputBorder.none,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-          ] ),
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+          side: const BorderSide(
+            color: Color.fromRGBO(185, 187, 223, 1),
+            width: 1.0,
+          ),
         ),
-
-        
-        
+        color: const Color.fromRGBO(185, 187, 223, 1),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Kitap İsmi : $bookName',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Color.fromRGBO(82, 87, 124, 1.0),
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Text(
+                'Süre: $spentTime dakika',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Color.fromRGBO(82, 87, 124, 1.0),
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Text(
+                'Notum: $comment',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Color.fromRGBO(82, 87, 124, 1.0),
+                ),
+              ),
+              // TextField(
+              // controller: controller,
+              //),
+            ],
+          ),
+        ),
       ),
     );
   }
