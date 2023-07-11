@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
 
-
 class BookDetails extends StatelessWidget {
   late int index;
 
