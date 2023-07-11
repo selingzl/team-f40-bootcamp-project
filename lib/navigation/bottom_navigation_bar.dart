@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:read_reminder/screens/book_screen.dart';
 import 'package:read_reminder/screens/library_screen.dart';
 import 'package:read_reminder/screens/profile_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
+
+import '../screens/book_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
   final String titleOfBook;
@@ -52,13 +53,14 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
+          gradient: RadialGradient(
             colors: [
-              Color.fromRGBO(185, 187, 223, 1),
               Color.fromRGBO(223, 244, 243, 1),
+              Color.fromRGBO(218, 228, 238, 1),
               Color.fromRGBO(185, 187, 223, 1),
             ],
-
+            radius: 1.65,
+            center: Alignment.topLeft,
           ),
         ),
         child: Stack(children: [_widgetOptions[_selectedIndex]]),

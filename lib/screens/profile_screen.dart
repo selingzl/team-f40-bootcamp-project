@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/donateList_screen.dart';
 import 'login_screen.dart';
 import 'timer_screen.dart';
-import 'register_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -15,6 +14,23 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String userEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentUser();
+  }
+
+  Future<void> _getCurrentUser() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      setState(() {
+        userEmail = currentUser.email ?? 'Email alınamadı!';
+      });
+    }
+  }
+
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -57,8 +73,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               SizedBox(height: 16),
-              const Text(
-                AutofillHints.username,
+              Text(
+                userEmail,
                 style: TextStyle(
                   color: Color.fromRGBO(54, 56, 84, 1.0),
                   fontSize: 24,
@@ -74,53 +90,64 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.35,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.transparent
+                      color: Colors.transparent,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Odaklanılan Süre',textAlign: TextAlign.center,
-                            style: TextStyle(color: Color.fromRGBO(69, 74, 113, 1.0),
-                                fontSize: 15,fontWeight: FontWeight.w500,
-                             shadows: [
-                            Shadow(
-                              color: Colors.grey,
-                              blurRadius: 2,
-                              offset: Offset(3, 3),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Odaklanılan Süre',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color.fromRGBO(69, 74, 113, 1.0),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2,
+                                    offset: Offset(3, 3),
+                                  ),
+                                ],
+                              ),
                             ),
-    ],),
-                          ),
-                          SizedBox(width: 5,),
-                          Icon(FontAwesomeIcons.clock, size:14,
-                            color: Color.fromRGBO(54, 56, 84, 1.0),),
-                        ],
-                      ),
+                            SizedBox(width: 5,),
+                            Icon(
+                              FontAwesomeIcons.clock,
+                              size: 14,
+                              color: Color.fromRGBO(54, 56, 84, 1.0),
+                            ),
+                          ],
+                        ),
                         SizedBox(height: 10,),
-                      Consumer<TimeProvider>(
+                        Consumer<TimeProvider>(
                           builder: (context, timeProvider, _) {
                             int time = timeProvider.time;
-                            return Text('$time saat',textAlign: TextAlign.center,
-                              style: TextStyle(color: Color.fromRGBO(69, 74, 113, 1.0),
-                              fontSize: 18,fontWeight: FontWeight.w600),);
+                            return Text(
+                              '$time saat',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color.fromRGBO(69, 74, 113, 1.0),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
                           },
                         ),
                       ],
                     ),
                   ),
-
-
                   SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
                   Container(
                     height: 100,
                     width: MediaQuery.of(context).size.width * 0.35,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.transparent // Arka plan rengi
+                      color: Colors.transparent,
                     ),
-
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -128,32 +155,44 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Yapılan Bağışlar', textAlign: TextAlign.center,
+                              'Yapılan Bağışlar',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Color.fromRGBO(69, 74, 113, 1.0), fontSize: 15,fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(69, 74, 113, 1.0),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                                 shadows: [
-                                Shadow(
-                                color: Colors.grey,
-                                blurRadius: 2,
-                                offset: Offset(3, 3),
-                              ),]
+                                  Shadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2,
+                                    offset: Offset(3, 3),
+                                  ),
+                                ],
                               ),
                             ),
                             SizedBox(width: 5,),
-                            Icon(FontAwesomeIcons.book, size:14, color: Color.fromRGBO(69, 74, 113, 1.0),),
+                            Icon(
+                              FontAwesomeIcons.book,
+                              size: 14,
+                              color: Color.fromRGBO(69, 74, 113, 1.0),
+                            ),
                           ],
                         ),
-                    SizedBox(height: 10,),
-                    Text('16',textAlign: TextAlign.center,
-                      style: TextStyle(color: Color.fromRGBO(69, 74, 113, 1.0),
-                          fontSize: 18,fontWeight: FontWeight.w600),),
+                        SizedBox(height: 10,),
+                        Text(
+                          '16',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color.fromRGBO(69, 74, 113, 1.0),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -166,91 +205,113 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Liste Sıralaması',textAlign: TextAlign.center,
+                            'Liste Sıralaması',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: Color.fromRGBO(69, 74, 113, 1.0), fontSize: 18,fontWeight: FontWeight.w500,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2,
-                                    offset: Offset(3, 3),
-                                  ),]
+                              color: Color.fromRGBO(69, 74, 113, 1.0),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.grey,
+                                  blurRadius: 2,
+                                  offset: Offset(3, 3),
+                                ),
+                              ],
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('38.',textAlign: TextAlign.center,
+                              const Text(
+                                '38.',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Color.fromRGBO(69, 74, 113, 1.0), fontSize: 18,fontWeight: FontWeight.w600,
-                                ),),
-                              IconButton(onPressed: _goToDonate, icon: const Icon(FontAwesomeIcons.caretRight, size: 24,color: Color.fromRGBO(117, 125, 185, 1),),)
+                                  color: Color.fromRGBO(69, 74, 113, 1.0),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: _goToDonate,
+                                icon: const Icon(
+                                  FontAwesomeIcons.caretRight,
+                                  size: 24,
+                                  color: Color.fromRGBO(117, 125, 185, 1),
+                                ),
+                              )
                             ],
                           )
                         ],
                       ),
                     ),
                   ),
-                 
                 ],
               ),
-                    const SizedBox(height: 30,),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
-                        foregroundColor: MaterialStateProperty.all(Colors.white),
-                        padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(vertical: 13.0, horizontal: 35.0),
-                        ),
-                        textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                        ),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(51.16),
-                          ),
-                        ),
-
-                      ),
-                        onPressed: () {
-                        showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                        return AlertDialog(
-                            actions: [
-                            TextButton(
-                            onPressed: () {
-                            Navigator.of(context).pop();
-                            },
-                              child: const Text('Bağış yapıldı',style: TextStyle(
-                          color: Color.fromRGBO(69, 74, 113, 1.0), fontSize: 18)),
-                        ),
-                        ],
-                        );
-                        },
-                        );
-                    },
-                    child:  const Text('BAĞIŞ YAP',textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color.fromRGBO(69, 74, 113, 1.0), fontSize: 18,fontWeight: FontWeight.w600,
-                      ),),
-                    ),
-                     const SizedBox(height: 30,),
-                    TextButton(
-                      onPressed: () {
-                      _signOut();
-                      Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
-                    },
-
-                      child: const Icon(
-                    Icons.exit_to_app,
-                    color: Color.fromRGBO(135, 142, 205, 1),
-                    size: 30,
+              const SizedBox(height: 30,),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 13.0, horizontal: 35.0),
                   ),
+                  textStyle: MaterialStateProperty.all(
+                    const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(51.16),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              'Bağış yapıldı',
+                              style: TextStyle(
+                                color: Color.fromRGBO(69, 74, 113, 1.0),
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: const Text(
+                  'BAĞIŞ YAP',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color.fromRGBO(69, 74, 113, 1.0),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30,),
+              TextButton(
+                onPressed: () {
+                  _signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+                child: const Icon(
+                  Icons.exit_to_app,
+                  color: Color.fromRGBO(135, 142, 205, 1),
+                  size: 30,
+                ),
               ),
             ],
           ),

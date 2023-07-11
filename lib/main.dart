@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
       context,
       MaterialPageRoute(
           builder: (context) =>
-              firebaseAuth.currentUser != null ? FeedPage() : LoginPage()),
+          firebaseAuth.currentUser != null ? FeedPage() : LoginPage()),
     );
   }
 
@@ -108,16 +108,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-        ChangeNotifierProvider(create: (context) => CoinProvider()),
-        ChangeNotifierProvider(create: (context) => TimeProvider()),
-    ],
-      child: MaterialApp(
+
+          ChangeNotifierProvider(create: (context) => CoinProvider()),
+          ChangeNotifierProvider(create: (context) => TimeProvider()),
+        ],
+        child: MaterialApp(
 
           theme: ThemeData(
             fontFamily: 'Lato',
           ),
           initialRoute: '/',
           routes: {
+
             '/': (context) => SplashScreen(),
             '/first': (context) => TimerPage(),
             '/feed': (context) => FeedPage(),
@@ -127,7 +129,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
 
 
-      )
+        )
     );
 
 
