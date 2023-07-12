@@ -64,6 +64,7 @@ flutter:
     - lib/assets/icons/ic_profile.png
     - lib/assets/icons/ic_time.png
     - lib/assets/background/bg_profile.png
+    - lib/assets/background/welcome.png
     - lib/assets/timer.png
     - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
     - lib/assets/halka1.png

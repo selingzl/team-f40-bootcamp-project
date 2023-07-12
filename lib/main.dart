@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/feed_screen.dart';
+import 'package:read_reminder/screens/intro_screen.dart';
 import 'package:read_reminder/screens/login_screen.dart';
 import 'package:read_reminder/screens/profile_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
       context,
       MaterialPageRoute(
           builder: (context) =>
-          firebaseAuth.currentUser != null ? FeedPage() : LoginPage()),
+          firebaseAuth.currentUser != null ? FeedPage() : IntroScreen()),
     );
   }
 
