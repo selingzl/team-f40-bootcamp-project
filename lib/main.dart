@@ -111,12 +111,12 @@ class MyApp extends StatelessWidget {
         providers: [
 
           ChangeNotifierProvider(create: (context) => CoinProvider()),
-          ChangeNotifierProvider(create: (context) => TimeProvider()),
+
         ],
         child: MaterialApp(
 
           theme: ThemeData(
-            fontFamily: 'Lato',
+            fontFamily: 'Nunito',
           ),
           initialRoute: '/',
           routes: {
@@ -124,7 +124,6 @@ class MyApp extends StatelessWidget {
             '/': (context) => SplashScreen(),
             '/first': (context) => TimerPage(),
             '/feed': (context) => FeedPage(),
-            '/time': (context) => ProfilePage(),
 //routes
           },
           debugShowCheckedModeBanner: false,

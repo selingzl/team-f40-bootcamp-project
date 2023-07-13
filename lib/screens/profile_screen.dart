@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,7 +15,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String userEmail = '';
+  String userName= '';
+  String id= '';
+
 
   @override
   void initState() {
@@ -26,10 +29,31 @@ class _ProfilePageState extends State<ProfilePage> {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       setState(() {
-        userEmail = currentUser.email ?? 'Email alınamadı!';
+        id = currentUser.uid ?? 'id alınamadı!';
       });
     }
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc('8OIavQTKxT9bv6wa6qlR')
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          userName = snapshot.data()?['username'];
+        });
+        print('ad yok');
+      } else {
+        setState(() {
+          userName = '';
+          print('problem');
+        });
+      }
+    } catch (e) {
+      print('Hata: $e');
+    }
   }
+
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
@@ -44,6 +68,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    id = FirebaseAuth.instance.currentUser!.uid;
+
     return Center(
       child: Container(
         padding: EdgeInsets.all(20),
@@ -73,14 +99,31 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               SizedBox(height: 16),
-              Text(
-                userEmail,
-                style: TextStyle(
-                  color: Color.fromRGBO(54, 56, 84, 1.0),
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc('8OIavQTKxT9bv6wa6qlR') // Belge ID'sini buraya girin
+                    .snapshots(),
+                builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                var data = snapshot.data!.data();
+                  if (data != null && data.containsKey('username')) {
+                    String userName = data['username'];
+                return Center(
+                  child: Text(
+                    userName,
+                    style: TextStyle(
+                      color: Color.fromRGBO(54, 56, 84, 1.0),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    )));
+                    }
+                    }
+                    return Center(
+                        child: Text('Kullanıcı Bulunamadı'),
+    );
+    },
+    ),
               const SizedBox(height: 60),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -123,20 +166,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                         SizedBox(height: 10,),
-                        Consumer<TimeProvider>(
-                          builder: (context, timeProvider, _) {
-                            int time = timeProvider.time;
-                            return Text(
-                              '$time saat',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(69, 74, 113, 1.0),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            );
-                          },
-                        ),
+
+
+
+
                       ],
                     ),
                   ),
@@ -197,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 70,
+                    height: 80,
                     width: MediaQuery.of(context).size.width * 0.50,
                     color: Colors.transparent,
                     child: Center(
@@ -248,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 40,),
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/notification_screen.dart';
 import '../navigation/bottom_navigation_bar.dart';
+import 'message_screen.dart';
 import 'timer_screen.dart';
 
 class FeedPage extends StatelessWidget {
@@ -21,7 +23,6 @@ class FeedPage extends StatelessWidget {
             child: Consumer<CoinProvider>(
               builder: (context, coinProvider, _) {
                 int coin = coinProvider.coin;
-
                 return Text(
                   'Coin: $coin',
                   style: TextStyle(color: Color.fromRGBO(54, 56, 84, 1.0)),
@@ -31,26 +32,39 @@ class FeedPage extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: Image.asset(
-              'lib/assets/icons/ic_coin.png',
-              width: 40,
-              height: 40,
-            ),
+            icon: Icon(FontAwesomeIcons.fire,size: 20, color:Color.fromRGBO(
+                82, 87, 124, 1.0))
           ),
         ],
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotifPage()),
-            );
-          },
-          icon: Image.asset(
-            'lib/assets/icons/ic_notif.png',
-            width: 40,
-            height: 40,
+        leading: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NotifPage()),
+                    );
+                  },
+                  icon: Icon(FontAwesomeIcons.solidBell ,size: 18, color:Color.fromRGBO(
+                      82, 87, 124, 1.0) ,)),
+              ),
+              SizedBox(height:5,),
+              Expanded(
+                child: IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MessagePage()),
+                  );
+                },
+                    icon: Icon(FontAwesomeIcons.message, size: 18, color:Color.fromRGBO(
+                        82, 87, 124, 1.0) ,)),
+              ) ,
+            ],
           ),
         ),
+
       ),
       body: Container(
         child: BottomNavigationBarPage(titleOfBook: bookTitle),

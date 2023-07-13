@@ -53,14 +53,13 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: RadialGradient(
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
             colors: [
+              Color.fromRGBO(185, 187, 223, 1),
               Color.fromRGBO(223, 244, 243, 1),
-              Color.fromRGBO(218, 228, 238, 1),
               Color.fromRGBO(185, 187, 223, 1),
             ],
-            radius: 1.65,
-            center: Alignment.topLeft,
+
           ),
         ),
         child: Stack(children: [_widgetOptions[_selectedIndex]]),

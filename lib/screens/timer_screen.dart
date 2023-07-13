@@ -1,8 +1,9 @@
 //import 'dart:js_interop';
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class TimerPage extends StatefulWidget {
@@ -41,10 +42,12 @@ class _RotatingImagesState extends State<RotatingImages>
   late int totalReadingTime;
 
   final Stopwatch _stopwatch = Stopwatch();
+  Timer? timer;
   bool _isRunning = false;
   int hours1 = 0;
   int minutes1 = 0;
   int _elapsedTime = 0;
+
 
   final User? user = FirebaseAuth.instance.currentUser;
 
@@ -156,6 +159,7 @@ class _RotatingImagesState extends State<RotatingImages>
     });
   }
 
+
   /*void increaseHTime(int amount) {
     hours1 += amount;
   }
@@ -163,6 +167,7 @@ class _RotatingImagesState extends State<RotatingImages>
   void increaseMTime(int amount) {
     minutes1 += amount;
   }*/
+TextEditingController  controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -283,82 +288,187 @@ class _RotatingImagesState extends State<RotatingImages>
     int second = duration.inSeconds;
     int minutes = duration.inMinutes;
     int hours = duration.inHours;
+    String choose = '0';
+    int choosen = 0;
+    bool ifchoosen = false;
+
 
     return Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
             colors: [
+              Color.fromRGBO(185, 187, 223, 1),
               Color.fromRGBO(223, 244, 243, 1),
-              Color.fromRGBO(218, 228, 238, 1),
               Color.fromRGBO(185, 187, 223, 1),
             ],
-            radius: 1.65,
-            center: Alignment.topLeft,
+
           ),
         ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Text(
                 getTimerText(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 36,
                   color: Color.fromRGBO(82, 87, 124, 1.0),
                 ),
               ),
+              IconButton( onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) =>
+                        AlertDialog(
+                          title: const Text('Süre Ekle', style: TextStyle(
+                              color: Color.fromRGBO(135, 142, 205, 1)),),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextField(
+                                controller: controller,
+                                decoration: const InputDecoration(
+                                  labelText: 'Süre Seçimi(dk)',
+                                ),
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                MaterialStateProperty.all(
+                                    const Color.fromRGBO(135, 142, 205, 1)),
+                                foregroundColor: MaterialStateProperty.all(
+                                    Colors.white),
+                                padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 9.0, horizontal: 15.0),
+                                ),
+                                textStyle: MaterialStateProperty.all(
+                                  const TextStyle(fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        51.16),
+                                  ),
+                                ),
+                              ),
+
+                              onPressed: () {
+                                choose = controller.text.toString();
+                                choosen = int.parse(choose);
+                                ifchoosen = true;
+                                _resetStopwatch();
+                                print(choosen);
+                                print(ifchoosen);
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Tut'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('İptal', style: TextStyle(
+                                  color: Color.fromRGBO(
+                                      135, 142, 205, 1)),),
+                            ),
+                          ],
+                        )
+                );
+
+               }, icon: const Icon(FontAwesomeIcons.clockRotateLeft, color: Color.fromRGBO(82, 87, 124, 1.0),),
+              ),
               GestureDetector(
                 onTap: () {
-                  if (_isRunning & !_isRotating) {
-                    _stopStopwatch();
-                    _resetStopwatch();
-                    _isRotating = false;
-
-                    CoinProvider coinProvider =
-                        Provider.of<CoinProvider>(context, listen: false);
-                    TimeProvider timeProvider =
-                        Provider.of<TimeProvider>(context, listen: false);
-                    if (hours < 1) {
-                      coinProvider.increaseCoin(0);
-                      timeProvider.increaseTime(0);
-                    }
-
-                    /*else {
-                      coinProvider.increaseCoin(minutes * 100);
-                      timeProvider.increaseTime(hours);
-                    }*/
-
-                    /*increaseHTime(hours);
-                    increaseMTime(minutes);*/
-
-                    if (hours >= 1) {
-                      minutes = minutes +
-                          (hours *
-                              60); //to get the hours+minutes value for reading a book which will be pushed to db.
-                    }
-                    minutes1 = minutes;
-
-                    if (!(userId != null && widget.bookName == "")) {
-                      //*hours olacak, kontrol amacli 'minutes' yapilabilir.
-                      coinProvider.increaseCoin(hours * 100);
-                      timeProvider.increaseTime(hours);
-
-                      addOrUpdateUserBook(); //*
-                      updateReadInfos(
-                          minutes1); //* minutes1 / 60 => saat cinsinden aktarilacaksa
-                      addReadRecords(minutes1);
-                      fetchTodaysReadingTime(); //*
-                    }
-                  } else {
-                    _toggleRotation();
+                  //Zamanlayıcı
+                  print(ifchoosen);
+                  print(choosen);
+                  if(choosen != 0){
                     _startStopwatch();
+                    _animationController.repeat();
+                    print(choosen);
+                    Timer(Duration(seconds: choosen), () {
+                      print(choosen);
+                      CoinProvider coinProvider =
+                      Provider.of<CoinProvider>(context, listen: false);
+                      _stopStopwatch();
+                      _resetStopwatch();
+                      _animationController.stop();
+                      if(second >= 10 && second < 20){
+                        coinProvider.increaseCoin(5);
+                      } else if(minutes >= 20 && minutes < 40){
+                        coinProvider.increaseCoin(30);
+                      }
+                      else if(minutes >= 40 && minutes < 60){
+                        coinProvider.increaseCoin(80);
+                      }
+                      else if(minutes >= 60){
+                        coinProvider.increaseCoin(hours*100);
+                      }
+
+                      if (!(userId != null && widget.bookName == "")) {
+                        //*hours olacak, kontrol amacli 'minutes' yapilabilir.
+                        addOrUpdateUserBook(); //*
+                        updateReadInfos(
+                            minutes);
+                        addReadRecords(minutes);
+                        fetchTodaysReadingTime(); //*
+                      }
+                      print('finished');
+                    });
                   }
-                },
-                child: Container(
+
+                //Kronometre
+                  else {
+                    if (_isRunning & !_isRotating) {
+                      _stopStopwatch();
+                      _resetStopwatch();
+                      _isRotating = false;
+
+                      CoinProvider coinProvider =
+                      Provider.of<CoinProvider>(context, listen: false);
+
+                      if (hours < 0) {
+                        coinProvider.increaseCoin(0);
+
+                      }
+
+                      if (hours >= 1) {
+                        minutes = minutes +
+                            (hours *
+                                60); //to get the hours+minutes value for reading a book which will be pushed to db.
+                      }
+                      minutes1 = minutes;
+
+
+                      if (!(userId != null && widget.bookName == "")) {
+                        //*hours olacak, kontrol amacli 'minutes' yapilabilir.
+                        coinProvider.increaseCoin(hours * 100);
+
+
+                        addOrUpdateUserBook(); //*
+                        updateReadInfos(
+                            minutes1); //* minutes1 / 60 => saat cinsinden aktarilacaksa
+                        addReadRecords(minutes1);
+                        fetchTodaysReadingTime(); //*
+                      }
+                    } else {
+                      _toggleRotation();
+                      _startStopwatch();
+                    }
+                  }
+
+
+              },
+                child: SizedBox(
                   width: 400,
                   height: 400,
                   child: Stack(
@@ -406,7 +516,7 @@ class _RotatingImagesState extends State<RotatingImages>
               Text(
                 //'En son geçen süre: ${hours1} s ${minutes1} dk ',
                 'Bugün $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,
                     color: Color.fromRGBO(84, 90, 128, 1.0)),
@@ -480,13 +590,5 @@ class CoinProvider with ChangeNotifier {
   }
 }
 
-class TimeProvider with ChangeNotifier {
-  int time = 0;
-
-  void increaseTime(int amount) {
-    time += amount;
-    notifyListeners();
-  }
-}
 
 //TODO:Coin mantiginda da kullanicinin users altind tutulan currentPoint/currentCoin degeri baz alinarak ekleme-guncelleme yapilmali.
