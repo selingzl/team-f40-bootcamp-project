@@ -24,16 +24,16 @@ class donateListPage extends StatelessWidget {
           Column(
             children: [
               SizedBox(height: MediaQuery.of(context).padding.top), // Status bar yüksekliği kadar boşluk bırakır
-              SizedBox(height: 75), // Bağış Sıralaması yazısını 125 birim aşağı indirmek için
+              SizedBox(height: 55),
               Image.asset(
                 'lib/assets/sıralamakedisi.png',
-                width: 250,
-                height: 250,
+                width: 150,
+                height: 150,
               ),
-              SizedBox(height: 75), // PNG'yi 100 birim aşağı indirmek için
+              SizedBox(height: 35),
               Text(
                 'Bağış Sıralaması',
-                style: TextStyle(fontSize: 28, color: Color.fromRGBO(54, 56, 84, 1.0)),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28, color: Color.fromRGBO(54, 56, 84, 1.0)),
               ),
               SizedBox(height: 16), // Çubuklar ile yazı arasına bir boşluk eklemek için
               Expanded(
@@ -45,8 +45,10 @@ class donateListPage extends StatelessWidget {
                         color: Color.fromRGBO(185, 187, 223, 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      margin: EdgeInsets.symmetric(vertical: 8),
+                      margin: EdgeInsets.symmetric(vertical: 10,horizontal: 35),
                       padding: EdgeInsets.all(16),
+
+
                       child: Stack(
                         children: [
                           if (index == 0) // 1. kutu için birincilik.png eklenir
@@ -83,7 +85,7 @@ class donateListPage extends StatelessWidget {
                               top: 0,
                               left: 30,
                               child: Text(
-                                'Miskin Kedi                                  87',
+                                'Miskin Kedi                               87',
                                 style: TextStyle(fontSize: 20, color: Colors.white),
                               ),
                             ),
@@ -148,7 +150,7 @@ class donateListPage extends StatelessWidget {
           Positioned(
             top: MediaQuery.of(context).padding.top, // Status bar yüksekliği kadar üste yerleşir
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back, color: Color.fromRGBO(54, 56, 84, 1.0),),
               onPressed: () {
                 Navigator.of(context).pop();
               },
