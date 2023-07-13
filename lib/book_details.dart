@@ -72,7 +72,7 @@ class BookDetails extends StatelessWidget {
                               children: [ SizedBox(
                                 height: 100,
                               ),
-                                CircularProgressIndicator(),
+                                CircularProgressIndicator(color: Color.fromRGBO(69, 74, 113, 1.0)  ,),
                                 SizedBox(height: 16),
                                 Text('Veriler Yükleniyor'),
                               ],

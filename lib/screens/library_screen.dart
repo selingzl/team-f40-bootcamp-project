@@ -206,7 +206,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       } else if (snapshot.hasError) {
                         return Text('Hata: ${snapshot.error}');
                       }
-                      return const CircularProgressIndicator();
+                      return const CircularProgressIndicator(color: Color.fromRGBO(69, 74, 113, 1.0)  ,);
                     },
                   ),
                 ],
@@ -303,7 +303,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                CircularProgressIndicator(),
+                                CircularProgressIndicator(color: Color.fromRGBO(69, 74, 113, 1.0)  ,),
                                 SizedBox(height: 16),
                                 Text('Veriler Yükleniyor'),
                               ],

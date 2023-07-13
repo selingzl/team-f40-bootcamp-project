@@ -11,9 +11,8 @@ class LoginPage extends StatefulWidget {
   final String password;
 
   LoginPage({String? email, String? password})
-      : email = email ?? '',  password= password??'';
-
-
+      : email = email ?? '',
+        password = password ?? '';
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -21,30 +20,33 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  //final TextEditingController _emailController = TextEditingController();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
-
   @override
   void initState() {
-
     super.initState();
-    _emailController = TextEditingController(text:widget.email);
-    _passwordController=TextEditingController(text: widget.password);
-
+    _emailController = TextEditingController(text: widget.email);
+    _passwordController = TextEditingController(text: widget.password);
   }
-  //final TextEditingController _passwordController = TextEditingController();
+
   String _errorMessage = '';
   bool error = false;
   bool _passwordVisible = false;
+  bool _isLoading = false;
 
   Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+      error = false;
+      _errorMessage = '';
+    });
+
     try {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
-      final UserCredential userCredential = await _auth
-          .signInWithEmailAndPassword(
+      final UserCredential userCredential =
+      await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -63,26 +65,30 @@ class _LoginPageState extends State<LoginPage> {
         'Giriş yaparken bir hata oluştu. E-postanızı veya şifrenizi kontrol ediniz!';
       });
       print(_errorMessage);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
   void _goToRegister() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RegisterPage(userName: '', email: '',)),
+      MaterialPageRoute(builder: (context) => RegisterPage(userName: '', email: '')),
     );
   }
 
   void startGuestMode() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+      UserCredential userCredential =
+      await FirebaseAuth.instance.signInAnonymously();
       User? user = userCredential.user;
       print('Misafir oturumu açıldı');
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => FeedPage()),
       );
-
     } catch (e) {
       // Misafir oturumu açarken bir hata oluştu, hata durumuyla ilgili işlemleri gerçekleştirin
     }
@@ -91,8 +97,8 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser
-          ?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
@@ -117,12 +123,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,11 +187,9 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     decoration: const InputDecoration(
                       labelText: 'E-posta',
-                      labelStyle: TextStyle(
-                          color: Color.fromRGBO(170, 170, 170, 1)),
+                      labelStyle: TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 30),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -212,15 +216,12 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: !_passwordVisible,
                     decoration: InputDecoration(
                       labelText: 'Şifre',
-                      labelStyle: const TextStyle(
-                          color: Color.fromRGBO(170, 170, 170, 1)),
+                      labelStyle: const TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 30),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _passwordVisible ? Icons.visibility_off : Icons
-                              .visibility,
+                          _passwordVisible ? Icons.visibility_off : Icons.visibility,
                         ),
                         onPressed: () {
                           setState(() {
@@ -248,7 +249,6 @@ class _LoginPageState extends State<LoginPage> {
                           style: const TextStyle(
                             color: Color.fromRGBO(135, 142, 205, 1),
                           ),
-
                         ),
                       ],
                     ),
@@ -270,18 +270,18 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(51.16),
                       ),
                     ),
-
                   ),
-                  onPressed: _login,
-                  child: const Text('Giriş Yap'),
+                  onPressed: _isLoading ? null : _login, // isLoading true olduğunda buton pasif olacak
+                  child: _isLoading // isLoading true ise CircularProgressIndicator'ı, false ise 'Giriş Yap' metnini gösterir
+                      ? CircularProgressIndicator()
+                      : const Text('Giriş Yap'),
                 ),
                 SizedBox(height: 8.0),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordPage()),
+                      MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
                     );
                   },
                   child: Text(
@@ -299,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal:15.0),
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
                     ),
                     textStyle: MaterialStateProperty.all(
                       TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
@@ -317,13 +317,11 @@ class _LoginPageState extends State<LoginPage> {
                       Icon(
                         FontAwesomeIcons.google,
                         size: 18.0,
-
                       ),
                       SizedBox(width: 10.0),
                       Text('Google ile Giriş Yap'),
                     ],
                   ),
-
                 ),
                 SizedBox(height: 10.0),
                 Row(
@@ -350,18 +348,27 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                Text('ya da',style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),),
-                TextButton(onPressed: startGuestMode, child: Text('Kaydolmadan Devam Et',style: TextStyle(
-                  color: Color.fromRGBO(94, 97, 143, 1.0),
-                  fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,
-                  fontSize: 18,
-                ),)),
+                Text(
+                  'ya da',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+                TextButton(
+                  onPressed: startGuestMode,
+                  child: Text(
+                    'Kaydolmadan Devam Et',
+                    style: TextStyle(
+                      color: Color.fromRGBO(94, 97, 143, 1.0),
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
               ],
-
             ),
           ),
         ),
