@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/donateList_screen.dart';
+import 'favorite_book_screen.dart';
 import 'login_screen.dart';
 import 'timer_screen.dart';
+import 'donateList_screen.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+
+
+
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -16,7 +20,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String userName= '';
-  String id= '';
+  int totaltime = 0;
+  int donation = 0;
+  int point = 0;
+
 
 
   @override
@@ -26,49 +33,110 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _getCurrentUser() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      setState(() {
-        id = currentUser.uid ?? 'id alınamadı!';
-      });
-    }
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
     try {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc('8OIavQTKxT9bv6wa6qlR')
-          .get();
-
-      if (snapshot.exists) {
-        setState(() {
-          userName = snapshot.data()?['username'];
-        });
-        print('ad yok');
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot =
+      await usersCollection.where('userId', isEqualTo: userId).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        userName = userData['username'];
       } else {
-        setState(() {
-          userName = '';
-          print('problem');
-        });
+        print('No document found for the given userId.');
       }
     } catch (e) {
-      print('Hata: $e');
+      print('Error fetching data: $e');
     }
   }
 
+  Future<void> _getDonationCount() async {
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
+    try {
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot =
+      await usersCollection.where('userId', isEqualTo: userId).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        donation = userData['donationCount'];
+      } else {
+        print('No document found for the given userId.');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+
+  }
+
+  Future<int> _getFocusedTime() async {
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
+    try {
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+      QuerySnapshot querySnapshot =
+      await usersCollection.where('userId', isEqualTo: userId).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        totaltime = userData['totalTime'];
+      } else {
+        print('No document found for the given userId.');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+    return totaltime;
+  }
+
+  Future<void> _getListPoint() async {
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
+    try {
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('donationList');
+      QuerySnapshot querySnapshot =
+      await usersCollection.where('userId', isEqualTo: userId).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        point = userData['listOrder'];
+      } else {
+        print('No document found for the given userId.');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
-  void _goToDonate() {
+  void _goToDonate(int p) {
+    p = point;
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => donateListPage()),
     );
   }
 
+  void _goToFav(int p) {
+    p = point;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FavoriteBooksScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    id = FirebaseAuth.instance.currentUser!.uid;
+
+    _getListPoint();
+    _getFocusedTime();
+    int hourtime = (totaltime / 60).toInt() ;
+    int minutetime = totaltime - hourtime*60;
 
     return Center(
       child: Container(
@@ -99,31 +167,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               SizedBox(height: 16),
-            StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                stream: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc('8OIavQTKxT9bv6wa6qlR') // Belge ID'sini buraya girin
-                    .snapshots(),
-                builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                var data = snapshot.data!.data();
-                  if (data != null && data.containsKey('username')) {
-                    String userName = data['username'];
-                return Center(
-                  child: Text(
+              Center(
+                child: Text(
                     userName,
                     style: TextStyle(
                       color: Color.fromRGBO(54, 56, 84, 1.0),
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                    )));
-                    }
-                    }
-                    return Center(
-                        child: Text('Kullanıcı Bulunamadı'),
-    );
-    },
-    ),
+                    )),),
               const SizedBox(height: 60),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -166,6 +217,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                         SizedBox(height: 10,),
+                        Text(
+                          '$hourtime s $minutetime dk',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color.fromRGBO(69, 74, 113, 1.0),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
 
 
 
@@ -181,10 +241,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.transparent,
                     ),
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -211,11 +271,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Text(
-                          '16',
+                          '$donation',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromRGBO(69, 74, 113, 1.0),
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -231,7 +291,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Container(
                     height: 80,
-                    width: MediaQuery.of(context).size.width * 0.50,
+                    width: MediaQuery.of(context).size.width * 0.40,
                     color: Colors.transparent,
                     child: Center(
                       child: Column(
@@ -256,8 +316,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                '38.',
+                              Text(
+                                '$point.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color.fromRGBO(69, 74, 113, 1.0),
@@ -266,7 +326,55 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: _goToDonate,
+                                onPressed: (){
+                                  _goToDonate(point);
+
+                                },
+                                icon: const Icon(
+                                  FontAwesomeIcons.caretRight,
+                                  size: 24,
+                                  color: Color.fromRGBO(117, 125, 185, 1),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Favoriler',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color.fromRGBO(69, 74, 113, 1.0),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.grey,
+                                  blurRadius: 2,
+                                  offset: Offset(3, 3),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              IconButton(
+                                onPressed: (){
+                                  _goToFav(point);
+
+                                },
                                 icon: const Icon(
                                   FontAwesomeIcons.caretRight,
                                   size: 24,

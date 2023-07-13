@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/notification_screen.dart';
 import '../navigation/bottom_navigation_bar.dart';
+import '../notification_demo_screen.dart';
 import 'message_screen.dart';
 import 'timer_screen.dart';
 
@@ -31,9 +32,9 @@ class FeedPage extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: Icon(FontAwesomeIcons.fire,size: 20, color:Color.fromRGBO(
-                82, 87, 124, 1.0))
+              onPressed: () {},
+              icon: Icon(FontAwesomeIcons.fire,size: 20, color:Color.fromRGBO(
+                  82, 87, 124, 1.0))
           ),
         ],
         leading: SafeArea(
@@ -41,14 +42,14 @@ class FeedPage extends StatelessWidget {
             children: [
               Expanded(
                 child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NotifPage()),
-                    );
-                  },
-                  icon: Icon(FontAwesomeIcons.solidBell ,size: 18, color:Color.fromRGBO(
-                      82, 87, 124, 1.0) ,)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NotificationsScreen()),
+                      );
+                    },
+                    icon: Icon(FontAwesomeIcons.solidBell ,size: 18, color:Color.fromRGBO(
+                        82, 87, 124, 1.0) ,)),
               ),
               SizedBox(height:5,),
               Expanded(

@@ -26,6 +26,7 @@ dependencies:
 
   cloud_firestore: ^4.8.2
   fluttertoast: ^8.2.2
+  firebase_messaging: ^14.6.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -74,7 +75,6 @@ flutter:
     - lib/assets/ikincilikk.png
     - lib/assets/üçüncülükk.png
 
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -88,6 +88,7 @@ flutter:
   # example:
 
   fonts:
+    - family: Lato
     - family: Nunito
       fonts:
         - asset: lib/assets/Nunito/static/Nunito-Regular.ttf
@@ -95,5 +96,3 @@ flutter:
         - asset: lib/assets/Nunito/static/Nunito-Italic.ttf
         - asset: lib/assets/Nunito/static/Nunito-BoldItalic.ttf
         - asset: lib/assets/Nunito/static/Nunito-SemiBoldItalic.ttf
-
-

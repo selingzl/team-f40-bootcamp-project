@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         email: email,
         password: password,
       );
-      final User? user = userCredential.user;
+      User? user = userCredential.user;
 
       if (user != null) {
         Navigator.pushReplacement(
@@ -71,6 +71,21 @@ class _LoginPageState extends State<LoginPage> {
       context,
       MaterialPageRoute(builder: (context) => RegisterPage(userName: '', email: '',)),
     );
+  }
+
+  void startGuestMode() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+      User? user = userCredential.user;
+      print('Misafir oturumu açıldı');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => FeedPage()),
+      );
+
+    } catch (e) {
+      // Misafir oturumu açarken bir hata oluştu, hata durumuyla ilgili işlemleri gerçekleştirin
+    }
   }
 
   Future<void> _signInWithGoogle() async {
@@ -101,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-@override
+  @override
 
   void dispose() {
     _emailController.dispose();
@@ -335,6 +350,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+                Text('ya da',style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),),
+                TextButton(onPressed: startGuestMode, child: Text('Kaydolmadan Devam Et',style: TextStyle(
+                  color: Color.fromRGBO(94, 97, 143, 1.0),
+                  fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,
+                  fontSize: 18,
+                ),)),
               ],
 
             ),

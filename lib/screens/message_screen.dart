@@ -115,7 +115,7 @@ class _MessagePageState extends State<MessagePage> {
 
   bool isMe = true; // Başlangıçta mesajları kendiniz gönderdiğinizi varsayalım
   List<String> _searchResult = [];
- //Örnek
+  //Örnek
   final List<String> _dataList = [
     'Apple',
     'Banana',
@@ -138,7 +138,7 @@ class _MessagePageState extends State<MessagePage> {
       messages.add(newMessage);
       isMe = !isMe;
     });
-     messagesCollection.add(newMessage.toMap());
+    messagesCollection.add(newMessage.toMap());
   }
 
   void _performSearch(String searchTerm) {
@@ -165,99 +165,98 @@ class _MessagePageState extends State<MessagePage> {
               center: Alignment.topLeft,
             ),
           ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-
-            Row(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                IconButton( onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FeedPage()),
-                  );
-                }, icon: Icon(FontAwesomeIcons.backward,color: Color.fromRGBO(185, 187, 223, 1), )),
-                SizedBox(width: 20,),
-                Container(
-                  width: 300,
-                  height: 150,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: TextField(
-                          controller: _searchController,
-                          onChanged: _performSearch,
-                          decoration: InputDecoration(
-                            hintText: 'Kullanıcı...',
-                          ),),
+
+                Row(
+                  children: [
+                    IconButton( onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FeedPage()),
+                      );
+                    }, icon: Icon(FontAwesomeIcons.backward,color: Color.fromRGBO(185, 187, 223, 1), )),
+                    SizedBox(width: 20,),
+                    Container(
+                      width: 300,
+                      height: 150,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: TextField(
+                              controller: _searchController,
+                              onChanged: _performSearch,
+                              decoration: InputDecoration(
+                                hintText: 'Kullanıcı...',
+                              ),),
+                          ),
+                          Flexible(
+                            child: ListView.builder(
+                              itemCount: _searchResult.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: TextButton(onPressed: () {  }, //kullanıcıyı seçecek ve mesajlar ona göre düzenlenecek
+                                    child: Text(_searchResult[index], style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromRGBO(
+                                        84, 62, 143, 1.0), fontSize: 16),),),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                      Flexible(
-                        child: ListView.builder(
-                          itemCount: _searchResult.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: TextButton(onPressed: () {  }, //kullanıcıyı seçecek ve mesajlar ona göre düzenlenecek
-                              child: Text(_searchResult[index], style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromRGBO(
-                                  84, 62, 143, 1.0), fontSize: 16),),),
-                            );
-                          },
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        Message message = messages[index];
+                        bool isMessageFromMe = message.sender == 'Me'; // Mesaj benim tarafımdan mı gönderildi?
+                        return MessageBubble(message: message, isMe: isMessageFromMe);}
+                  ),),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _messageController,
+                          decoration: InputDecoration(
+                            hintText: 'Mesajınızı yazın...',
+                          ),
                         ),
                       ),
+                      IconButton(
+                        icon: Icon(Icons.send, color:Color.fromRGBO(
+                            84, 62, 143, 1.0)),
+                        onPressed: () {
+                          String messageContent = _messageController.text.trim();
+                          if (messageContent.isNotEmpty) {
+                            sendMessage(messageContent);
+                            _messageController.clear();
+                          }
+                        },
+                      ),
+
                     ],
                   ),
                 ),
+                SizedBox(height: 30,),
               ],
             ),
-          Expanded(
-          child: ListView.builder(
-            itemCount: messages.length,
-            itemBuilder: (context, index) {
-              Message message = messages[index];
-              bool isMessageFromMe = message.sender == 'Me'; // Mesaj benim tarafımdan mı gönderildi?
-    return MessageBubble(message: message, isMe: isMessageFromMe);}
-          ),),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Mesajınızı yazın...',
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send, color:Color.fromRGBO(
-                      84, 62, 143, 1.0)),
-                  onPressed: () {
-                    String messageContent = _messageController.text.trim();
-                    if (messageContent.isNotEmpty) {
-                      sendMessage(messageContent);
-                      _messageController.clear();
-                    }
-                  },
-                ),
+          ),
 
-          ],
-          ),
-          ),
-            SizedBox(height: 30,),
-          ],
-          ),
         ),
-
-    ),
-        ),
+      ),
     );
-      }
-      }
+  }
+}
 
-      
 
 
 
