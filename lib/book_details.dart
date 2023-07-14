@@ -16,7 +16,7 @@ class BookDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getBookDetails() async {
       var url =
-          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyAjQXgbDKufunEPUB4U_WrNifggfnvLt78';
+          'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDSVaR4VzkyF4ZNW3f8gzYIO_KzEAQckJc';
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'feed_screen.dart';
+
 class BookPage extends StatefulWidget {
   const BookPage({Key? key}) : super(key: key);
 
@@ -120,33 +122,56 @@ class _BookPageState extends State<BookPage> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
+                  backgroundColor: Color.fromRGBO(
+                      255, 255, 255, 0.8156862745098039),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
+
                   title: const Text(
-                    'Kitap Ekle',
-                    style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),
+                    'Kitap Ekle', textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(135, 142, 205, 1)),
                   ),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextField(
-                        controller: _controller,
-                        decoration: const InputDecoration(
-                          labelText: 'Kitap İsmi',
+                  content: Container( decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(185, 187, 223, 1),
+                        Color.fromRGBO(187, 198, 240, 1),
+                        Color.fromRGBO(183, 220, 218, 1),
+                      ],),),
+                    width: 400,
+                    padding: EdgeInsets.all(40),
+                    margin: EdgeInsets.all(5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _controller,
+                          decoration: const InputDecoration(
+                              labelText: 'Kitap İsmi', labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),)
+                          ),
                         ),
-                      ),
-                      TextField(
-                        controller: _controllerB,
-                        decoration: const InputDecoration(
-                          labelText: 'Harcanan Zaman',
+                        SizedBox(height: 10,),
+                        TextField(
+                          controller: _controllerB,
+                          decoration: const InputDecoration(
+                              labelText: 'Harcanan Zaman',labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),)
+                          ),
+                          keyboardType: TextInputType.number,
                         ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      TextField(
-                        controller: _controllerC,
-                        decoration: const InputDecoration(
-                          labelText: 'Notunuz',
+                        SizedBox(height: 10,),
+                        TextField(
+                          controller: _controllerC,
+                          decoration: const InputDecoration(
+                              labelText: 'Notunuz',labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),)
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   actions: [
                     ElevatedButton(
@@ -203,57 +228,57 @@ class _BookPageState extends State<BookPage> {
             child: const Icon(Icons.add, size: 20),
           ),
           SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.all(10),
-            height: MediaQuery.of(context).size.height * 0.6,
-            width: MediaQuery.of(context).size.width,
-            child: StreamBuilder<QuerySnapshot>(
-              stream: _usersBookCollection
-                  .where('userId', isEqualTo: userId)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
+          Flexible(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _usersBookCollection
+                    .where('userId', isEqualTo: userId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(),
-                        Text('Veriler Yükleniyor'),
-                      ],
-                    ),
-                  );
-                }
-
-                final documents = snapshot.data!.docs;
-
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 5,
-                  ),
-                  padding: const EdgeInsets.all(6),
-                  itemCount: documents.length,
-                  itemBuilder: (context, index) {
-                    final bookId = documents[index].id;
-                    final bookName = documents[index].get('bookName');
-                    final spentTime = documents[index].get('spentTime');
-                    final comment = documents[index].get('comment');
-
-                    return UserBookCard(
-                      bookId: bookId,
-                      bookName: bookName,
-                      spentTime: spentTime,
-                      comment: comment,
-                      onUpdate: _updateBookInFirestore,
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                          Text('Veriler Yükleniyor'),
+                        ],
+                      ),
                     );
-                  },
-                );
-              },
+                  }
+
+                  final documents = snapshot.data!.docs;
+
+                  return GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 5,
+                    ),
+                    padding: const EdgeInsets.all(6),
+                    itemCount: documents.length,
+                    itemBuilder: (context, index) {
+                      final bookId = documents[index].id;
+                      final bookName = documents[index].get('bookName');
+                      final spentTime = documents[index].get('spentTime');
+                      final comment = documents[index].get('comment');
+
+                      return UserBookCard(
+                        bookId: bookId,
+                        bookName: bookName,
+                        spentTime: spentTime,
+                        comment: comment,
+                        onUpdate: _updateBookInFirestore,
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -301,48 +326,73 @@ class _UserBookCardState extends State<UserBookCard> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Kitap Düzenle'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      updatedBookName = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Kitap İsmi',
-                    hintText: updatedBookName,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            contentPadding: EdgeInsets.only(top: 10.0),
+            title: const Text('Kitap Düzenle',style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1))),
+            content: Container(
+              width: 300,
+              padding: EdgeInsets.all(30),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        updatedBookName = value;
+                      });
+                    },
+                    decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),border: OutlineInputBorder(),
+                      labelText: 'Kitap İsmi',labelStyle: TextStyle(fontSize:14,color:Color.fromRGBO(82, 87, 124, 1.0),),
+                      hintText: updatedBookName,
+                    ),
                   ),
-                ),
-                TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      updatedSpentTime = int.tryParse(value) ?? 0;
-                    });
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Harcanan Zaman',
-                    hintText: updatedSpentTime.toString(),
+                  SizedBox(height: 10,),
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        updatedSpentTime = int.tryParse(value) ?? 0;
+                      });
+                    },
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),border: OutlineInputBorder(),
+                      labelText: 'Harcanan Zaman', labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),),
+                      hintText: updatedSpentTime.toString(),
+                    ), style: TextStyle(fontSize: 14, color:Color.fromRGBO(82, 87, 124, 1.0),),
                   ),
-                ),
-                TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      updatedComment = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Notunuz',
-                    hintText: updatedComment,
+                  SizedBox(height: 10,),
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        updatedComment = value;
+                      });
+                    },
+                    decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),border: OutlineInputBorder(),
+                      labelText: 'Notunuz',labelStyle: TextStyle( fontSize:14,color:Color.fromRGBO(82, 87, 124, 1.0),),
+                      hintText: updatedComment,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             actions: [
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                  MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 9.0, horizontal: 15.0),
+                  ),
+                  textStyle: MaterialStateProperty.all(
+                    const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(51.16),
+                    ),
+                  ),
+                ),
                 onPressed: () {
                   widget.onUpdate(widget.bookId, updatedBookName, updatedSpentTime, updatedComment);
                   Navigator.pop(context);
@@ -350,84 +400,94 @@ class _UserBookCardState extends State<UserBookCard> {
                 child: const Text('Kaydet'),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('İptal'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('İptal', style:TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),),)
               ),
             ],
           ),
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.only(right: 5, left: 10, top: 2, bottom: 0),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(13),
-            width: 90,
-            height: 100,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromRGBO(185, 187, 223, 1),
-                  Color.fromRGBO(187, 198, 240, 1),
-                  Color.fromRGBO(183, 220, 218, 1),
-                ],
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 10,right: 10,left: 10),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromRGBO(185, 187, 223, 1),
+                Color.fromRGBO(187, 198, 240, 1),
+                Color.fromRGBO(183, 220, 218, 1),
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                spreadRadius: 1,
+                offset: const Offset(0, 2),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 2),
+            ],
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(183, 220, 218, 1),
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    minimumSize: Size(40, 20),
+                    maximumSize: Size(50, 30),
+                    textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),),
+                    elevation: 4),
+                  onPressed:() {Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => FeedPage(bookTitle: updatedBookName)),
+                  );},
+                  child: const Text('oku'),),
+                Text(
+                  '${widget.spentTime} dakika',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color.fromRGBO(72, 86, 215, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  widget.bookName,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color.fromRGBO(70, 75, 121, 1.0),
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  widget.comment,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: Color.fromRGBO(82, 87, 124, 1.0),
+                  ),
                 ),
               ],
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${widget.spentTime} dakika',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(72, 86, 215, 1),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.bookName,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(70, 75, 121, 1.0),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.comment,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      color: Color.fromRGBO(82, 87, 124, 1.0),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
         ),
       ),
     );
-  }
-}
+  }}

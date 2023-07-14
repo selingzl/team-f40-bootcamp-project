@@ -489,4 +489,3 @@ class TimeProvider with ChangeNotifier {
   }
 }
 
-//TODO:Coin mantiginda da kullanicinin users altind tutulan currentPoint/currentCoin degeri baz alinarak ekleme-guncelleme yapilmali.

@@ -21,7 +21,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   Random random = Random();
 
   final CollectionReference _favoritesCollection =
-      FirebaseFirestore.instance.collection('favoriteBooks');
+  FirebaseFirestore.instance.collection('favoriteBooks');
 
   List<Book> favoritesBooks = [];
 
@@ -75,7 +75,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
     var userId = await _getCurrentUser();
 
     var querySnapshot =
-        await _favoritesCollection.where('userId', isEqualTo: userId).get();
+    await _favoritesCollection.where('userId', isEqualTo: userId).get();
 
     var favoritesList = querySnapshot.docs.map((doc) {
       var data = doc.data() as Map<String, dynamic>?;
@@ -105,7 +105,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   Future<List<dynamic>> getBookList() async {
     var url =
-        'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyCFj05rR4WFsOK0_KOmMoL0_iqqGd_y8';
+        'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyDSVaR4VzkyF4ZNW3f8gzYIO_KzEAQckJc';
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -164,13 +164,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         var randomBook = bookList[randomBookIndex];
                         var randomBookTitle = randomBook['volumeInfo']['title'];
                         var randomBookAuthor = randomBook['volumeInfo']
-                                ['authors'][0] ??
+                        ['authors'][0] ??
                             'Yazar bilgisi mevcut değil';
                         var randomImageLinks =
-                            randomBook['volumeInfo']['imageLinks'] != null
-                                ? randomBook['volumeInfo']['imageLinks']
-                                    ['smallThumbnail']
-                                : 'https://placekitten.com/600/800';
+                        randomBook['volumeInfo']['imageLinks'] != null
+                            ? randomBook['volumeInfo']['imageLinks']
+                        ['smallThumbnail']
+                            : 'https://placekitten.com/600/800';
 
                         return Container(
                           child: Row(
@@ -242,13 +242,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 var book = bookList[index];
                                 var title = book['volumeInfo']['title'];
                                 var subtitle = book['volumeInfo']['authors']
-                                        [0] ??
+                                [0] ??
                                     'Yazar bilgisi mevcut değil';
                                 var imageLinks =
-                                    book['volumeInfo']['imageLinks'] != null
-                                        ? book['volumeInfo']['imageLinks']
-                                            ['smallThumbnail']
-                                        : 'https://placekitten.com/600/800';
+                                book['volumeInfo']['imageLinks'] != null
+                                    ? book['volumeInfo']['imageLinks']
+                                ['smallThumbnail']
+                                    : 'https://placekitten.com/600/800';
 
                                 return ListTile(
                                   leading: IconButton(
