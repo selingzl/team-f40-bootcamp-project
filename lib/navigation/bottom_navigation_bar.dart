@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:read_reminder/screens/library_screen.dart';
 import 'package:read_reminder/screens/profile_screen.dart';
@@ -7,7 +10,8 @@ import '../screens/book_screen.dart';
 
 class BottomNavigationBarPage extends StatefulWidget {
   final String titleOfBook;
-  const BottomNavigationBarPage({super.key, String? titleOfBook})
+
+  const BottomNavigationBarPage({Key? key, String? titleOfBook})
       : titleOfBook = titleOfBook ?? '';
 
   @override
@@ -19,6 +23,8 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
   late String bookTitle;
   late List<Widget> _widgetOptions;
+  String? profileImageURL;
+  String userId = '';
 
   @override
   void initState() {
@@ -28,19 +34,41 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
       TimerPage(bookName: bookTitle),
       BookPage(),
       LibraryScreen(),
-      ProfilePage()
+      ProfilePage(),
     ];
+    _getCurrentUser();
+    _getUserProfileImageURL();
+  }
+
+  void _updateProfileImageURL(String? imageURL) {
+    setState(() {
+      profileImageURL = imageURL;
+    });
+  }
+
+  Future<void> _getCurrentUser() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      setState(() {
+        userId = currentUser.uid;
+      });
+    }
+  }
+
+  Future<void> _getUserProfileImageURL() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      final imageURL = snapshot.docs[0]['profileImage'] as String?;
+      _updateProfileImageURL(imageURL);
+    }
   }
 
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  /*static const List<Widget> _widgetOptions = <Widget>[
-    TimerPage(bookName: bookTitle),
-    BookPage(),
-    LibraryScreen(),
-    ProfilePage()
-  ];*/
 
   void _onItemTapped(int index) {
     setState(() {
@@ -53,13 +81,14 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
               Color.fromRGBO(185, 187, 223, 1),
               Color.fromRGBO(223, 244, 243, 1),
               Color.fromRGBO(185, 187, 223, 1),
             ],
-
           ),
         ),
         child: Stack(children: [_widgetOptions[_selectedIndex]]),
@@ -88,7 +117,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
-            icon: Image.asset(
+            icon:  Image.asset(
               'lib/assets/icons/ic_book.png',
               width: 36,
               height: 36,
@@ -97,8 +126,14 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
-            icon: Image.asset(
-              'lib/assets/icons/ic_profile.png',
+            icon: profileImageURL != null
+                ? Image.network(
+              profileImageURL!,
+              width: 36,
+              height: 36,
+            )
+                : Image.asset(
+              'lib/assets/sıralamakedisi.png',
               width: 36,
               height: 36,
             ),
