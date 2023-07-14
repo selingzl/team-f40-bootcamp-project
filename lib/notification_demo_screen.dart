@@ -27,7 +27,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       final sendTime = DateTime.now();
 
       setState(() {
-        // Gelen bildirimi _notifications listesine ekleyin
         _firestore.collection('notifications').add({
           'title': title,
           'body': body,
