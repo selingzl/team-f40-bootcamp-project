@@ -105,7 +105,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   Future<List<dynamic>> getBookList() async {
     var url =
-        'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyAjQXgbDKufunEPUB4U_WrNifggfnvLt78';
+        'https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=tr&maxResults=30&&key=AIzaSyCFj05rR4WFsOK0_KOmMoL0_iqqGd_y8';
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
