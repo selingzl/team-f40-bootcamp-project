@@ -42,6 +42,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bildirimler'),
+        actions: [Icon(Icons.done_all),
+        SizedBox(width: 10,)
+        ]
+
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('notifications').snapshots(),
@@ -62,6 +66,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   '${sendTime.toDate().day}/${sendTime.toDate().month}/${sendTime.toDate().year} ${sendTime.toDate().hour}:${sendTime.toDate().minute}:${sendTime.toDate().second}';
 
               return ListTile(
+
+                leading: Icon(Icons.notifications_active),
                 title: Text(notification['title']),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
