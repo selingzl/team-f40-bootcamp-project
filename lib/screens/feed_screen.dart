@@ -56,7 +56,7 @@ class FeedPage extends StatelessWidget {
                 child: IconButton(onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MessagePage()),
+                    MaterialPageRoute(builder: (context) => UserListPage()),
                   );
                 },
                     icon: Icon(FontAwesomeIcons.message, size: 18, color:Color.fromRGBO(

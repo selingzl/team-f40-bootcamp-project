@@ -268,7 +268,7 @@ class _RotatingImagesState extends State<RotatingImages>
         print('Error retrieving user data: $e');
       }
     }
-//deneme
+
     String getTimerText() {
       int milliseconds = _stopwatch.elapsedMilliseconds;
       int seconds = (milliseconds / 1000).floor() % 60;
@@ -400,7 +400,7 @@ class _RotatingImagesState extends State<RotatingImages>
                     _toggleRotation();
                     CoinProvider coinProvider =
                     Provider.of<CoinProvider>(context, listen: false);
-                    print('timer started');
+                      print('timer started');
                     timer = Timer.periodic(Duration(seconds: choosen), (timer) {
                       setState(() {
                         timer.cancel();
@@ -430,7 +430,7 @@ class _RotatingImagesState extends State<RotatingImages>
                           fetchTodaysReadingTime(); //*
                         }
                       });
-                    });
+                      });
 
                     print('timer finished');
 
