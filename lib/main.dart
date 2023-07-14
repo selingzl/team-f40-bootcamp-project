@@ -8,11 +8,9 @@ import 'package:read_reminder/screens/intro_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
 
   print("Handling a background message: ${message.messageId}");
@@ -22,10 +20,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   debugPrintGestureArenaDiagnostics = false;
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  _firebaseMessaging.getToken().then((token) {
+    print("Uygulama tokenı: $token");
+  });
 
-  NotificationSettings settings = await messaging.requestPermission(
+  NotificationSettings settings = await _firebaseMessaging.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -47,7 +48,7 @@ void main() async {
 }
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -58,6 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late FirebaseAuth firebaseAuth;
+
   @override
   void initState() {
     super.initState();
@@ -88,11 +90,13 @@ class _SplashScreenState extends State<SplashScreen>
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-          builder: (context) =>
-          firebaseAuth.currentUser != null ? FeedPage() : IntroScreen()),
+        builder: (context) =>
+        firebaseAuth.currentUser != null ? FeedPage() : IntroScreen(),
+      ),
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedBuilder(
@@ -133,35 +137,28 @@ class _SplashScreenState extends State<SplashScreen>
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-
-          ChangeNotifierProvider(create: (context) => CoinProvider()),
-
-        ],
-        child: MaterialApp(
-
-          theme: ThemeData(
-            fontFamily: 'Nunito',
-          ),
-          initialRoute: '/',
-          routes: {
-
-            '/': (context) => SplashScreen(),
-            '/first': (context) => TimerPage(),
-            '/feed': (context) => FeedPage(),
-//routes
-          },
-          debugShowCheckedModeBanner: false,
-
-
-        )
+      providers: [
+        ChangeNotifierProvider(create: (context) => CoinProvider()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Nunito',
+        ),
+        navigatorKey: navigatorKey,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => SplashScreen(),
+          '/first': (context) => TimerPage(),
+          '/feed': (context) => FeedPage(),
+          // routes
+        },
+        debugShowCheckedModeBanner: false,
+      ),
     );
-
-
   }
 }
