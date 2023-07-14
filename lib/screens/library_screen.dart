@@ -86,7 +86,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         var author = bookName.split(' by ')[1];
         return Book(title, author);
       } else {
-        throw Exception('Data is null or has invalid format.');
+        throw Exception('Data is null or has invalid format!!!');
       }
     }).toList();
 

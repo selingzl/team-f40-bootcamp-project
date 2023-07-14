@@ -7,7 +7,7 @@ class UserListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kullanıcı Listesi'),
+        title: Text('Kullanıcı Listesi '),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
@@ -23,7 +23,7 @@ class UserListPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final userData = users[index].data() as Map<String, dynamic>;
               final userId = users[index].id;
-              final userName = userData['username'] ?? 'İsim Bilgisi Alınamadı!!!!';
+              final userName = userData['username'] ?? 'İsim Bilgisi Alınamadı!!!';
 
               return ListTile(
                 title: Text(userName),

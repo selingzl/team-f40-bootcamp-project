@@ -434,7 +434,7 @@ class CoinProvider with ChangeNotifier {
         Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
         coinOfUser = userData['currentPoint'];
       } else {
-        print('No document found for the given userId.');
+        print('No document found for the given userId...');
       }
     } catch (e) {
       print('Error fetching data: $e');
