@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
       final UserCredential userCredential =
-      await _auth.createUserWithEmailAndPassword(
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -115,13 +115,14 @@ class _RegisterPageState extends State<RegisterPage> {
     Future<void> addUser() {
       return users
           .add({
-        'username': _userNameController.text,
-        'currentPoint': 0,
-        'lastReadDate': DateTime.now(),
-        'totalTime': 0,
-        'userId': _auth.currentUser!.uid,
-        'donationCount': 0
-      })
+            'username': _userNameController.text,
+            'currentPoint': 0,
+            'lastReadDate': DateTime.now(),
+            'profileImage': '',
+            'totalTime': 0,
+            'userId': _auth.currentUser!.uid,
+            'donationCount': 0
+          })
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     }
@@ -194,10 +195,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     decoration: InputDecoration(
                       labelText: 'İsim',
                       labelStyle:
-                      TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
                       contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -224,10 +225,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     decoration: InputDecoration(
                       labelText: 'E-posta',
                       labelStyle:
-                      TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
                       contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -254,10 +255,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     decoration: InputDecoration(
                       labelText: 'Şifre',
                       labelStyle:
-                      TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
                       contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -272,14 +273,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(Color.fromRGBO(135, 142, 205, 1)),
-                        foregroundColor: MaterialStateProperty.all(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromRGBO(135, 142, 205, 1)),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0),
+                          EdgeInsets.symmetric(
+                              vertical: 18.0, horizontal: 40.0),
                         ),
                         textStyle: MaterialStateProperty.all(
-                          TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                          TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
