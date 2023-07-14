@@ -617,4 +617,3 @@ class TimeProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-
