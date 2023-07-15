@@ -129,9 +129,9 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 - 
   ![Kitap Detay](ProjectManagement/Sprint1Documents/book_det.PNG)
 
-- ![Uygulama İçi Görseller](ProjectManagement/Sprint1Documents/last_one.png)
+- ![Uygulama İçi Görseller](ProjectManagement/Sprint1Documents/last_one.PNG)
 
-- ![Uygulama İçi Görseller](ProjectManagement/Sprint1Documents/last_two.png)
+- ![Uygulama İçi Görseller](ProjectManagement/Sprint1Documents/last_two.PNG)
 
 ### Sprint Review
 
