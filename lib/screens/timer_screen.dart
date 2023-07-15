@@ -327,7 +327,7 @@ class _RotatingImagesState extends State<RotatingImages>
                     context: context,
                     builder: (context) =>
                         AlertDialog(
-                          title: const Text('SÃ¼re Ekle', style: TextStyle(
+                          title: const Text('Süre Ekle', style: TextStyle(
                               color: Color.fromRGBO(135, 142, 205, 1)),),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -335,7 +335,7 @@ class _RotatingImagesState extends State<RotatingImages>
                               TextField(
                                 controller: controller,
                                 decoration: const InputDecoration(
-                                  labelText: 'SÃ¼re SeÃ§imi(dk)',
+                                  labelText: 'Süre Seçimi(dk)',
                                 ),
                               ),
                             ],
@@ -535,7 +535,7 @@ class _RotatingImagesState extends State<RotatingImages>
               ),
               Text(
                 //'En son geÃ§en sÃ¼re: ${hours1} s ${minutes1} dk ',
-                'BugÃ¼n $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
+                'Bugün $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
                 style: const TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,

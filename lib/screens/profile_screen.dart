@@ -105,27 +105,28 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  //Gets the user order for the donation list;
+  //=>Lists the users by their donationCount and returns the order of logged in user in this list;
   Future<int> _getUserOrder() async {
-    User? user = FirebaseAuth.instance.currentUser;
     String? userId = user?.uid;
-    int userOrder = 0;
     if (userId != null) {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('donationList')
-          .where('userId', isEqualTo: userId)
+      // Query the users collection and order by donationCount in descending order
+      QuerySnapshot orderedSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .orderBy('donationCount', descending: true)
           .get();
-      if (querySnapshot.docs.isNotEmpty) {
-        DocumentSnapshot donationDoc = querySnapshot.docs.first;
-        Map<String, dynamic> donationData =
-        donationDoc.data() as Map<String, dynamic>;
-        userOrder = donationData['listOrder'];
-      } else {
-        print("Related record does not exist for the logined user!");
+      // Iterate through the documents to find the order of the logged-in user
+      int userOrder = 1;
+      for (DocumentSnapshot document in orderedSnapshot.docs) {
+        if (document['userId'] == userId) {
+          break;
+        }
+        userOrder++;
       }
+      return userOrder;
     }
-    return userOrder;
+    return 0; //default value
   }
+
 
   //Making a donation if the coin of user is sufficient;
   Future<void> makeDonation() async {
@@ -186,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void _goToDonate() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => donateListPage()),
+      MaterialPageRoute(builder: (context) => DonateListPage()),
     );
   }
 
@@ -211,8 +212,8 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 159,
-                height: 159,
+                width: 140,
+                height: 140,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   boxShadow: [
@@ -229,13 +230,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     _pickImage();
                   },
                   child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: profileImageURL != null
-                        ? NetworkImage(profileImageURL!)
-                        : null,
-                    child: profileImageURL == null
+                    backgroundImage: profileImageURL == null ||
+                        profileImageURL == ''
+                        ? null
+                        : NetworkImage(profileImageURL!),
+                    child: profileImageURL == null || profileImageURL == ''
                         ? Icon(Icons.add_a_photo,
-                        size: 50, color: Colors.grey[300])
+                        size: 40, color: Colors.grey[300])
                         : null,
                     //AssetImage('lib/assets/background/bg_profile.png',)
                   ),
@@ -462,8 +463,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   _goToFav();
                                 },
                                 icon: const Icon(
-                                  FontAwesomeIcons.caretRight,
-                                  size: 24,
+                                  FontAwesomeIcons.heartCircleCheck,
+                                  size: 18,
                                   color: Color.fromRGBO(117, 125, 185, 1),
                                 ),
                               )
@@ -496,28 +497,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text(
-                              'Bağış yapıldı',
-                              style: TextStyle(
-                                color: Color.fromRGBO(69, 74, 113, 1.0),
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                  isDonationEnabled
+                      ? makeDonation()
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
+                        backgroundColor: Colors.grey[800],
+                        duration: Duration(seconds: 2)),
                   );
                 },
+
                 child: const Text(
                   'BAĞIŞ YAP',
                   textAlign: TextAlign.center,

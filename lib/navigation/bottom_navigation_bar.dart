@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:read_reminder/screens/library_screen.dart';
 import 'package:read_reminder/screens/profile_screen.dart';
@@ -117,7 +116,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
-            icon:  Image.asset(
+            icon: Image.asset(
               'lib/assets/icons/ic_book.png',
               width: 36,
               height: 36,
@@ -126,16 +125,27 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
-            icon: profileImageURL != null
-                ? Image.network(
-              profileImageURL!,
-              width: 36,
-              height: 36,
-            )
-                : Image.asset(
-              'lib/assets/sıralamakedisi.png',
-              width: 36,
-              height: 36,
+            icon: Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50), // İstediğiniz yuvarlaklık derecesini belirleyebilirsiniz
+                  child: profileImageURL == null || profileImageURL == ''
+                      ? Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/f40-bootcamp-project.appspot.com/o/profile_images%2F1689352459687817.jpg?alt=media&token=5adc797a-d57a-4c20-ac54-23edc0c2121d',
+                    width: 36,
+                    height: 36,
+                  )
+                      : Image.network(
+                    profileImageURL!,
+                    width: 36,
+                    height: 36,
+                    fit: BoxFit.cover,
+                  ),
+                )
             ),
             label: '',
           ),
