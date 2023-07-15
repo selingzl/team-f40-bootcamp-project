@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class donateListPage extends StatelessWidget {
-  final List<int> numbers = List.generate(20, (index) => index + 1);
-
+class DonateListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -23,124 +22,114 @@ class donateListPage extends StatelessWidget {
           ),
           Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).padding.top), // Status bar yüksekliği kadar boşluk bırakır
-              SizedBox(height: 55),
+              SizedBox(
+                height: MediaQuery.of(context)
+                    .padding
+                    .top, // Status bar yüksekliği kadar boşluk bırakır
+              ),
+              const SizedBox(height: 55),
               Image.asset(
                 'lib/assets/sıralamakedisi.png',
                 width: 150,
                 height: 150,
               ),
-              SizedBox(height: 35),
-              Text(
+              const SizedBox(height: 35),
+              const Text(
                 'Bağış Sıralaması',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28, color: Color.fromRGBO(54, 56, 84, 1.0)),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 28,
+                    color: Color.fromRGBO(54, 56, 84, 1.0)),
               ),
-              SizedBox(height: 16), // Çubuklar ile yazı arasına bir boşluk eklemek için
+              const SizedBox(
+                height: 16, // Çubuklar ile yazı arasına bir boşluk eklemek için
+              ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: numbers.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(185, 187, 223, 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      margin: EdgeInsets.symmetric(vertical: 10,horizontal: 35),
-                      padding: EdgeInsets.all(16),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .orderBy('donationCount', descending: true)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    }
 
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                      child: Stack(
-                        children: [
-                          if (index == 0) // 1. kutu için birincilik.png eklenir
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Image.asset(
-                                'lib/assets/birincilikk.png',
-                                width: 24,
-                                height: 24,
-                              ),
-                            ),
-                          if (index == 0) // 1. kutu için Duman Kedi => 94 yazısı eklenir
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: Text(
-                                'Duman Kedi                                 94',
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          if (index == 1) // 2. kutu için ikincilik.png eklenir
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Image.asset(
-                                'lib/assets/ikincilikk.png',
-                                width: 24,
-                                height: 24,
-                              ),
-                            ),
-                          if (index == 1) // 2. kutu için Miskin Kedi => 87 yazısı eklenir
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: Text(
-                                'Miskin Kedi                               87',
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          if (index == 2) // 3. kutu için üçüncülük.png eklenir
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Image.asset(
-                                'lib/assets/üçüncülükk.png',
-                                width: 24,
-                                height: 24,
-                              ),
-                            ),
-                          if (index == 2) // 3. kutu için Miya Kedi => 78 yazısı eklenir
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: Text(
-                                'Miya Kedi                                     78',
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          if (index == 3) // 4. kutu için Bal Kedi => 76 yazısı eklenir
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: Text(
-                                'Bal Kedi                                       76',
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          if (index == 4) // 5. kutu için Yumoş Kedi => 72 yazısı eklenir
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: Text(
-                                'Yumoş Kedi                                  72',
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          if (index == 5) // 6. kutu için Şirin Kedi => 68 yazısı eklenir
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: Text(
-                                'Şirin Kedi                                      68',
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          Text(
-                            '${index + 1}.',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                    List<QueryDocumentSnapshot>? documents =
+                        snapshot.data?.docs;
+
+                    return ListView.builder(
+                      itemCount: documents?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot document = documents![index];
+                        String username = document['username'];
+                        int donationCount = document['donationCount'];
+
+                        // Defining images for the first three users to show them on the list
+                        String? imageAsset;
+                        if (index == 0) {
+                          imageAsset = 'lib/assets/birincilikk.png';
+                        } else if (index == 1) {
+                          imageAsset = 'lib/assets/ikincilikk.png';
+                        } else if (index == 2) {
+                          imageAsset = 'lib/assets/üçüncülükk.png';
+                        }
+
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: const Color.fromRGBO(185, 187, 223, 1),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        ],
-                      ),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 35),
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            children: [
+                              if (index < 3 &&
+                                  imageAsset !=
+                                      null) // Check if it's the first three users to assign the related images.
+                                Image.asset(
+                                  imageAsset,
+                                  width: 24,
+                                  height: 24,
+                                ),
+                              SizedBox(width: 10),
+                              Text(
+                                (index < 3 ? '' : '${index + 1}. '),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  '$username',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '$donationCount',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
@@ -148,9 +137,14 @@ class donateListPage extends StatelessWidget {
             ],
           ),
           Positioned(
-            top: MediaQuery.of(context).padding.top, // Status bar yüksekliği kadar üste yerleşir
+            top: MediaQuery.of(context)
+                .padding
+                .top, // Status bar yüksekliği kadar üste yerleşir
             child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Color.fromRGBO(54, 56, 84, 1.0),),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Color.fromRGBO(54, 56, 84, 1.0),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

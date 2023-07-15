@@ -105,27 +105,28 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  //Gets the user order for the donation list;
+  //=>Lists the users by their donationCount and returns the order of logged in user in this list;
   Future<int> _getUserOrder() async {
-    User? user = FirebaseAuth.instance.currentUser;
     String? userId = user?.uid;
-    int userOrder = 0;
     if (userId != null) {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('donationList')
-          .where('userId', isEqualTo: userId)
+      // Query the users collection and order by donationCount in descending order
+      QuerySnapshot orderedSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .orderBy('donationCount', descending: true)
           .get();
-      if (querySnapshot.docs.isNotEmpty) {
-        DocumentSnapshot donationDoc = querySnapshot.docs.first;
-        Map<String, dynamic> donationData =
-        donationDoc.data() as Map<String, dynamic>;
-        userOrder = donationData['listOrder'];
-      } else {
-        print("Related record does not exist for the logined user!");
+      // Iterate through the documents to find the order of the logged-in user
+      int userOrder = 1;
+      for (DocumentSnapshot document in orderedSnapshot.docs) {
+        if (document['userId'] == userId) {
+          break;
+        }
+        userOrder++;
       }
+      return userOrder;
     }
-    return userOrder;
+    return 0; //default value
   }
+
 
   //Making a donation if the coin of user is sufficient;
   Future<void> makeDonation() async {
@@ -150,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
           CoinProvider coinProvider =
           Provider.of<CoinProvider>(context, listen: false);
           coinProvider
-              .getUsersCoin(); //updated coin value from the db will be fetched.
+              .getUsersCoin(userId!); //updated coin value from the db will be fetched.
           await _getUserInfos(); //to fetch the updated user infos.
         }
         ScaffoldMessenger.of(context).showSnackBar(
@@ -186,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void _goToDonate() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => donateListPage()),
+      MaterialPageRoute(builder: (context) => DonateListPage()),
     );
   }
 
@@ -229,13 +230,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     _pickImage();
                   },
                   child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: profileImageURL != null
-                        ? NetworkImage(profileImageURL!)
-                        : null,
-                    child: profileImageURL == null
+                    backgroundImage: profileImageURL == null || profileImageURL == ''
+                        ? null
+                        : NetworkImage(profileImageURL!),
+                    child: profileImageURL == null || profileImageURL == ''
                         ? Icon(Icons.add_a_photo,
-                        size: 50, color: Colors.grey[300])
+                        size: 40, color: Colors.grey[300])
                         : null,
                     //AssetImage('lib/assets/background/bg_profile.png',)
                   ),
