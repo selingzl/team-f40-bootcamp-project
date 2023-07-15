@@ -8,6 +8,8 @@ import 'package:read_reminder/screens/intro_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
