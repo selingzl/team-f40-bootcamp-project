@@ -67,7 +67,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   }
 
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -126,26 +126,26 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           BottomNavigationBarItem(
             backgroundColor: const Color.fromRGBO(185, 187, 223, 1),
             icon: Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: ClipRRect(
-    borderRadius: BorderRadius.circular(50), // İstediğiniz yuvarlaklık derecesini belirleyebilirsiniz
-    child: profileImageURL == null || profileImageURL == ''
-                ? Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/f40-bootcamp-project.appspot.com/o/profile_images%2F1689352459687817.jpg?alt=media&token=5adc797a-d57a-4c20-ac54-23edc0c2121d',
-                width: 36,
-                height: 36,
-                )
-                    : Image.network(
-                profileImageURL!,
-                width: 36,
-                height: 36,
-                fit: BoxFit.cover,
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
                 ),
-    )
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50), // İstediğiniz yuvarlaklık derecesini belirleyebilirsiniz
+                  child: profileImageURL == null || profileImageURL == ''
+                      ? Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/f40-bootcamp-project.appspot.com/o/profile_images%2F1689352459687817.jpg?alt=media&token=5adc797a-d57a-4c20-ac54-23edc0c2121d',
+                    width: 36,
+                    height: 36,
+                  )
+                      : Image.network(
+                    profileImageURL!,
+                    width: 36,
+                    height: 36,
+                    fit: BoxFit.cover,
+                  ),
+                )
             ),
             label: '',
           ),

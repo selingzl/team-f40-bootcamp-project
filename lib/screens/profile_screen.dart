@@ -151,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
           CoinProvider coinProvider =
           Provider.of<CoinProvider>(context, listen: false);
           coinProvider
-              .getUsersCoin(userId!); //updated coin value from the db will be fetched.
+              .getUsersCoin(); //updated coin value from the db will be fetched.
           await _getUserInfos(); //to fetch the updated user infos.
         }
         ScaffoldMessenger.of(context).showSnackBar(
@@ -230,7 +230,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     _pickImage();
                   },
                   child: CircleAvatar(
-                    backgroundImage: profileImageURL == null || profileImageURL == ''
+                    backgroundImage: profileImageURL == null ||
+                        profileImageURL == ''
                         ? null
                         : NetworkImage(profileImageURL!),
                     child: profileImageURL == null || profileImageURL == ''
@@ -497,15 +498,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 onPressed: () {
                   isDonationEnabled
-                  ? makeDonation()
+                      ? makeDonation()
                       : ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                  content: Text(
-                  'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
-                  backgroundColor: Colors.grey[800],
-                  duration: Duration(seconds: 2)),
+                    SnackBar(
+                        content: Text(
+                            'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
+                        backgroundColor: Colors.grey[800],
+                        duration: Duration(seconds: 2)),
                   );
-                  },
+                },
 
                 child: const Text(
                   'BAĞIŞ YAP',

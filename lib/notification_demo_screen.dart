@@ -41,37 +41,37 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromRGBO(157, 213, 211, 1.0),
-        title: Text('Bildirimler', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(
-            54, 56, 84, 1.0)),),
-        actions: [Icon(Icons.done_all, color: Color.fromRGBO(
-            54, 56, 84, 1.0)),
-        SizedBox(width: 10,)
-        ]
+          title: Text('Bildirimler', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(
+              54, 56, 84, 1.0)),),
+          actions: [Icon(Icons.done_all, color: Color.fromRGBO(
+              54, 56, 84, 1.0)),
+            SizedBox(width: 10,)
+          ]
 
       ),
       body: Container(
-    padding: const EdgeInsets.only(bottom: 10,right: 10,left: 10),
-    decoration: BoxDecoration(
-    gradient: const LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color.fromRGBO(183, 220, 218, 1),
-      Color.fromRGBO(187, 198, 240, 1),
-     Color.fromRGBO(185, 187, 223, 1),
+        padding: const EdgeInsets.only(bottom: 10,right: 10,left: 10),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(183, 220, 218, 1),
+              Color.fromRGBO(187, 198, 240, 1),
+              Color.fromRGBO(185, 187, 223, 1),
 
 
-    ],
-    ),
-    boxShadow: [
-    BoxShadow(
-    color: Colors.black.withOpacity(0.1),
-    blurRadius: 10,
-    spreadRadius: 1,
-    offset: const Offset(0, 2),
-    ),
-    ],
-    ),
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
         child: StreamBuilder<QuerySnapshot>(
           stream: _firestore.collection('notifications').snapshots(),
           builder: (context, snapshot) {

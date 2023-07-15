@@ -58,7 +58,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Kitap favorilere eklendi'),
+          content: Text('Kitap favorilere eklendi'),
           backgroundColor: Colors.grey[800],
           duration: const Duration(seconds: 2),
           action: SnackBarAction(
@@ -67,7 +67,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               removeFromFavorites(title, author);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text('Kitap favorilerden kaldırıldı'),
+                  content: Text('Kitap favorilerden kaldırıldı'),
                   backgroundColor: Colors.grey[800],
                   duration: const Duration(seconds: 2),
                 ),
@@ -79,7 +79,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Kitap favorilerde mevcut'),
+          content: Text('Kitap zaten favorilerde kontrol et'),
           backgroundColor: Colors.grey[800],
           duration: const Duration(seconds: 2),
         ),
@@ -285,25 +285,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             return ListView.builder(
                               itemCount: bookList!.length,
                               itemBuilder: (context, index) {
-
                                 var book = bookList[index];
                                 var title = book['volumeInfo']['title'];
                                 var subtitle =
                                     book['volumeInfo']['authors'][0] ??
                                         'Yazar bilgisi mevcut değil';
-                                favButtonStatus = isBookInFavorites(title, subtitle);
-                                IconButton button = IconButton(
-                                  icon: favButtonStatus
-                                      ? const Icon(Icons.favorite_border)
-                                      : const Icon(Icons.favorite),
-                                  onPressed: () {
-                                    if (isBookInFavorites(title, subtitle)) {
-                                      removeFromFavorites(title, subtitle);
-                                    } else {
-                                      addToFavorites(title, subtitle);
-                                    }
-                                  },
-                                );
                                 var imageLinks =
                                 book['volumeInfo']['imageLinks'] != null
                                     ? book['volumeInfo']['imageLinks']
@@ -311,7 +297,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                     : 'https://placekitten.com/600/800';
 
                                 return ListTile(
-                                  leading: button,
+                                  leading: IconButton(
+                                    icon: isBookInFavorites(title, subtitle)
+                                        ? const Icon(Icons.favorite)
+                                        : const Icon(Icons.favorite_border),
+                                    onPressed: () {
+                                      if (isBookInFavorites(title, subtitle)) {
+                                        removeFromFavorites(title, subtitle);
+                                      } else {
+                                        addToFavorites(title, subtitle);
+                                      }
+                                    },
+                                  ),
                                   title: Text(
                                     title,
                                     style: const TextStyle(

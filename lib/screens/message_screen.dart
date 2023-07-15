@@ -82,7 +82,7 @@ class UserListPage extends StatelessWidget {
                           itemCount: filteredUsers.length,
                           itemBuilder: (BuildContext context, int index) {
                             final userData = filteredUsers[index].data()
-                                as Map<String, dynamic>;
+                            as Map<String, dynamic>;
                             final userName = userData['username'] ??
                                 'İsim Bilgisi Alınamadı!!!';
                             final userId = userData['userId'];
@@ -92,14 +92,14 @@ class UserListPage extends StatelessWidget {
                               imageUrl = 'https://firebasestorage.googleapis.com/v0/b/f40-bootcamp-project.appspot.com/o/profile_images%2F1689352459687817.jpg?alt=media&token=5adc797a-d57a-4c20-ac54-23edc0c2121d';
 
                             }else{
-                            imageUrl = pp;
+                              imageUrl = pp;
                             }
 
                             final lastRead =
                                 userData['lastReadDate'] ?? 'okuma yok';
                             String formattedDateTime =
-                                DateFormat('yyyy-MM-dd HH:mm:ss')
-                                    .format(lastRead.toDate());
+                            DateFormat('yyyy-MM-dd HH:mm:ss')
+                                .format(lastRead.toDate());
                             return Container(
                               child: ListTile(
                                 title: Container(
@@ -108,7 +108,7 @@ class UserListPage extends StatelessWidget {
                                     padding: EdgeInsets.all(15),
                                     decoration: BoxDecoration(
                                         color:
-                                            Color.fromRGBO(207, 236, 234, 1.0),
+                                        Color.fromRGBO(207, 236, 234, 1.0),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.4),
@@ -129,7 +129,7 @@ class UserListPage extends StatelessWidget {
                                             width: 50,
                                             height: 50,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(100)
+                                                borderRadius: BorderRadius.circular(100)
                                             ),
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(50), // İstediğiniz yuvarlaklık derecesini belirleyebilirsiniz
@@ -145,7 +145,7 @@ class UserListPage extends StatelessWidget {
                                         ),
                                         Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               userName,
@@ -162,7 +162,7 @@ class UserListPage extends StatelessWidget {
                                                         67, 72, 108, 1.0),
                                                     fontSize: 12,
                                                     fontWeight:
-                                                        FontWeight.w400))
+                                                    FontWeight.w400))
                                           ],
                                         ),
                                       ],
@@ -193,4 +193,3 @@ class UserListPage extends StatelessWidget {
     );
   }
 }
-

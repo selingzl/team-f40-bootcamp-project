@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'conversation_screen.dart';
 import 'message_screen.dart';
 
@@ -36,10 +37,7 @@ class _ForumPageState extends State<ForumPage> {
   final TextEditingController _messageController = TextEditingController();
   final CollectionReference _forumCollection =
   FirebaseFirestore.instance.collection('forums');
-  final CollectionReference _usersCollection =
-  FirebaseFirestore.instance.collection('users');
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
-
 
   @override
   void dispose() {
@@ -48,10 +46,17 @@ class _ForumPageState extends State<ForumPage> {
     super.dispose();
   }
 
-  Future<String?> _getUsername(String userId) async {
-    final userDoc = await _usersCollection.doc(userId).get();
-    final userData = userDoc.data() as Map<String, dynamic>?;
-    return userData?['username'];
+  Future<String> getUserName(String userId) async {
+    // Burada kullanıcı adını almak için gerekli işlemleri gerçekleştirin
+    // Örneğin, Firestore'dan kullanıcı belgelerini sorgulayabilirsiniz.
+    // Bu işlevin, userId temelinde kullanıcı adını döndürmesi gerekiyor.
+    // Örneğin:
+    // final userData = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    // final username = userData['username'];
+    // return username;
+
+    // Geçici olarak kullanıcı adını 'Bilinmeyen Kullanıcı' olarak döndürüyoruz
+    return 'Bilinmeyen Kullanıcı';
   }
 
   Future<void> _addMessage() async {
@@ -79,7 +84,7 @@ class _ForumPageState extends State<ForumPage> {
     _messageController.clear();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Mesaj başarıyla eklendi.'),
+        content: Text('Kitap isteği başarıyla eklendi.'),
       ),
     );
   }
@@ -109,39 +114,43 @@ class _ForumPageState extends State<ForumPage> {
           return ListView.builder(
             itemCount: messages.length,
             itemBuilder: (BuildContext context, int index) {
-              final messageData =
-              messages[index].data() as Map<String, dynamic>;
+              final messageData = messages[index].data() as Map<String, dynamic>;
               final userId = messageData['userId'];
               final bookName = messageData['bookName'];
               final message = messageData['message'];
 
-              return FutureBuilder<String?>(
-                future: _getUsername(currentUserUid),
+              return FutureBuilder<String>(
+                future: getUserName(userId), // Kullanıcı adını almak için asenkron işlevi çağırın
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
-                    return ListTile(
-                      title: Text('Kitap: $bookName'),
-                      subtitle: Text('Kullanıcı adı: Yükleniyor...\nNot: $message'),
-                      onTap: () {},
+                    return Card(
+                      child: ListTile(
+                        title: Text('Kitap: $bookName'),
+                        subtitle: Text('Kullanıcı id: Yükleniyor...\nNot: $message'),
+                        onTap: () {},
+                      ),
                     );
                   }
 
                   final username = snapshot.data ?? 'Bilinmeyen Kullanıcı';
 
-                  return ListTile(
-                    leading: Icon(Icons.account_circle),
-                    title: Text('Kitap: $bookName'),
-                    subtitle: Text('Kullanıcı adı: $username\nNot: $message'),
-                    trailing: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserListPage(),
-                          ),
-                        );
-                      },
-                      child: Text('İletişime Geç'),
+                  return Card(
+                    // Replace with your desired background color
+                    child: ListTile(
+                      leading: Icon(Icons.account_circle),
+                      title: Text('Kitap: $bookName'),
+                      subtitle: Text('Kullanıcı adı: $username\nNot: $message'),
+                      trailing: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserListPage(),
+                            ),
+                          );
+                        },
+                        child: Text('İletişime Geç'),
+                      ),
                     ),
                   );
                 },

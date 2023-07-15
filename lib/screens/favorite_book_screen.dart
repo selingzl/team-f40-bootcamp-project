@@ -99,24 +99,24 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
                   final bookId = books[index].id;
                   return ListTile(
                     leading: IconButton(onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                      content: Text('Kitap kütüphaneye eklendi'),
-                      backgroundColor: Colors.grey[800],
-                      duration: Duration(seconds: 2),
-                      action: SnackBarAction(
-                      label: 'Geri al',
-                      onPressed: () {
-                      // Code to undo the action
-                      },
-                      ),
-                      ),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Kitap kütüphaneye eklendi'),
+                          backgroundColor: Colors.grey[800],
+                          duration: Duration(seconds: 2),
+                          action: SnackBarAction(
+                            label: 'Geri al',
+                            onPressed: () {
+                              // Code to undo the action
+                            },
+                          ),
+                        ),
                       );
-                  Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => FeedPage(bookTitle: bookName)),
-                  );
-                  }, icon: Icon(FontAwesomeIcons.bookBookmark, color: Color.fromRGBO(82, 87, 124, 1.0),size: 18,)),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => FeedPage(bookTitle: bookName)),
+                      );
+                    }, icon: Icon(FontAwesomeIcons.bookBookmark, color: Color.fromRGBO(82, 87, 124, 1.0),size: 18,)),
                     trailing: IconButton(onPressed: () => removeBookFromFavorites(bookId), icon: Icon(FontAwesomeIcons.trashCan, size: 18,color: Color.fromRGBO(
                         51, 91, 90, 1.0),)),
 
