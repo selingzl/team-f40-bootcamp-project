@@ -18,15 +18,21 @@ ReadMe!
 ## Ürün İle İlgili Bilgiler
 
 -
-    1. Kitap puanlama sistemi ile sevilen kitapları sıralama.
+    1. Kronometre veya zamanlayıcı ile kitap okuma için odaklanma süresini arttırma.
 -
-    2. Kitap okurken odaklanma süresini artırmak için kronometre kullanımı.
+    2. Hızlı ve haftalık kitap önerileriyle yeni kitaplar keşfetme ve kendi kütüphanene ekleme.
 -
-    3. En çok okuyan insanlar için başarı sıralama sayfası.
+    3. En çok bağış yapan insanlar için bağış sıralama sayfası.
 -
-    4. Kitapların bulunduğu bir kitaplık.
+    4. Kullanıcının kitaplarının bulunduğu bir kitaplık.
 -
-    5. Kitap takası yapabilmek için bir chat sistemi.
+    5. Kitaplara erişimi kolaylaştırmak için bir forum sayfası.
+-
+    6. Kitap değiş tokuşu veya alışverişi için mesajlaşma sayfası.
+-
+    7. Okudukça coin kazanma ve bu coinlerle bağış yapabilme.
+-
+    8. Renkli tasarımıyla çocukların da ilgisini çekecek olan bu uygulama insanları kitap okumaya teşfik edecek!
 
 ## Ürün Açıklaması:
 
@@ -38,21 +44,16 @@ ReadMe!
   erişimini sağlamanın yanında, belirli ölçütler çerçevesinde bağış yapılmasını da temel hedeflerden birisi haline
   getirerek sosyal sorumluluk açısından da önem arz etmektedir.
 
-
 - Uygulama içerisinde coin sistemi bulunmakta. Bu coin sistemi kullanıcının kitap okuduğu süreye dayanarak kitap bağışı
-  yapabilmesini sağlıyor. Kitap okuduğun süre, kitap değiş tokuşu veya ödünç verme, başarı sıralamasında bir üst
-  seviyeye atlama olayları sana coin kazandırıyor. Ayrıca bu coinlerle maskot mağazasından maskotuna bir şeyler
-  alabilirsin.
-- Ödünç alma veya değiş tokuş yapabilmek için belirlediğin kullanıcıya “… kitap sende varsa ödünç alabilir miyim?”
-  veya “… kitap sende varsa … kitapla değiş tokuş yapmak ister misin?” sorularıyla chatbot üzerinden konuşabilirsin.
-  Böylelikle aradığın kitapları para vermeden bulabilir ve okuyabilirsin. - Maskot sen uygulamaya uzun süre girmediğinde
-  acıkabilir veya birlikte kitap okumadığınız için sıkılabilir. Bu yüzden sana “Çok Acıktım!” Veya “Çok sıkıldım hadi
-  kitap okuyalım :3” gibi bildirimler yollayabilir. Bu sistem kullanıcının uygulamaya girmesini hatırlatmak için
-  düşünüldü.
-- Kütüphane 100 temel eserden oluşacak.
-- Kronometre kısmında kullanıcı bir süre belirleyecek ve bu süre içerisinde belirlediği birkaç uygulama hariç diğer
-  uygulamaları kullanmadan kitap okumalı. Süre ilerledikçe temsili kitap sayfaları çevrilecek, süre dolmadan
-  çıkıldığında veya kurallar bozulduğunda ise kitap yanacak ve maskot üzülecek.
+  yapabilmesini sağlıyor. 10-20 dk için 5, 20-40 dk için 30 ve her saat başı 100 coin veriyoruz. 2000 coine ulaşan kullanıcı, 'Bağış Yap' butonuna tıklarsa bizler kullanıcı adına kitaba ihtiyacı olan insanlara kitap bağışında bulunuyoruz.
+  
+- Günümüzde artık kitaplara ulaşmak ya çok pahalı ya da istediğimiz kitapları bulunamıyoruz. Artık Kitap Köprüsü ile kitaplar için ödünç alma, değiş tokuş veya kitap alışverişi yapabilmek için forum sayfasından aradığın kitabı bulup ilanın sahibi olan kullanıcıya mesaj atıp atıp iletişime geçerek kitaplara daha kolay ulaşılabilir.
+  
+- Uygulamaya uzun süre girmediğinde sana kitap okuman için hatırlatma bildirimleri yolluyoruz.
+  
+- Okuyacağın kitabı belirlemekte zorlanıyor musun? Hızlı ve haftalık kitap önerileriyle artık kitap seçmen çok kolay!
+  
+- Kronometre kısmında kullanıcı bir süre belirleyip zamanlayıcıyı çalıştırabilir veya kronometre tutabilir. Bu süre içerisinde sayfadan çıkmadan kitap okumazsa kronometre sıfırlanır ve böylece coin kazanılamaz. Bu sayede insanları odaklanmaya teşvik ediyoruz.
 
 ## Hedef Kitle:
 
@@ -61,6 +62,7 @@ ReadMe!
 - Bağışseverler
 - Okumayı bilen her yaştan insanlar
 - Yeni kitaplar keşfetmek isteyenler
+- Aradığı kitabı bulmakta zorluk çekenler
 
 ## Juriye Not
 - 
