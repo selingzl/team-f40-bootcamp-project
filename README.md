@@ -8,7 +8,7 @@ Takım F-40
 - Nisasu Bozkurt: Product Owner / Developer
 - Onur Özkınacı: Developer
 - Selin Nur Güzel: Developer
-- Gizem Yavuz: Developer
+
 
 ## Ürün İsmi:
 
@@ -38,11 +38,11 @@ ReadMe!
 
 - “ReadMe!” uygulaması, kitapseverlerin ilgisini çeken kitaplara kolaylıkla erişebilmesini, kitap okuma alışkanlığı
   olmayan teşvik etmeyi ve bu doğrultuda kitap okumayı devamlı hale getirecek şekilde hatırlatmalar sunmayı
-  hedeflemektedir. İçerisinde bulundurduğu zamanlayıcı, okuyucu sıralaması ve iletişim opsiyonu sunan fonksiyonlar
+  hedeflemektedir. İçerisinde bulundurduğu zamanlayıcı, bağış sıralaması ve iletişim opsiyonu sunan fonksiyonlar
   sayesinde kullanıcıların uygulama içerisinde aktif bir şekilde rol almasını sağlayarak kitap okumayı daha keyifli ve
-  verimli bir hâle getirmeyi amaçlamaktadır. Kullanıcıların istediği ve yeni keşfedecekleri kitaplara etkili bir şekilde
-  erişimini sağlamanın yanında, belirli ölçütler çerçevesinde bağış yapılmasını da temel hedeflerden birisi haline
-  getirerek sosyal sorumluluk açısından da önem arz etmektedir.
+  verimli bir hâle getirmeyi amaçlamaktadır.
+
+- Kullanıcıların istediği ve yeni keşfedecekleri kitaplara etkili bir şekilde erişimini sağlamanın yanında, belirli ölçütler çerçevesinde bağış yapılmasını da temel hedeflerden birisi haline getirerek sosyal sorumluluk açısından da önem arz etmektedir.
 
 - Uygulama içerisinde coin sistemi bulunmakta. Bu coin sistemi kullanıcının kitap okuduğu süreye dayanarak kitap bağışı
   yapabilmesini sağlıyor. 10-20 dk için 5, 20-40 dk için 30 ve her saat başı 100 coin veriyoruz. 2000 coine ulaşan kullanıcı, 'Bağış Yap' butonuna tıklarsa bizler kullanıcı adına kitaba ihtiyacı olan insanlara kitap bağışında bulunuyoruz.
