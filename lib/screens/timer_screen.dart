@@ -433,6 +433,7 @@ class _RotatingImagesState extends State<RotatingImages>
                     });
 
                     print('timer finished');
+                    choosen = 0;
 
                   }
 
@@ -462,7 +463,7 @@ class _RotatingImagesState extends State<RotatingImages>
 
                       if (!(userId != null && widget.bookName == "")) {
                         //*hours olacak, kontrol amacli 'minutes' yapilabilir.
-                        if(second >= 1 && second < 20){
+                        if(minutes >= 1 && minutes < 20){
                           coinProvider.increaseCoin(5);
                         } else if(minutes >= 20 && minutes < 40){
                           coinProvider.increaseCoin(30);
@@ -470,7 +471,7 @@ class _RotatingImagesState extends State<RotatingImages>
                         else if(minutes >= 40 && minutes < 60){
                           coinProvider.increaseCoin(80);
                         }
-                        else if(minutes >= 60){
+                        else if(hours >= 1){
                           coinProvider.increaseCoin(hours*100);
                         }
 
