@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:read_reminder/book_details.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -58,18 +58,27 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text('Kitap favorilere eklendi'),
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
           duration: const Duration(seconds: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
           action: SnackBarAction(
             label: 'Geri al',
+            textColor: Color.fromRGBO(183, 220, 218, 1),
             onPressed: () {
               removeFromFavorites(title, author);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
+                  behavior: SnackBarBehavior.floating,
                   content: Text('Kitap favorilerden kaldırıldı'),
-                  backgroundColor: Colors.grey[800],
+                  backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
                   duration: const Duration(seconds: 2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                 ),
               );
             },
@@ -79,9 +88,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Kitap zaten favorilerde kontrol et'),
-          backgroundColor: Colors.grey[800],
+          behavior: SnackBarBehavior.floating,
+          content: Text('Kitap favorilerde mevcut'),
+          backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
           duration: const Duration(seconds: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
         ),
       );
     }
@@ -178,7 +191,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     children: [
                       Icon(
                         FontAwesomeIcons.star,
-                        color: Color.fromRGBO(98, 217, 217, 1.0),
+                        color:  Color.fromRGBO(149, 252, 244, 1.0),
                       ),
                       SizedBox(
                         width: 14,
@@ -186,7 +199,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       Text(
                         'Hızlı Kitap Önerisi',
                         style: TextStyle(
-                          color: Color.fromRGBO(98, 217, 217, 1.0),
+                          color:  Color.fromRGBO(140, 252, 250, 1.0),
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
                         ),
@@ -196,9 +209,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                       Icon(
                         FontAwesomeIcons.star,
-                        color: Color.fromRGBO(98, 217, 217, 1.0),
+                        color:  Color.fromRGBO(149, 252, 244, 1.0),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   FutureBuilder<List<dynamic>>(
                     future: getBookList(),
@@ -207,46 +223,107 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         var bookList = snapshot.data;
                         var randomBookIndex = random.nextInt(bookList!.length);
                         var randomBook = bookList[randomBookIndex];
-                        var randomBookTitle =
-                        randomBook['volumeInfo']['title'];
-                        var randomBookAuthor =
-                            randomBook['volumeInfo']['authors'][0] ??
-                                'Yazar bilgisi mevcut değil';
+                        var randomBookTitle = randomBook['volumeInfo']['title'];
+                        var randomBookAuthor = randomBook['volumeInfo']
+                        ['authors'][0] ??
+                            'Yazar bilgisi mevcut değil';
                         var randomImageLinks =
                         randomBook['volumeInfo']['imageLinks'] != null
                             ? randomBook['volumeInfo']['imageLinks']
                         ['smallThumbnail']
                             : 'https://placekitten.com/600/800';
 
-                        return Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    randomBookTitle,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    randomBookAuthor,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  // Geçiş animasyonunu özelleştirin
+                                  var begin = Offset(1.0, 0.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
+
+                                  var tween = Tween(begin: begin, end: end);
+                                  var curvedAnimation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: curve,
+                                  );
+
+                                  return SlideTransition(
+                                    position: tween.animate(curvedAnimation),
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return BookDetails(
+                                    index: randomBookIndex,
+                                  );// İkinci sayfa widget'ını buraya yerleştirin
+                                },
+                              ),
+                            );
+
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 180,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromRGBO(183, 220, 218, 1),
+                                  Color.fromRGBO(187, 198, 240, 1),
+                                  Color.fromRGBO(185, 187, 223, 1),
                                 ],
                               ),
-                              Image.network(
-                                randomImageLinks,
-                                height: 50,
-                                width: 50,
-                              ),
-                            ],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 10,
+                                  spreadRadius: 1,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 10),
+                                      Flexible(
+                                        child: Text(
+                                          randomBookTitle,
+                                          style: const TextStyle(color :  Color.fromRGBO(
+                                              150, 130, 185, 0.9921568627450981),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        randomBookAuthor,
+                                        style: const TextStyle(color: Colors.black54,
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Image.network(
+                                  randomImageLinks,
+                                  height: 50,
+                                  width: 50,
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       } else if (snapshot.hasError) {
@@ -257,6 +334,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Container(
               padding: const EdgeInsets.all(10),
@@ -275,60 +355,158 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      padding: const EdgeInsets.all(5),
-                      height: MediaQuery.of(context).size.height * 0.55,
+                      padding: const EdgeInsets.all(20),
+                      height: MediaQuery.of(context).size.height * 0.50,
                       child: FutureBuilder<List<dynamic>>(
                         future: getBookList(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var bookList = snapshot.data;
-                            return ListView.builder(
+                            return GridView.builder(
                               itemCount: bookList!.length,
                               itemBuilder: (context, index) {
                                 var book = bookList[index];
                                 var title = book['volumeInfo']['title'];
-                                var subtitle =
-                                    book['volumeInfo']['authors'][0] ??
-                                        'Yazar bilgisi mevcut değil';
+                                var subtitle = book['volumeInfo']['authors']
+                                [0] ??
+                                    'Yazar bilgisi mevcut değil';
                                 var imageLinks =
                                 book['volumeInfo']['imageLinks'] != null
                                     ? book['volumeInfo']['imageLinks']
                                 ['smallThumbnail']
                                     : 'https://placekitten.com/600/800';
+                                bool check = isBookInFavorites(
+                                    book['volumeInfo']['title'],
+                                    book['volumeInfo']['authors'][0] ??
+                                        'Yazar bilgisi mevcut değil');
 
-                                return ListTile(
-                                  leading: IconButton(
-                                    icon: isBookInFavorites(title, subtitle)
-                                        ? const Icon(Icons.favorite)
-                                        : const Icon(Icons.favorite_border),
-                                    onPressed: () {
-                                      if (isBookInFavorites(title, subtitle)) {
-                                        removeFromFavorites(title, subtitle);
-                                      } else {
-                                        addToFavorites(title, subtitle);
-                                      }
-                                    },
-                                  ),
-                                  title: Text(
-                                    title,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromRGBO(54, 56, 84, 1.0),
-                                    ),
-                                  ),
-                                  subtitle: Text(subtitle),
-                                  trailing: Image.network(imageLinks),
+                                return GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => BookDetails(
-                                          index: index,
-                                        ),
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                          // Geçiş animasyonunu özelleştirin
+                                          var begin = Offset(1.0, 0.0);
+                                          var end = Offset.zero;
+                                          var curve = Curves.ease;
+
+                                          var tween = Tween(begin: begin, end: end);
+                                          var curvedAnimation = CurvedAnimation(
+                                            parent: animation,
+                                            curve: curve,
+                                          );
+
+                                          return SlideTransition(
+                                            position: tween.animate(curvedAnimation),
+                                            child: child,
+                                          );
+                                        },
+                                        pageBuilder: (context, animation, secondaryAnimation) {
+                                          return BookDetails(
+                                            index: index,
+                                          ); // İkinci sayfa widget'ını buraya yerleştirin
+                                        },
                                       ),
                                     );
                                   },
+                                  child: Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color.fromRGBO(183, 220, 218, 1),
+                                            Color.fromRGBO(187, 198, 240, 1),
+                                            Color.fromRGBO(185, 187, 223, 1),
+                                          ],
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            Colors.black.withOpacity(0.1),
+                                            blurRadius: 10,
+                                            spreadRadius: 1,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              IconButton(
+                                                icon: check
+                                                    ? const Icon(
+                                                  Icons.favorite,
+                                                  size: 18,  color: Color.fromRGBO(
+                                                    97, 5, 234, 1.0),
+                                                )
+                                                    : const Icon(
+                                                  Icons.favorite_border,
+                                                  size: 18,  color: Color.fromRGBO(
+                                                    97, 5, 234, 1.0),
+                                                ),
+                                                onPressed: () {
+                                                  if (isBookInFavorites(
+                                                      title, subtitle)) {
+                                                    removeFromFavorites(
+                                                        title, subtitle);
+                                                  } else {
+                                                    addToFavorites(
+                                                        title, subtitle);
+                                                  }
+                                                },
+                                              ),
+                                              Flexible(
+                                                child: Text(
+                                                  title,
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color.fromRGBO(
+                                                        54, 56, 84, 1.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            subtitle,
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontStyle: FontStyle.italic),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Flexible(
+                                              child: Image.network(imageLinks)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 );
                               },
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
                             );
                           } else if (snapshot.hasError) {
                             return Text('Hata: ${snapshot.error}');

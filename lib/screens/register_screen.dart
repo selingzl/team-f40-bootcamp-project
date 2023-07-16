@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
-
+  bool _passwordVisible = false;
   String _errorMessage = '';
 
   Future<void> _register() async {
@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
       final UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -115,14 +115,14 @@ class _RegisterPageState extends State<RegisterPage> {
     Future<void> addUser() {
       return users
           .add({
-            'username': _userNameController.text,
-            'currentPoint': 0,
-            'lastReadDate': DateTime.now(),
-            'profileImage': '',
-            'totalTime': 0,
-            'userId': _auth.currentUser!.uid,
-            'donationCount': 0
-          })
+        'username': _userNameController.text,
+        'currentPoint': 0,
+        'lastReadDate': DateTime.now(),
+        'profileImage': '',
+        'totalTime': 0,
+        'userId': _auth.currentUser!.uid,
+        'donationCount': 0
+      })
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     }
@@ -195,10 +195,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     decoration: InputDecoration(
                       labelText: 'İsim',
                       labelStyle:
-                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                      TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -225,10 +225,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     decoration: InputDecoration(
                       labelText: 'E-posta',
                       labelStyle:
-                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                      TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -252,13 +252,26 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextFormField(
                     controller: _passwordController,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    obscureText: !_passwordVisible,
                     decoration: InputDecoration(
                       labelText: 'Şifre',
-                      labelStyle:
-                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                      labelStyle: const TextStyle(
+                          color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 30),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
@@ -276,7 +289,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         backgroundColor: MaterialStateProperty.all(
                             Color.fromRGBO(135, 142, 205, 1)),
                         foregroundColor:
-                            MaterialStateProperty.all(Colors.white),
+                        MaterialStateProperty.all(Colors.white),
                         padding: MaterialStateProperty.all(
                           EdgeInsets.symmetric(
                               vertical: 18.0, horizontal: 40.0),

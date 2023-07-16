@@ -92,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
         int fetchedOrder = await _getUserOrder();
         setState(() {
           username = userData['username'];
-          totalFocusedTime = (userData['totalTime'] / 60).toInt();
+          totalFocusedTime = (userData['totalTime']).toInt();
           donationCount = userData['donationCount'];
           coinOfUser = userData['currentPoint'];
           orderOfUser = fetchedOrder;
@@ -156,9 +156,13 @@ class _ProfilePageState extends State<ProfilePage> {
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Bağış yapıldı!'),
-              backgroundColor: Colors.grey[800],
-              duration: Duration(seconds: 2)),
+            behavior: SnackBarBehavior.floating,
+            content: Text('Bağış yapıldı!'),
+            backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+            duration: const Duration(seconds: 2),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),),
         );
       } catch (error) {
         print(error);
@@ -501,10 +505,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ? makeDonation()
                       : ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                        content: Text(
-                            'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
-                        backgroundColor: Colors.grey[800],
-                        duration: Duration(seconds: 2)),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                          'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
+                      backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                      duration: const Duration(seconds: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),),
                   );
                 },
 

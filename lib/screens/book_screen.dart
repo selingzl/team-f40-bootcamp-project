@@ -103,8 +103,8 @@ class _BookPageState extends State<BookPage> {
           SizedBox(height: 10),
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all(const Color.fromRGBO(149, 157, 224, 1.0)),
+              backgroundColor: MaterialStateProperty.all(
+                  const Color.fromRGBO(149, 157, 224, 1.0)),
               foregroundColor: MaterialStateProperty.all(Colors.white),
               padding: MaterialStateProperty.all(
                 const EdgeInsets.symmetric(vertical: 9.0, horizontal: 12),
@@ -122,25 +122,30 @@ class _BookPageState extends State<BookPage> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  backgroundColor: Color.fromRGBO(
-                      255, 255, 255, 0.8156862745098039),
+                  backgroundColor:
+                  Color.fromRGBO(255, 255, 255, 0.8156862745098039),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(32.0))),
-
                   title: const Text(
-                    'Kitap Ekle', textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(135, 142, 205, 1)),
+                    'Kitap Ekle',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromRGBO(135, 142, 205, 1)),
                   ),
-                  content: Container( decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(185, 187, 223, 1),
-                        Color.fromRGBO(187, 198, 240, 1),
-                        Color.fromRGBO(183, 220, 218, 1),
-                      ],),),
+                  content: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromRGBO(185, 187, 223, 1),
+                          Color.fromRGBO(187, 198, 240, 1),
+                          Color.fromRGBO(183, 220, 218, 1),
+                        ],
+                      ),
+                    ),
                     width: 400,
                     padding: EdgeInsets.all(40),
                     margin: EdgeInsets.all(5),
@@ -152,23 +157,33 @@ class _BookPageState extends State<BookPage> {
                         TextField(
                           controller: _controller,
                           decoration: const InputDecoration(
-                              labelText: 'Kitap İsmi', labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),)
-                          ),
+                              labelText: 'Kitap İsmi',
+                              labelStyle: TextStyle(
+                                color: Color.fromRGBO(82, 87, 124, 1.0),
+                              )),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextField(
                           controller: _controllerB,
                           decoration: const InputDecoration(
-                              labelText: 'Harcanan Zaman',labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),)
-                          ),
+                              labelText: 'Harcanan Zaman',
+                              labelStyle: TextStyle(
+                                color: Color.fromRGBO(82, 87, 124, 1.0),
+                              )),
                           keyboardType: TextInputType.number,
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextField(
                           controller: _controllerC,
                           decoration: const InputDecoration(
-                              labelText: 'Notunuz',labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),)
-                          ),
+                              labelText: 'Notunuz',
+                              labelStyle: TextStyle(
+                                color: Color.fromRGBO(82, 87, 124, 1.0),
+                              )),
                         ),
                       ],
                     ),
@@ -176,14 +191,17 @@ class _BookPageState extends State<BookPage> {
                   actions: [
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
-                        foregroundColor: MaterialStateProperty.all(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                            const Color.fromRGBO(135, 142, 205, 1)),
+                        foregroundColor:
+                        MaterialStateProperty.all(Colors.white),
                         padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(vertical: 9.0, horizontal: 15.0),
+                          const EdgeInsets.symmetric(
+                              vertical: 9.0, horizontal: 15.0),
                         ),
                         textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                          const TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold),
                         ),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -218,7 +236,8 @@ class _BookPageState extends State<BookPage> {
                       },
                       child: const Text(
                         'İptal',
-                        style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),
+                        style:
+                        TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),
                       ),
                     ),
                   ],
@@ -255,7 +274,8 @@ class _BookPageState extends State<BookPage> {
                   final documents = snapshot.data!.docs;
 
                   return GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       mainAxisSpacing: 15,
                       crossAxisSpacing: 5,
@@ -322,14 +342,15 @@ class _UserBookCardState extends State<UserBookCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onDoubleTap: () {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))),
             contentPadding: EdgeInsets.only(top: 10.0),
-            title: const Text('Kitap Düzenle',style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1))),
+            title: const Text('Kitap Düzenle',
+                style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1))),
             content: Container(
               width: 300,
               padding: EdgeInsets.all(30),
@@ -342,12 +363,21 @@ class _UserBookCardState extends State<UserBookCard> {
                         updatedBookName = value;
                       });
                     },
-                    decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),border: OutlineInputBorder(),
-                      labelText: 'Kitap İsmi',labelStyle: TextStyle(fontSize:14,color:Color.fromRGBO(82, 87, 124, 1.0),),
+                    decoration: InputDecoration(
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      border: OutlineInputBorder(),
+                      labelText: 'Kitap İsmi',
+                      labelStyle: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromRGBO(82, 87, 124, 1.0),
+                      ),
                       hintText: updatedBookName,
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TextField(
                     onChanged: (value) {
                       setState(() {
@@ -355,20 +385,39 @@ class _UserBookCardState extends State<UserBookCard> {
                       });
                     },
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),border: OutlineInputBorder(),
-                      labelText: 'Harcanan Zaman', labelStyle: TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),),
+                    decoration: InputDecoration(
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      border: OutlineInputBorder(),
+                      labelText: 'Harcanan Zaman',
+                      labelStyle: TextStyle(
+                        color: Color.fromRGBO(82, 87, 124, 1.0),
+                      ),
                       hintText: updatedSpentTime.toString(),
-                    ), style: TextStyle(fontSize: 14, color:Color.fromRGBO(82, 87, 124, 1.0),),
+                    ),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color.fromRGBO(82, 87, 124, 1.0),
+                    ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TextField(
                     onChanged: (value) {
                       setState(() {
                         updatedComment = value;
                       });
                     },
-                    decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),border: OutlineInputBorder(),
-                      labelText: 'Notunuz',labelStyle: TextStyle( fontSize:14,color:Color.fromRGBO(82, 87, 124, 1.0),),
+                    decoration: InputDecoration(
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      border: OutlineInputBorder(),
+                      labelText: 'Notunuz',
+                      labelStyle: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromRGBO(82, 87, 124, 1.0),
+                      ),
                       hintText: updatedComment,
                     ),
                   ),
@@ -378,14 +427,15 @@ class _UserBookCardState extends State<UserBookCard> {
             actions: [
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStateProperty.all(const Color.fromRGBO(135, 142, 205, 1)),
+                  backgroundColor: MaterialStateProperty.all(
+                      const Color.fromRGBO(135, 142, 205, 1)),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   padding: MaterialStateProperty.all(
                     const EdgeInsets.symmetric(vertical: 9.0, horizontal: 15.0),
                   ),
                   textStyle: MaterialStateProperty.all(
-                    const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                    const TextStyle(
+                        fontSize: 15.0, fontWeight: FontWeight.bold),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -394,7 +444,8 @@ class _UserBookCardState extends State<UserBookCard> {
                   ),
                 ),
                 onPressed: () {
-                  widget.onUpdate(widget.bookId, updatedBookName, updatedSpentTime, updatedComment);
+                  widget.onUpdate(widget.bookId, updatedBookName,
+                      updatedSpentTime, updatedComment);
                   Navigator.pop(context);
                 },
                 child: const Text('Kaydet'),
@@ -403,8 +454,12 @@ class _UserBookCardState extends State<UserBookCard> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('İptal', style:TextStyle(color:Color.fromRGBO(82, 87, 124, 1.0),),)
-              ),
+                  child: const Text(
+                    'İptal',
+                    style: TextStyle(
+                      color: Color.fromRGBO(82, 87, 124, 1.0),
+                    ),
+                  )),
             ],
           ),
         );
@@ -415,7 +470,7 @@ class _UserBookCardState extends State<UserBookCard> {
           borderRadius: BorderRadius.circular(25),
         ),
         child: Container(
-          padding: const EdgeInsets.only(bottom: 10,right: 10,left: 10),
+          padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               begin: Alignment.topCenter,
@@ -440,21 +495,54 @@ class _UserBookCardState extends State<UserBookCard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(183, 220, 218, 1),
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    minimumSize: Size(40, 20),
-                    maximumSize: Size(50, 30),
-                    textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),),
-                    elevation: 4),
-                  onPressed:() {Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => FeedPage(bookTitle: updatedBookName)),
-                  );},
-                  child: const Text('oku'),),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(183, 220, 218, 1),
+                      foregroundColor: Colors.white,
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      minimumSize: Size(40, 20),
+                      maximumSize: Size(50, 30),
+                      textStyle:
+                      TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 4),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 500),
+                        // Geçiş süresi
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          // Geçiş animasyonunu özelleştirin
+                          var begin = Offset(0, 1.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end);
+                          var curvedAnimation = CurvedAnimation(
+                            parent: animation,
+                            curve: curve,
+                          );
+
+                          return SlideTransition(
+                            position: tween.animate(curvedAnimation),
+                            child: child,
+                          );
+                        },
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return FeedPage(
+                              bookTitle:
+                              updatedBookName); // İkinci sayfa widget'ını buraya yerleştirin
+                        },
+                      ),
+                    );
+                  },
+                  child: const Text('oku'),
+                ),
                 Text(
                   '${widget.spentTime} dakika',
                   textAlign: TextAlign.center,
@@ -490,4 +578,5 @@ class _UserBookCardState extends State<UserBookCard> {
         ),
       ),
     );
-  }}
+  }
+}
