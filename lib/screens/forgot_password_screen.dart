@@ -165,7 +165,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             const Color.fromRGBO(135, 142, 205, 1),
                           ),
                           foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
+                          MaterialStateProperty.all(Colors.white),
                           padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
                                 vertical: 18.0, horizontal: 40.0),

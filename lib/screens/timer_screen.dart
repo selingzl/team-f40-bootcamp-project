@@ -304,238 +304,240 @@ class _RotatingImagesState extends State<RotatingImages>
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                getTimerText(),
-                style: const TextStyle(
-                  fontSize: 36,
-                  color: Color.fromRGBO(82, 87, 124, 1.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text(
-                          'Süre Ekle',
-                          style: TextStyle(
-                              color: Color.fromRGBO(135, 142, 205, 1)),
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              controller: controller,
-                              decoration: const InputDecoration(
-                                labelText: 'Süre Seçimi(dk)',
+                Text(
+                  getTimerText(),
+                  style: const TextStyle(
+                    fontSize: 36,
+                    color: Color.fromRGBO(82, 87, 124, 1.0),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text(
+                            'Süre Ekle',
+                            style: TextStyle(
+                                color: Color.fromRGBO(135, 142, 205, 1)),
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextField(
+                                controller: controller,
+                                decoration: const InputDecoration(
+                                  labelText: 'Süre Seçimi(dk)',
+                                ),
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromRGBO(135, 142, 205, 1)),
+                                foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                                padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 9.0, horizontal: 15.0),
+                                ),
+                                textStyle: MaterialStateProperty.all(
+                                  const TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(51.16),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  choose = controller.text.toString();
+                                  choosen = int.parse(choose);
+                                  ifchoosen = true;
+                                  _stopStopwatch();
+                                  _resetStopwatch();
+                                });
+                                print(choosen);
+                                print(ifchoosen);
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Tut'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'iptal',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(135, 142, 205, 1)),
                               ),
                             ),
                           ],
-                        ),
-                        actions: [
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromRGBO(135, 142, 205, 1)),
-                              foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    vertical: 9.0, horizontal: 15.0),
-                              ),
-                              textStyle: MaterialStateProperty.all(
-                                const TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(51.16),
-                                ),
-                              ),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                choose = controller.text.toString();
-                                choosen = int.parse(choose);
-                                ifchoosen = true;
-                                _stopStopwatch();
-                                _resetStopwatch();
-                              });
-                              print(choosen);
-                              print(ifchoosen);
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Tut'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'iptal',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(135, 142, 205, 1)),
-                            ),
-                          ),
-                        ],
-                      ));
-                },
-                icon: const Icon(
-                  FontAwesomeIcons.clockRotateLeft,
-                  color: Color.fromRGBO(82, 87, 124, 1.0),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  //ZamanlayÄ±cÄ±
-                  if (choosen != 0) {
-                    _startStopwatch();
-                    _toggleRotation();
-                    CoinProvider coinProvider =
-                    Provider.of<CoinProvider>(context, listen: false);
-                    print('timer started');
-                    timer = Timer.periodic(Duration(seconds: choosen), (timer) {
-                      setState(() {
-                        timer.cancel();
-                        _animationController.stop();
-                        _stopStopwatch();
-                        int passedTime = int.parse(getTimerTextasMin());
-                        print(passedTime);
-                        int hourtime = (passedTime / 60).toInt();
-                        _resetStopwatch();
-                        _isRotating = false;
-
-                        if (!(userId != null && widget.bookName == "")) {
-                          if (passedTime >= 1 && passedTime < 20) {
-                            coinProvider.increaseCoin(5, userId!);
-                          } else if (passedTime >= 20 && passedTime < 40) {
-                            coinProvider.increaseCoin(30, userId!);
-                          } else if (passedTime >= 40 && passedTime < 60) {
-                            coinProvider.increaseCoin(80, userId!);
-                          } else if (passedTime >= 60) {
-                            coinProvider.increaseCoin(hourtime * 100, userId!);
-                          }
-                          addOrUpdateUserBook(); //*
-                          updateReadInfos(passedTime);
-                          addReadRecords(passedTime);
-                          fetchTodaysReadingTime(); //*
-                        }
-                        choosen = 0;
-                      });
-                    });
-
-                    print('timer finished');
-
-                  }
-
-                  //Kronometre
-                  else {
-                    if (_isRunning && _isRotating) {
-                      _stopStopwatch();
-                      _resetStopwatch();
-                      _isRotating = false;
-                      _animationController.stop();
-
-                      CoinProvider coinProvider =
-                      Provider.of<CoinProvider>(context, listen: false);
-
-                      if (hours < 0) {
-                        coinProvider.increaseCoin(0, userId!);
-                      }
-
-                      if (second >= 1) {
-                        minutes = minutes +
-                            (hours *
-                                60); //to get the hours+minutes value for reading a book which will be pushed to db.
-                      }
-                      minutes1 = minutes;
-
-                      if (!(userId != null && widget.bookName == "")) {
-                        //*hours olacak, kontrol amacli 'minutes' yapilabilir.
-                        if (second >= 1 && second < 20) {
-                          coinProvider.increaseCoin(5, userId!);
-                        } else if (minutes >= 20 && minutes < 40) {
-                          coinProvider.increaseCoin(30, userId!);
-                        } else if (minutes >= 40 && minutes < 60) {
-                          coinProvider.increaseCoin(80, userId!);
-                        } else if (minutes >= 60) {
-                          coinProvider.increaseCoin(hours * 100, userId!);
-                        }
-
-                        addOrUpdateUserBook(); //*
-                        updateReadInfos(
-                            minutes1); //* minutes1 / 60 => saat cinsinden aktarilacaksa
-                        addReadRecords(minutes1);
-                        fetchTodaysReadingTime(); //*
-                      }
-                    } else {
-                      _toggleRotation();
-                      _startStopwatch();
-                    }
-                  }
-                },
-                child: SizedBox(
-                  width: 400,
-                  height: 400,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: RotationTransition(
-                            turns: _animation,
-                            child: Image.asset(
-                              'lib/assets/halka2.png',
-                              width: 285,
-                              height: 280,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: RotationTransition(
-                            turns: _animation,
-                            child: Image.asset(
-                              'lib/assets/halka1.png',
-                              width: 330,
-                              height: 330,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            'lib/assets/timer.png',
-                            width: 230,
-                            height: 230,
-                          ),
-                        ),
-                      ),
-                    ],
+                        ));
+                  },
+                  icon: const Icon(
+                    FontAwesomeIcons.clockRotateLeft,
+                    color: Color.fromRGBO(82, 87, 124, 1.0),
                   ),
                 ),
-              ),
-              Text(
-                //'En son geÃ§en sÃ¼re: ${hours1} s ${minutes1} dk ',
-                'Bugün $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
-                    color: Color.fromRGBO(84, 90, 128, 1.0)),
-              ),
-            ],
+                GestureDetector(
+                  onTap: () {
+                    //ZamanlayÄ±cÄ±
+                    if (choosen != 0) {
+                      _startStopwatch();
+                      _toggleRotation();
+                      CoinProvider coinProvider =
+                      Provider.of<CoinProvider>(context, listen: false);
+                      print('timer started');
+                      timer = Timer.periodic(Duration(seconds: choosen), (timer) {
+                        setState(() {
+                          timer.cancel();
+                          _animationController.stop();
+                          _stopStopwatch();
+                          int passedTime = int.parse(getTimerTextasMin());
+                          print(passedTime);
+                          int hourtime = (passedTime / 60).toInt();
+                          _resetStopwatch();
+                          _isRotating = false;
+
+                          if (!(userId != null && widget.bookName == "")) {
+                            if (passedTime >= 1 && passedTime < 20) {
+                              coinProvider.increaseCoin(5, userId!);
+                            } else if (passedTime >= 20 && passedTime < 40) {
+                              coinProvider.increaseCoin(30, userId!);
+                            } else if (passedTime >= 40 && passedTime < 60) {
+                              coinProvider.increaseCoin(80, userId!);
+                            } else if (passedTime >= 60) {
+                              coinProvider.increaseCoin(hourtime * 100, userId!);
+                            }
+                            addOrUpdateUserBook(); //*
+                            updateReadInfos(passedTime);
+                            addReadRecords(passedTime);
+                            fetchTodaysReadingTime(); //*
+                          }
+                          choosen = 0;
+                        });
+                      });
+
+                      print('timer finished');
+
+                    }
+
+                    //Kronometre
+                    else {
+                      if (_isRunning && _isRotating) {
+                        _stopStopwatch();
+                        _resetStopwatch();
+                        _isRotating = false;
+                        _animationController.stop();
+
+                        CoinProvider coinProvider =
+                        Provider.of<CoinProvider>(context, listen: false);
+
+                        if (hours < 0) {
+                          coinProvider.increaseCoin(0, userId!);
+                        }
+
+                        if (second >= 1) {
+                          minutes = minutes +
+                              (hours *
+                                  60); //to get the hours+minutes value for reading a book which will be pushed to db.
+                        }
+                        minutes1 = minutes;
+
+                        if (!(userId != null && widget.bookName == "")) {
+                          //*hours olacak, kontrol amacli 'minutes' yapilabilir.
+                          if (second >= 1 && second < 20) {
+                            coinProvider.increaseCoin(5, userId!);
+                          } else if (minutes >= 20 && minutes < 40) {
+                            coinProvider.increaseCoin(30, userId!);
+                          } else if (minutes >= 40 && minutes < 60) {
+                            coinProvider.increaseCoin(80, userId!);
+                          } else if (minutes >= 60) {
+                            coinProvider.increaseCoin(hours * 100, userId!);
+                          }
+
+                          addOrUpdateUserBook(); //*
+                          updateReadInfos(
+                              minutes1); //* minutes1 / 60 => saat cinsinden aktarilacaksa
+                          addReadRecords(minutes1);
+                          fetchTodaysReadingTime(); //*
+                        }
+                      } else {
+                        _toggleRotation();
+                        _startStopwatch();
+                      }
+                    }
+                  },
+                  child: SizedBox(
+                    width: 400,
+                    height: 400,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: RotationTransition(
+                              turns: _animation,
+                              child: Image.asset(
+                                'lib/assets/halka2.png',
+                                width: 285,
+                                height: 280,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: RotationTransition(
+                              turns: _animation,
+                              child: Image.asset(
+                                'lib/assets/halka1.png',
+                                width: 330,
+                                height: 330,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              'lib/assets/timer.png',
+                              width: 230,
+                              height: 230,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Text(
+                  //'En son geÃ§en sÃ¼re: ${hours1} s ${minutes1} dk ',
+                  'Bugün $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      color: Color.fromRGBO(84, 90, 128, 1.0)),
+                ),
+              ],
+            ),
           ),
         ));
   }

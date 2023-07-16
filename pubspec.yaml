@@ -100,7 +100,6 @@ flutter:
   # example:
 
   fonts:
-    - family: Lato
     - family: Nunito
       fonts:
         - asset: lib/assets/Nunito/static/Nunito-Regular.ttf

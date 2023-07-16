@@ -1,18 +1,19 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/donateList_screen.dart';
+
 import 'favorite_book_screen.dart';
 import 'login_screen.dart';
 import 'timer_screen.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -55,9 +56,9 @@ class _ProfilePageState extends State<ProfilePage> {
         await storageRef.putFile(file!);
         final downloadURL = await storageRef.getDownloadURL();
         CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
+            FirebaseFirestore.instance.collection('users');
         QuerySnapshot querySnapshot =
-        await usersCollection.where('userId', isEqualTo: userId).get();
+            await usersCollection.where('userId', isEqualTo: userId).get();
         if (querySnapshot.docs.isNotEmpty) {
           DocumentSnapshot userDoc = querySnapshot.docs.first;
           DocumentReference userDocRef = userDoc.reference;
@@ -127,20 +128,19 @@ class _ProfilePageState extends State<ProfilePage> {
     return 0; //default value
   }
 
-
   //Making a donation if the coin of user is sufficient;
   Future<void> makeDonation() async {
     String? userId = user?.uid;
     if (userId != null) {
       CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('users');
+          FirebaseFirestore.instance.collection('users');
       try {
         QuerySnapshot querySnapshot =
-        await usersCollection.where('userId', isEqualTo: userId).get();
+            await usersCollection.where('userId', isEqualTo: userId).get();
         if (querySnapshot.docs.isNotEmpty) {
           DocumentSnapshot userDoc = querySnapshot.docs.first;
           Map<String, dynamic> userData =
-          userDoc.data() as Map<String, dynamic>;
+              userDoc.data() as Map<String, dynamic>;
           int currentDonationCount = userData['donationCount'];
           int currentCoin = userData['currentPoint'];
           DocumentReference userDocRef = userDoc.reference;
@@ -149,20 +149,23 @@ class _ProfilePageState extends State<ProfilePage> {
             'currentPoint': (currentCoin - 2000)
           });
           CoinProvider coinProvider =
-          Provider.of<CoinProvider>(context, listen: false);
-          coinProvider
-              .getUsersCoin(userId); //updated coin value from the db will be fetched.
+              Provider.of<CoinProvider>(context, listen: false);
+          coinProvider.getUsersCoin(
+              userId); //updated coin value from the db will be fetched.
           await _getUserInfos(); //to fetch the updated user infos.
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
-              content: Text('Bağış yapıldı!'),
+            padding: EdgeInsets.all(20),
+            content: Text(
+                'Sizin adınıza ihtiyaç sahiplerine en kısa sürede kitap bağışında bulunacağız. İşlem tamamlandığında ReadMe! kedisi mail yoluya adınıza yapılan bağışın bilgilerini size ulaştırılacaktır :3 Okumaya devam!'),
             backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 10),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),),
+              borderRadius: BorderRadius.circular(40),
+            ),
+          ),
         );
       } catch (error) {
         print(error);
@@ -194,7 +197,6 @@ class _ProfilePageState extends State<ProfilePage> {
       MaterialPageRoute(builder: (context) => DonateListPage()),
     );
   }
-
 
   void _goToFav() {
     Navigator.push(
@@ -234,13 +236,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     _pickImage();
                   },
                   child: CircleAvatar(
-                    backgroundImage: profileImageURL == null ||
-                        profileImageURL == ''
-                        ? null
-                        : NetworkImage(profileImageURL!),
+                    backgroundImage:
+                        profileImageURL == null || profileImageURL == ''
+                            ? null
+                            : NetworkImage(profileImageURL!),
                     child: profileImageURL == null || profileImageURL == ''
                         ? Icon(Icons.add_a_photo,
-                        size: 40, color: Colors.grey[300])
+                            size: 40, color: Colors.grey[300])
                         : null,
                     //AssetImage('lib/assets/background/bg_profile.png',)
                   ),
@@ -248,23 +250,20 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               SizedBox(height: 16),
               Center(
-                child: Text(
-                    username,
+                child: Text(username,
                     style: TextStyle(
                       color: Color.fromRGBO(54, 56, 84, 1.0),
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                    )),),
+                    )),
+              ),
               const SizedBox(height: 60),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     height: 100,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.35,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.transparent,
@@ -291,7 +290,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 5,),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Icon(
                               FontAwesomeIcons.clock,
                               size: 14,
@@ -299,7 +300,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Text(
                           '$hourtime s $minutetime dk',
                           textAlign: TextAlign.center,
@@ -309,21 +312,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-
-
                       ],
                     ),
                   ),
-                  SizedBox(width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.1,),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  ),
                   Container(
                     height: 100,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.35,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.transparent,
@@ -350,7 +347,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 5,),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Icon(
                               FontAwesomeIcons.book,
                               size: 14,
@@ -358,7 +357,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text(
                           '$donationCount',
                           textAlign: TextAlign.center,
@@ -378,10 +379,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Container(
                     height: 80,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.40,
+                    width: MediaQuery.of(context).size.width * 0.40,
                     color: Colors.transparent,
                     child: Center(
                       child: Column(
@@ -433,10 +431,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Container(
                     height: 80,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.40,
+                    width: MediaQuery.of(context).size.width * 0.40,
                     color: Colors.transparent,
                     child: Center(
                       child: Column(
@@ -461,7 +456,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-
                               IconButton(
                                 onPressed: () {
                                   _goToFav();
@@ -480,7 +474,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
@@ -504,18 +500,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   isDonationEnabled
                       ? makeDonation()
                       : ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                        content: Text(
-                            'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
-                      backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
-                      duration: const Duration(seconds: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),),
-                  );
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                                'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
+                            backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                            duration: const Duration(seconds: 2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        );
                 },
-
                 child: const Text(
                   'BAĞIŞ YAP',
                   textAlign: TextAlign.center,
@@ -526,7 +522,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               TextButton(
                 onPressed: () {
                   _signOut();
@@ -546,4 +544,5 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
-  }}
+  }
+}
