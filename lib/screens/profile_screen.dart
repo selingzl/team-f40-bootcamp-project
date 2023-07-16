@@ -151,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
           CoinProvider coinProvider =
           Provider.of<CoinProvider>(context, listen: false);
           coinProvider
-              .getUsersCoin(); //updated coin value from the db will be fetched.
+              .getUsersCoin(userId); //updated coin value from the db will be fetched.
           await _getUserInfos(); //to fetch the updated user infos.
         }
         ScaffoldMessenger.of(context).showSnackBar(
