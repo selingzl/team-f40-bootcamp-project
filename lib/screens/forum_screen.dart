@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:read_reminder/screens/conversation_screen.dart';
-import 'kvkk_screen.dart';
+
+import '../kvkk_screen.dart';
+
 
 class EklenenMesaj {
   final String userId;
@@ -28,10 +31,6 @@ class EklenenMesaj {
 }
 
 class ForumPage extends StatefulWidget {
-  ForumPage({
-    Key? key,
-  }) : super(key: key);
-
   @override
   _ForumPageState createState() => _ForumPageState();
 }
@@ -56,7 +55,6 @@ class _ForumPageState extends State<ForumPage> {
   }
 
   String userId = '';
-
   Future<String> _getCurrentUser(String userId) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -141,294 +139,6 @@ class _ForumPageState extends State<ForumPage> {
     }
   }
 
-  Widget _buildMessageCard(
-      String userId,
-      String bookName,
-      String message,
-      int likes,
-      ) {
-    return FutureBuilder<String>(
-      future: getUsernameFromId(userId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return Card(
-            color: Color.fromRGBO(210, 241, 237, 1.0),
-            margin: EdgeInsets.symmetric(
-              horizontal: 40,
-              vertical: 15,
-            ),
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Container(
-              margin: EdgeInsets.all(15),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(196, 239, 237, 1.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 10,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Spacer(),
-                  Icon(
-                    Icons.account_circle,
-                    color: Color.fromRGBO(112, 118, 171, 1.0),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '$bookName',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                      color: Color.fromRGBO(54, 56, 84, 1.0),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'Detay:',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      color: Color.fromRGBO(112, 118, 171, 1.0),
-                    ),
-                  ),
-                  Text(
-                    'yükleniyor...',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
-                      color: Color.fromRGBO(88, 93, 141, 1.0),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Kullanıcı adı:',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      color: Color.fromRGBO(127, 185, 183, 1.0),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    'yükleniyor...',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color.fromRGBO(88, 145, 144, 1.0),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Spacer(),
-                ],
-              ),
-            ),
-          );
-        }
-
-        final username = snapshot.data ?? 'Bilinmeyen Kullanıcı';
-
-        return Card(
-          color: Color.fromRGBO(210, 241, 237, 1.0),
-          margin: EdgeInsets.symmetric(
-            horizontal: 40,
-            vertical: 15,
-          ),
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
-          ),
-          child: Container(
-            margin: EdgeInsets.all(15),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(196, 239, 237, 1.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 10,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(),
-                Icon(
-                  Icons.account_circle,
-                  color: Color.fromRGBO(112, 118, 171, 1.0),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '$bookName',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: Color.fromRGBO(54, 56, 84, 1.0),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  'Detay:',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Color.fromRGBO(112, 118, 171, 1.0),
-                  ),
-                ),
-                Text(
-                  '$message',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                    color: Color.fromRGBO(88, 93, 141, 1.0),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Kullanıcı adı:',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Color.fromRGBO(127, 185, 183, 1.0),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  '$username',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color.fromRGBO(88, 145, 144, 1.0),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Spacer(),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _incrementLikes(userId);
-                      },
-                      style: IconButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(187, 198, 240, 1),
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 15,
-                        ),
-                        minimumSize: Size(100, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        elevation: 4,
-                      ),
-                      icon: Icon(Icons.thumb_up),
-                    ),
-                    Text('$likes'),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(187, 198, 240, 1),
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 15,
-                        ),
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        elevation: 4,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SendMessagePage(
-                              senderId: currentUserUid,
-                              receiverId: userId,
-                              recipientName: username,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Text('İletişime Geç'),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildGridView(List<QueryDocumentSnapshot> messages) {
-    return GridView.count(
-      crossAxisCount: 1,
-      children: messages.map((message) {
-        final messageData = message.data() as Map<String, dynamic>;
-        final messageId = message.id;
-        final userId = messageData['userId'];
-        final bookName = messageData['bookName'];
-        final messageText = messageData['message'];
-        final likes = messageData['likes'];
-
-        if (_searchQuery.isEmpty ||
-            bookName.toLowerCase().contains(_searchQuery)) {
-          return _buildMessageCard(userId, bookName, messageText, likes);
-        } else {
-          return SizedBox.shrink();
-        }
-      }).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -444,6 +154,7 @@ class _ForumPageState extends State<ForumPage> {
         ),
       ),
       body: Container(
+
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('lib/assets/Ekran Resmi 2023-07-16 19.49.32.png'),
@@ -453,7 +164,7 @@ class _ForumPageState extends State<ForumPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(top:15, left: 35, right: 15),
               child: TextField(
                 onChanged: (value) {
                   setState(() {
@@ -463,6 +174,7 @@ class _ForumPageState extends State<ForumPage> {
                 decoration: InputDecoration(
                   labelText: 'Kitap Ara...',
                   labelStyle: TextStyle(
+
                     color: Color.fromRGBO(54, 56, 84, 1.0),
                   ),
                   prefixIcon: Icon(
@@ -483,7 +195,7 @@ class _ForumPageState extends State<ForumPage> {
             Flexible(
               child: Container(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: _forumCollection.snapshots(),
+                  stream: _forumCollection.orderBy('likes', descending: true).snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -498,14 +210,304 @@ class _ForumPageState extends State<ForumPage> {
 
                     final messages = snapshot.data!.docs;
 
-                    final filteredMessages = messages.where((message) {
-                      final messageData = message.data() as Map<String, dynamic>;
-                      final bookName = messageData['bookName'];
-                      return _searchQuery.isEmpty ||
-                          bookName.toLowerCase().contains(_searchQuery);
-                    }).toList();
+                    List<Widget> cardWidgets = [];
 
-                    return _buildGridView(filteredMessages);
+                    for (var index = 0; index < messages.length; index++) {
+                      final messageData =
+                      messages[index].data() as Map<String, dynamic>;
+                      final messageId = messages[index].id;
+                      final userId = messageData['userId'];
+                      final bookName = messageData['bookName'];
+                      final message = messageData['message'];
+                      final likes = messageData['likes'];
+
+                      if (_searchQuery.isEmpty ||
+                          bookName.toLowerCase().contains(_searchQuery)) {
+                        cardWidgets.add(FutureBuilder<String>(
+                          future: getUsernameFromId(userId),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState !=
+                                ConnectionState.done) {
+                              return Card(
+                                color: Color.fromRGBO(210, 241, 237, 1.0),
+                                margin: EdgeInsets.only(
+                                  right: 40,
+                                  left: 40,
+                                  bottom: 15,
+                                  top: 15,
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                                child: Container(
+                                  margin: EdgeInsets.all(15),
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(196, 239, 237, 1.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.3),
+                                        blurRadius: 10,
+                                        spreadRadius: 1,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Spacer(),
+                                      Icon(
+                                        Icons.book_online,
+                                        color:
+                                        Color.fromRGBO(112, 118, 171, 1.0),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        '$bookName',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w800,
+                                          color:
+                                          Color.fromRGBO(54, 56, 84, 1.0),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        'Detay:',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontStyle: FontStyle.italic,
+                                          color:
+                                          Color.fromRGBO(112, 118, 171, 1.0),
+                                        ),
+                                      ),
+                                      Text(
+                                        'yükleniyor...',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 17,
+                                          color:
+                                          Color.fromRGBO(88, 93, 141, 1.0),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Kullanıcı adı:',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontStyle: FontStyle.italic,
+                                          color:
+                                          Color.fromRGBO(127, 185, 183, 1.0),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Text(
+                                        'yükleniyor...',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color:
+                                          Color.fromRGBO(88, 145, 144, 1.0),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+
+                            final username =
+                                snapshot.data ?? 'Bilinmeyen Kullanıcı';
+
+                            return Card(
+                              color: Color.fromRGBO(210, 241, 237, 1.0),
+                              margin: EdgeInsets.only(
+                                right: 40,
+                                left: 40,
+                                bottom: 15,
+                                top: 15,
+                              ),
+                              clipBehavior: Clip.antiAlias,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                              child: Container(
+                                margin: EdgeInsets.all(15),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(196, 239, 237, 1.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      blurRadius: 10,
+                                      spreadRadius: 1,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Spacer(),
+                                    Icon(
+                                      FontAwesomeIcons.bookOpenReader,
+                                      color:
+                                      Color.fromRGBO(112, 118, 171, 1.0),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      '$bookName',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w800,
+                                        color:
+                                        Color.fromRGBO(73, 75, 121, 1.0),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      'Detay:',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontStyle: FontStyle.italic,
+                                        color:
+                                        Color.fromRGBO(112, 118, 171, 1.0),
+                                      ),
+                                    ),
+                                    Text(
+                                      '$message',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 17,
+                                        color:
+                                        Color.fromRGBO(88, 93, 141, 1.0),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Kullanıcı adı:',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontStyle: FontStyle.italic,
+                                        color:
+                                        Color.fromRGBO(127, 185, 183, 1.0),
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      '$username',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color:
+                                        Color.fromRGBO(88, 145, 144, 1.0),
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            _incrementLikes(messageId);
+                                          },
+                                          style: IconButton.styleFrom(
+                                            backgroundColor:
+                                            Color.fromRGBO(187, 198, 240, 1),
+                                            foregroundColor: Colors.white,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 15),
+                                            minimumSize: Size(100, 50),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(30),
+                                            ),
+                                            elevation: 4,
+                                          ),
+                                          icon: Icon(Icons.thumb_up, color: Color.fromRGBO(88, 93, 141, 1.0),),
+                                        ),
+                                        Text('$likes', style: TextStyle(color: Color.fromRGBO(88, 93, 141, 1.0),),),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                            Color.fromRGBO(187, 198, 240, 1),
+                                            foregroundColor: Colors.white,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 15),
+                                            minimumSize: Size(100, 50),
+                                            textStyle: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(30),
+                                            ),
+                                            elevation: 4,
+                                          ),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SendMessagePage(
+                                                      senderId: currentUserUid,
+                                                      receiverId: userId,
+                                                      recipientName: username,
+                                                    ),
+                                              ),
+                                            );
+                                          },
+                                          child: Text('İletişime Geç'),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ));
+                      }
+                    }
+
+                    return GridView.count(
+                      crossAxisCount: 1,
+                      children: cardWidgets,
+                    );
                   },
                 ),
               ),
@@ -589,7 +591,7 @@ class _ForumPageState extends State<ForumPage> {
                         child: Text(
                           'KVKK Metnini Okudum ve Onaylıyorum',
                           style: TextStyle(
-                            color: _isKVKKChecked ? Colors.green : null,
+                            color: _isKVKKChecked ? Colors.green : Color.fromRGBO(123, 133, 176, 1.0),
                           ),
                         ),
                       ),

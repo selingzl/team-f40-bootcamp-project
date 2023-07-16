@@ -79,6 +79,13 @@ flutter:
     - lib/assets/birincilikk.png
     - lib/assets/ikincilikk.png
     - lib/assets/üçüncülükk.png
+    - lib/assets/Ekran Resmi 2023-07-16 19.49.32.png
+    - lib/assets/timerfront.png
+    - lib/assets/giriş.png
+    - lib/assets/Firefly a library has colors of DFF4F3 and B9BBDF and a cute cat who holds a book 25387.png
+    - lib/assets/Firefly a bridge which made of books and a super cute orange cat near it 86126.png
+    - lib/assets/Firefly a library has colors of DFF4F3 and B9BBDF and an orange cute happy cat who holds a book 4012.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -50,13 +50,13 @@ class _BookPageState extends State<BookPage> {
   }
 
   final CollectionReference _usersBookCollection =
-  FirebaseFirestore.instance.collection('userBooks');
+      FirebaseFirestore.instance.collection('userBooks');
 
   Future<void> _addBookToFirestore(
-      String bookName,
-      int spentTime,
-      String comment,
-      ) async {
+    String bookName,
+    int spentTime,
+    String comment,
+  ) async {
     await _usersBookCollection.add({
       'userId': userId,
       'bookName': bookName,
@@ -66,11 +66,11 @@ class _BookPageState extends State<BookPage> {
   }
 
   Future<void> _updateBookInFirestore(
-      String bookId,
-      String bookName,
-      int spentTime,
-      String comment,
-      ) async {
+    String bookId,
+    String bookName,
+    int spentTime,
+    String comment,
+  ) async {
     await _usersBookCollection.doc(bookId).update({
       'bookName': bookName,
       'spentTime': spentTime,
@@ -123,7 +123,7 @@ class _BookPageState extends State<BookPage> {
                 context: context,
                 builder: (context) => AlertDialog(
                   backgroundColor:
-                  Color.fromRGBO(255, 255, 255, 0.8156862745098039),
+                      Color.fromRGBO(255, 255, 255, 0.8156862745098039),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(32.0))),
                   title: const Text(
@@ -194,7 +194,7 @@ class _BookPageState extends State<BookPage> {
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromRGBO(135, 142, 205, 1)),
                         foregroundColor:
-                        MaterialStateProperty.all(Colors.white),
+                            MaterialStateProperty.all(Colors.white),
                         padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(
                               vertical: 9.0, horizontal: 15.0),
@@ -237,7 +237,7 @@ class _BookPageState extends State<BookPage> {
                       child: const Text(
                         'İptal',
                         style:
-                        TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),
+                            TextStyle(color: Color.fromRGBO(135, 142, 205, 1)),
                       ),
                     ),
                   ],
@@ -275,7 +275,7 @@ class _BookPageState extends State<BookPage> {
 
                   return GridView.builder(
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       mainAxisSpacing: 15,
                       crossAxisSpacing: 5,
@@ -365,7 +365,7 @@ class _UserBookCardState extends State<UserBookCard> {
                     },
                     decoration: InputDecoration(
                       contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       border: OutlineInputBorder(),
                       labelText: 'Kitap İsmi',
                       labelStyle: TextStyle(
@@ -387,7 +387,7 @@ class _UserBookCardState extends State<UserBookCard> {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       border: OutlineInputBorder(),
                       labelText: 'Harcanan Zaman',
                       labelStyle: TextStyle(
@@ -411,7 +411,7 @@ class _UserBookCardState extends State<UserBookCard> {
                     },
                     decoration: InputDecoration(
                       contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       border: OutlineInputBorder(),
                       labelText: 'Notunuz',
                       labelStyle: TextStyle(
@@ -500,11 +500,11 @@ class _UserBookCardState extends State<UserBookCard> {
                       backgroundColor: Color.fromRGBO(183, 220, 218, 1),
                       foregroundColor: Colors.white,
                       padding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       minimumSize: Size(40, 20),
                       maximumSize: Size(50, 30),
                       textStyle:
-                      TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -536,7 +536,7 @@ class _UserBookCardState extends State<UserBookCard> {
                         pageBuilder: (context, animation, secondaryAnimation) {
                           return FeedPage(
                               bookTitle:
-                              updatedBookName); // İkinci sayfa widget'ını buraya yerleştirin
+                                  updatedBookName); // İkinci sayfa widget'ını buraya yerleştirin
                         },
                       ),
                     );

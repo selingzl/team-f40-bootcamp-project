@@ -30,7 +30,7 @@ class _IntroScreenState extends State<IntroScreen> {
     {
       'title': 'Kitap Köprüsü ile Aradığın Kitaplara Ulaş',
       'description':
-      'Artık aradığın ender kitaba sahip olmak bir mesaj uzağında!',
+          'Artık aradığın ender kitaba sahip olmak bir mesaj uzağında!',
       'image': 'lib/assets/Firefly a bridge which made of books and a super cute orange cat near it 86126.png',
     },
     {
@@ -60,7 +60,7 @@ class _IntroScreenState extends State<IntroScreen> {
             image: AssetImage('lib/assets/Ekran Resmi 2023-07-16 19.49.32.png'),
             fit: BoxFit.cover,
           ),
-        ),
+          ),
 
         child: Stack(
           children: [
@@ -86,10 +86,10 @@ class _IntroScreenState extends State<IntroScreen> {
       ),
       floatingActionButton: _currentPage == _introData.length - 1
           ? FloatingActionButton(
-        backgroundColor: const Color.fromRGBO(135, 142, 205, 1),
-        onPressed: _navigateToNextScreen,
-        child: Icon(Icons.arrow_forward),
-      )
+              backgroundColor: const Color.fromRGBO(135, 142, 205, 1),
+              onPressed: _navigateToNextScreen,
+              child: Icon(Icons.arrow_forward),
+            )
           : null,
     );
   }
