@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:read_reminder/screens/conversation_screen.dart';
 
-import '../kvkk_screen.dart';
+import 'kvkk_screen.dart';
+
 
 
 class EklenenMesaj {
