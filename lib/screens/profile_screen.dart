@@ -156,9 +156,13 @@ class _ProfilePageState extends State<ProfilePage> {
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
+            behavior: SnackBarBehavior.floating,
               content: Text('Bağış yapıldı!'),
-              backgroundColor: Colors.grey[800],
-              duration: Duration(seconds: 2)),
+            backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+            duration: const Duration(seconds: 2),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),),
         );
       } catch (error) {
         print(error);
@@ -501,10 +505,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ? makeDonation()
                       : ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      behavior: SnackBarBehavior.floating,
                         content: Text(
                             'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
-                        backgroundColor: Colors.grey[800],
-                        duration: Duration(seconds: 2)),
+                      backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                      duration: const Duration(seconds: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),),
                   );
                 },
 

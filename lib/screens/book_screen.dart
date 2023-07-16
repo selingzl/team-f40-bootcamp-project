@@ -322,7 +322,7 @@ class _UserBookCardState extends State<UserBookCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onDoubleTap: () {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -450,10 +450,34 @@ class _UserBookCardState extends State<UserBookCard> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),),
                     elevation: 4),
-                  onPressed:() {Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => FeedPage(bookTitle: updatedBookName)),
-                  );},
+                  onPressed:() {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          // Geçiş animasyonunu özelleştirin
+                          var begin = Offset(0, 1.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end);
+                          var curvedAnimation = CurvedAnimation(
+                            parent: animation,
+                            curve: curve,
+                          );
+
+                          return SlideTransition(
+                            position: tween.animate(curvedAnimation),
+                            child: child,
+                          );
+                        },
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return  FeedPage(bookTitle: updatedBookName); // İkinci sayfa widget'ını buraya yerleştirin
+                        },
+                      ),
+                    );
+                    },
                   child: const Text('oku'),),
                 Text(
                   '${widget.spentTime} dakika',

@@ -26,9 +26,13 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text('Kitap favorilerden kaldırıldı'),
-        backgroundColor: Colors.grey[800],
-        duration: Duration(seconds: 2),
+        backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+        duration: const Duration(seconds: 2),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
       ),
     );
   }
@@ -101,11 +105,16 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
                     leading: IconButton(onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
+                          behavior: SnackBarBehavior.floating,
                           content: Text('Kitap kütüphaneye eklendi'),
-                          backgroundColor: Colors.grey[800],
-                          duration: Duration(seconds: 2),
+                          backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                          duration: const Duration(seconds: 2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                           action: SnackBarAction(
                             label: 'Geri al',
+                            textColor:   Color.fromRGBO(183, 220, 218, 1),
                             onPressed: () {
                               // Code to undo the action
                             },

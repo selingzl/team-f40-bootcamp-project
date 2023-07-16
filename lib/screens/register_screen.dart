@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
-
+  bool _passwordVisible = false;
   String _errorMessage = '';
 
   Future<void> _register() async {
@@ -252,13 +252,26 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextFormField(
                     controller: _passwordController,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    obscureText: !_passwordVisible,
                     decoration: InputDecoration(
                       labelText: 'Şifre',
-                      labelStyle:
-                          TextStyle(color: Color.fromRGBO(170, 170, 170, 1)),
+                      labelStyle: const TextStyle(
+                          color: Color.fromRGBO(170, 170, 170, 1)),
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 30),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),

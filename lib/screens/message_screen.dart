@@ -32,19 +32,43 @@ class UserListPage extends StatelessWidget {
                   SizedBox(height: 60),
                   Row(
                     children: [
+                      Spacer(),
                       IconButton(
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => FeedPage()),
+                            PageRouteBuilder(
+                              transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                // Geçiş animasyonunu özelleştirin
+                                var begin = Offset(1.0, 0.0);
+                                var end = Offset.zero;
+                                var curve = Curves.ease;
+
+                                var tween = Tween(begin: begin, end: end);
+                                var curvedAnimation = CurvedAnimation(
+                                  parent: animation,
+                                  curve: curve,
+                                );
+
+                                return SlideTransition(
+                                  position: tween.animate(curvedAnimation),
+                                  child: child,
+                                );
+                              },
+                              pageBuilder: (context, animation, secondaryAnimation) {
+                                return FeedPage(); // İkinci sayfa widget'ını buraya yerleştirin
+                              },
+                            ),
                           );
                         },
                         icon: const Icon(
-                          FontAwesomeIcons.caretLeft,
+                          FontAwesomeIcons.caretRight,
                           size: 28,
                           color: Color.fromRGBO(117, 125, 185, 1),
                         ),
                       ),
+                      SizedBox(width: 10,)
                     ],
                   ),
                   Text(
@@ -100,86 +124,84 @@ class UserListPage extends StatelessWidget {
                             String formattedDateTime =
                             DateFormat('yyyy-MM-dd HH:mm:ss')
                                 .format(lastRead.toDate());
-                            return Container(
-                              child: ListTile(
-                                title: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 20, bottom: 5, top: 10),
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                        color:
-                                        Color.fromRGBO(207, 236, 234, 1.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.4),
-                                            spreadRadius: 2,
-                                            blurRadius: 5,
-                                            offset: Offset(0, 2),
-                                          ),
-                                        ],
-                                        borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(50),
-                                            bottomLeft: Radius.circular(50),
-                                            bottomRight: Radius.circular(10),
-                                            topRight: Radius.circular(10))),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            margin: EdgeInsets.all(5),
-                                            width: 50,
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(100)
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(50), // İstediğiniz yuvarlaklık derecesini belirleyebilirsiniz
-                                              child: Image.network(
-                                                imageUrl,
-                                                width: 50,
-                                                height: 50,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            )),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              userName,
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      97, 104, 154, 1.0),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w800),
-                                            ),
-                                            Text(
-                                                'son kitap okuma: $formattedDateTime',
-                                                style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        67, 72, 108, 1.0),
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w400))
-                                          ],
+                            return ListTile(
+                              title: Container(
+                                  margin: EdgeInsets.only(
+                                      right: 20, bottom: 5, top: 10, left: 10),
+                                  padding: EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                      color:
+                                      Color.fromRGBO(207, 236, 234, 1.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.4),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 2),
                                         ),
                                       ],
-                                    )),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SendMessagePage(
-                                        senderId: currentUserUid,
-                                        receiverId: userId,
-                                        recipientName: userName,
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(50),
+                                          bottomLeft: Radius.circular(50),
+                                          bottomRight: Radius.circular(10),
+                                          topRight: Radius.circular(10))),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          margin: EdgeInsets.all(5),
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(100)
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(50), // İstediğiniz yuvarlaklık derecesini belirleyebilirsiniz
+                                            child: Image.network(
+                                              imageUrl,
+                                              width: 50,
+                                              height: 50,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )),
+                                      const SizedBox(
+                                        width: 20,
                                       ),
+                                      Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            userName,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    97, 104, 154, 1.0),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w800),
+                                          ),
+                                          Text(
+                                              'son kitap okuma: $formattedDateTime',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      67, 72, 108, 1.0),
+                                                  fontSize: 12,
+                                                  fontWeight:
+                                                  FontWeight.w400))
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SendMessagePage(
+                                      senderId: currentUserUid,
+                                      receiverId: userId,
+                                      recipientName: userName,
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             );
                           },
                         );

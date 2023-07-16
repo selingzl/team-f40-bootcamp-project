@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:read_reminder/screens/feed_screen.dart';
 
 class NotificationsScreen extends StatefulWidget {
   @override
@@ -41,11 +43,47 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromRGBO(157, 213, 211, 1.0),
-          title: Text('Bildirimler', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(
-              54, 56, 84, 1.0)),),
-          actions: [Icon(Icons.done_all, color: Color.fromRGBO(
-              54, 56, 84, 1.0)),
-            SizedBox(width: 10,)
+          title: Row(
+            children: [
+              Icon(Icons.done_all, color: Color.fromRGBO(
+                  54, 56, 84, 1.0)),
+              SizedBox(width: 10,),
+              Text('Bildirimler', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(
+                  54, 56, 84, 1.0)),),
+            ],
+          ),
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(onPressed: (){
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    // Geçiş animasyonunu özelleştirin
+                    var begin = Offset(1.0, 0.0);
+                    var end = Offset.zero;
+                    var curve = Curves.ease;
+
+                    var tween = Tween(begin: begin, end: end);
+                    var curvedAnimation = CurvedAnimation(
+                      parent: animation,
+                      curve: curve,
+                    );
+
+                    return SlideTransition(
+                      position: tween.animate(curvedAnimation),
+                      child: child,
+                    );
+                  },
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return FeedPage(); // İkinci sayfa widget'ını buraya yerleştirin
+                  },
+                ),
+              );
+
+            }, icon:Icon(FontAwesomeIcons.arrowRight, size: 18,color: Color.fromRGBO(
+                54, 56, 84, 1.0)))
           ]
 
       ),
