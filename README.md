@@ -8,6 +8,7 @@ Takım F-40
 - Nisasu Bozkurt: Product Owner / Developer
 - Onur Özkınacı: Developer
 - Selin Nur Güzel: Developer
+- Aktif olmayan üye -> Gizem Yavuz
 
 
 ## Ürün İsmi:
