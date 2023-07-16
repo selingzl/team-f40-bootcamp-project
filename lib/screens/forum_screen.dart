@@ -120,14 +120,9 @@ class _ForumPageState extends State<ForumPage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromRGBO(183, 220, 218, 1),
-              Color.fromRGBO(187, 198, 240, 1),
-              Color.fromRGBO(185, 187, 223, 1),
-            ],
+          image: DecorationImage(
+            image: AssetImage('lib/assets/Ekran Resmi 2023-07-16 19.49.32.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Column(

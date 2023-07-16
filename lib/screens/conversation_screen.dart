@@ -158,7 +158,7 @@ class SendMessagePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.only(right: 20,left: 20,bottom: 40,top: 5),
               child: Row(
                 children: [
                   Expanded(

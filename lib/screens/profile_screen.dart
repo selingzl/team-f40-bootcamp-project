@@ -92,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
         int fetchedOrder = await _getUserOrder();
         setState(() {
           username = userData['username'];
-          totalFocusedTime = (userData['totalTime'] / 60).toInt();
+          totalFocusedTime = (userData['totalTime']).toInt();
           donationCount = userData['donationCount'];
           coinOfUser = userData['currentPoint'];
           orderOfUser = fetchedOrder;

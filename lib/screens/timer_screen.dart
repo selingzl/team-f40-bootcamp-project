@@ -313,7 +313,7 @@ class _RotatingImagesState extends State<RotatingImages>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               Text(
                 getTimerText(),
@@ -382,7 +382,7 @@ class _RotatingImagesState extends State<RotatingImages>
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text('Ä°ptal', style: TextStyle(
+                              child: const Text('iptal', style: TextStyle(
                                   color: Color.fromRGBO(
                                       135, 142, 205, 1)),),
                             ),
@@ -400,8 +400,8 @@ class _RotatingImagesState extends State<RotatingImages>
                     _toggleRotation();
                     CoinProvider coinProvider =
                     Provider.of<CoinProvider>(context, listen: false);
-                      print('timer started');
-                    timer = Timer.periodic(Duration(seconds: choosen), (timer) {
+                    print('timer started');
+                    timer = Timer.periodic(Duration(minutes: choosen), (timer) {
                       setState(() {
                         timer.cancel();
                         _animationController.stop();
@@ -425,12 +425,12 @@ class _RotatingImagesState extends State<RotatingImages>
                             coinProvider.increaseCoin(hourtime*100);
                           }
                           addOrUpdateUserBook(); //*
-                          updateReadInfos(minutes);
-                          addReadRecords(minutes);
+                          updateReadInfos(passedTime);
+                          addReadRecords(passedTime);
                           fetchTodaysReadingTime(); //*
                         }
                       });
-                      });
+                    });
 
                     print('timer finished');
 
@@ -461,8 +461,8 @@ class _RotatingImagesState extends State<RotatingImages>
 
 
                       if (!(userId != null && widget.bookName == "")) {
-                        //*hours olacak, kontrol amacli 'minutes' yapilabilir.
-                        if(second >= 1 && second < 20){
+
+                        if(minutes >= 1 && minutes < 20){
                           coinProvider.increaseCoin(5);
                         } else if(minutes >= 20 && minutes < 40){
                           coinProvider.increaseCoin(30);
