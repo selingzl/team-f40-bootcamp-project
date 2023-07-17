@@ -47,7 +47,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "lib/assets/Firefly a cute orange cat in a clock and a light purple circle background 42614.jpg"
+  image_path: "lib/assets/bg_orange_cat.jpg"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -61,7 +61,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/splash_img.jpg
-    - lib/assets/Firefly a cute orange cat in a clock and a light purple circle background 42614.jpg
+    - lib/assets/bg_orange_cat.jpg
     - lib/assets/aPngtreeahand_drawn_cute_cat_reading_4361091.png
     - lib/assets/icons/ic_add.png
     - lib/assets/icons/ic_book.png
@@ -78,13 +78,13 @@ flutter:
     - lib/assets/sıralamakedisi.png
     - lib/assets/birincilikk.png
     - lib/assets/ikincilikk.png
-    - lib/assets/üçüncülükk.png
-    - lib/assets/Ekran Resmi 2023-07-16 19.49.32.png
+    - lib/assets/ucunculuk_ic.png
+    - lib/assets/bg_welcomee.png
     - lib/assets/timerfront.png
     - lib/assets/giriş.png
-    - lib/assets/Firefly a library has colors of DFF4F3 and B9BBDF and a cute cat who holds a book 25387.png
-    - lib/assets/Firefly a bridge which made of books and a super cute orange cat near it 86126.png
-    - lib/assets/Firefly a library has colors of DFF4F3 and B9BBDF and an orange cute happy cat who holds a book 4012.png
+    - lib/assets/library_cat.png
+    - lib/assets/bridge_cat.png
+    - lib/assets/library_cat_bg.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

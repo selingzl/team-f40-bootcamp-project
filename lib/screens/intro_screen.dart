@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'login_screen.dart';
 
 class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
+
   @override
   _IntroScreenState createState() => _IntroScreenState();
 }
@@ -25,18 +26,18 @@ class _IntroScreenState extends State<IntroScreen> {
     {
       'title': 'Kütüphane ile Yeni Kitaplar Keşfet!',
       'description': 'Hızlı ve haftalık kitap önerilerini kullanırsan kendin için keyifli ve faydalı kitapları bulabilirsin.',
-      'image': 'lib/assets/Firefly a library has colors of DFF4F3 and B9BBDF and a cute cat who holds a book 25387.png',
+      'image': 'lib/assets/library_cat.png',
     },
     {
       'title': 'Kitap Köprüsü ile Aradığın Kitaplara Ulaş',
       'description':
           'Artık aradığın ender kitaba sahip olmak bir mesaj uzağında!',
-      'image': 'lib/assets/Firefly a bridge which made of books and a super cute orange cat near it 86126.png',
+      'image': 'lib/assets/bridge_cat.png',
     },
     {
       'title': 'Hadi Okumaya Başlayalım :3',
       'description': 'Kitap okumanın en keyifli hali için ReadMe!',
-      'image': 'lib/assets/Firefly a library has colors of DFF4F3 and B9BBDF and an orange cute happy cat who holds a book 4012.png',
+      'image': 'lib/assets/library_cat_bg.png',
     },
   ];
 
@@ -55,9 +56,9 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('lib/assets/Ekran Resmi 2023-07-16 19.49.32.png'),
+            image: AssetImage('lib/assets/bg_welcomee.png'),
             fit: BoxFit.cover,
           ),
           ),
@@ -88,7 +89,7 @@ class _IntroScreenState extends State<IntroScreen> {
           ? FloatingActionButton(
               backgroundColor: const Color.fromRGBO(135, 142, 205, 1),
               onPressed: _navigateToNextScreen,
-              child: Icon(Icons.arrow_forward),
+              child: const Icon(Icons.arrow_forward),
             )
           : null,
     );
@@ -96,7 +97,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
   Widget buildIntroPage(Map<String, String> data) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -104,21 +105,21 @@ class _IntroScreenState extends State<IntroScreen> {
             data['image']!,
             height: 200.0,
           ),
-          SizedBox(height: 30.0),
+          const SizedBox(height: 30.0),
           Text(
             data['title']!,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color.fromRGBO(82, 87, 124, 1.0),
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
           Text(
             data['description']!,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color.fromRGBO(82, 87, 124, 1.0),
               fontStyle: FontStyle.italic,
               fontSize: 16.0,
@@ -139,7 +140,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
   Widget _buildPageIndicatorItem(int index) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
       width: _currentPage == index ? 16.0 : 8.0,
       height: 8.0,
       decoration: BoxDecoration(

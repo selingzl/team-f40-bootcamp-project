@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-import 'feed_screen.dart';
+
 
 class SendMessagePage extends StatelessWidget {
   final String senderId;
   final String receiverId;
   final String recipientName;
 
-  SendMessagePage({
+  SendMessagePage({super.key,
     required this.senderId,
     required this.receiverId,
     required this.recipientName,
@@ -36,7 +33,7 @@ class SendMessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(179, 187, 234, 1.0),
+        backgroundColor: const Color.fromRGBO(179, 187, 234, 1.0),
         title: Row(
           children: [
             Text(
@@ -48,7 +45,7 @@ class SendMessagePage extends StatelessWidget {
                 shadows: [
                   Shadow(
                     color: Colors.black.withOpacity(0.1),
-                    offset: Offset(0, 1),
+                    offset: const Offset(0, 1),
                     blurRadius: 5,
                   ),
                 ],
@@ -58,7 +55,7 @@ class SendMessagePage extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 0),
+        padding: const EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 0),
         decoration: const BoxDecoration(
           color: Color.fromRGBO(233, 255, 251, 1.0),
         ),
@@ -72,7 +69,7 @@ class SendMessagePage extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -120,8 +117,8 @@ class SendMessagePage extends StatelessWidget {
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: (isCurrentUser
-                                ? Color.fromRGBO(151, 159, 225, 1.0)
-                                : Color.fromRGBO(213, 246, 238, 1.0)),
+                                ? const Color.fromRGBO(151, 159, 225, 1.0)
+                                : const Color.fromRGBO(213, 246, 238, 1.0)),
                             borderRadius: isCurrentUser
                                 ? const BorderRadius.only(
                               topLeft: Radius.circular(20),
@@ -138,7 +135,7 @@ class SendMessagePage extends StatelessWidget {
                                 color: Colors.grey.withOpacity(0.4),
                                 spreadRadius: 2,
                                 blurRadius: 5,
-                                offset: Offset(0, 4),
+                                offset: const Offset(0, 4),
                               ),
                             ],
                           ),
@@ -147,8 +144,8 @@ class SendMessagePage extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 16,
                                 color: (isCurrentUser
-                                    ? Color.fromRGBO(214, 245, 241, 1.0)
-                                    : Color.fromRGBO(82, 87, 124, 1.0))),
+                                    ? const Color.fromRGBO(214, 245, 241, 1.0)
+                                    : const Color.fromRGBO(82, 87, 124, 1.0))),
                           ),
                         ),
                       );
@@ -158,13 +155,13 @@ class SendMessagePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 40, right: 20, left: 30, top: 7),
+              padding: const EdgeInsets.only(bottom: 40, right: 20, left: 30, top: 7),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.all(0),
+                      margin: const EdgeInsets.all(0),
                       padding: const EdgeInsets.only(
                           right: 5, left: 15, bottom: 5, top: 5),
                       decoration: BoxDecoration(
@@ -173,14 +170,14 @@ class SendMessagePage extends StatelessWidget {
                             color: Colors.grey.withOpacity(0.2),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                           ),
                         ],
-                        color: Color.fromRGBO(179, 187, 234, 1.0),
+                        color: const Color.fromRGBO(179, 187, 234, 1.0),
                         borderRadius: BorderRadius.circular(35),
                       ),
                       child: TextField(
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Color.fromRGBO(87, 90, 134, 1.0),
                               fontSize: 16),
                           controller: _messageController,
@@ -199,12 +196,12 @@ class SendMessagePage extends StatelessWidget {
                   IconButton(
                     icon: Icon(
                       Icons.send,
-                      color: Color.fromRGBO(99, 104, 145, 1.0),
+                      color: const Color.fromRGBO(99, 104, 145, 1.0),
                       size: 27,
                       shadows: [
                         Shadow(
                           color: Colors.black.withOpacity(0.3),
-                          offset: Offset(0, 4),
+                          offset: const Offset(0, 4),
                           blurRadius: 10,
                         ),
                       ],

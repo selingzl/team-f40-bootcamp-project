@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DonateListPage extends StatelessWidget {
+  const DonateListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +83,7 @@ class DonateListPage extends StatelessWidget {
                         } else if (index == 1) {
                           imageAsset = 'lib/assets/ikincilikk.png';
                         } else if (index == 2) {
-                          imageAsset = 'lib/assets/üçüncülükk.png';
+                          imageAsset = 'lib/assets/ucunculuk_ic.png';
                         }
 
                         return Container(
@@ -102,18 +104,18 @@ class DonateListPage extends StatelessWidget {
                                   width: 24,
                                   height: 24,
                                 ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 (index < 3 ? '' : '${index + 1}. '),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                 ),
                               ),
                               Expanded(
                                 child: Text(
-                                  '$username',
-                                  style: TextStyle(
+                                  username,
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
                                   ),
@@ -121,7 +123,7 @@ class DonateListPage extends StatelessWidget {
                               ),
                               Text(
                                 '$donationCount',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                 ),
@@ -139,7 +141,7 @@ class DonateListPage extends StatelessWidget {
           Positioned(
             top: MediaQuery.of(context)
                 .padding
-                .top, // Status bar yüksekliği kadar üste yerleşir
+                .top,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back,

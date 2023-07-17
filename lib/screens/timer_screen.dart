@@ -1,10 +1,12 @@
-//import 'dart:js_interop';
+
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/coin_provider.dart';
 
 class TimerPage extends StatefulWidget {
   final String bookName;
@@ -99,11 +101,9 @@ class _RotatingImagesState extends State<RotatingImages>
       DateTime todayStart = DateTime(today.year, today.month, today.day);
       DateTime todayEnd = todayStart.add(const Duration(days: 1));
 
-      // Create a collection reference for the bookReadingTimes collection
       CollectionReference collectionRef =
       FirebaseFirestore.instance.collection('bookReadingTimes');
 
-      // Create a query to fetch the documents for today
       QuerySnapshot querySnapshot = await collectionRef
           .where('userId', isEqualTo: userId)
           .where('date', isGreaterThanOrEqualTo: todayStart)
@@ -396,7 +396,6 @@ class _RotatingImagesState extends State<RotatingImages>
                 ),
                 GestureDetector(
                   onTap: () {
-                    //ZamanlayÄ±cÄ±
                     if (choosen != 0) {
                       _startStopwatch();
                       _toggleRotation();
@@ -410,7 +409,7 @@ class _RotatingImagesState extends State<RotatingImages>
                           _stopStopwatch();
                           int passedTime = int.parse(getTimerTextasMin());
                           print(passedTime);
-                          int hourtime = (passedTime / 60).toInt();
+                          int hourtime = passedTime ~/ 60;
                           _resetStopwatch();
                           _isRotating = false;
 
@@ -529,7 +528,6 @@ class _RotatingImagesState extends State<RotatingImages>
                   ),
                 ),
                 Text(
-                  //'En son geÃ§en sÃ¼re: ${hours1} s ${minutes1} dk ',
                   'Bugün $totalReadingTime dakika boyunca kitap okudunuz', //TODO:users altindan toplam sure ve son okuma tarihine gore cekilip farkina gore gosterilecek.
                   style: const TextStyle(
                       fontSize: 16,
@@ -543,74 +541,4 @@ class _RotatingImagesState extends State<RotatingImages>
   }
 }
 
-class CoinProvider with ChangeNotifier {
-  int coin = 0;
-  //String? userId = FirebaseAuth.instance.currentUser?.uid;
 
-  //To get the user's coin data from the db;
-  Future<int> fetchCoinData(String userId) async {
-    int coinOfUser = 0;
-    try {
-      CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('users');
-      QuerySnapshot querySnapshot =
-      await usersCollection.where('userId', isEqualTo: userId).get();
-      if (querySnapshot.docs.isNotEmpty) {
-        DocumentSnapshot userDoc = querySnapshot.docs.first;
-        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
-        coinOfUser = userData['currentPoint'];
-      } else {
-        print('No document found for the given userId.');
-      }
-    } catch (e) {
-      print('Error fetching data: $e');
-    }
-    return coinOfUser;
-  }
-
-  //In order to update related fiels under the users collection on Db;
-  Future<void> updateUserCoin(int coin, String userId) async {
-    try {
-      CollectionReference userBooksCollection =
-      FirebaseFirestore.instance.collection('users');
-      QuerySnapshot querySnapshot =
-      await userBooksCollection.where('userId', isEqualTo: userId).get();
-      if (querySnapshot.docs.isNotEmpty) {
-        DocumentSnapshot userDoc = querySnapshot.docs.first;
-        // Update the related fields
-        DocumentReference userBookDocRef = userDoc.reference;
-        return userBookDocRef
-            .update({
-          'currentPoint': coin,
-        })
-            .then((value) => print('Coin data is updated successfully'))
-            .catchError((error) => print('Failed to update the coin: $error'));
-      } else {
-        print('User record does not exist.');
-      }
-    } catch (e) {
-      print('Error retrieving user data: $e');
-    }
-  }
-
-  //To get the user's coin data from the db when the timer page is initialized(called in initState);
-  void getUsersCoin(String userId) async {
-    coin = await fetchCoinData(userId);
-    notifyListeners();
-  }
-
-  void increaseCoin(int amount, String userId) {
-    coin += amount;
-    updateUserCoin(coin, userId);
-    notifyListeners();
-  }
-}
-
-class TimeProvider with ChangeNotifier {
-  int time = 0;
-
-  void increaseTime(int amount) {
-    time += amount;
-    notifyListeners();
-  }
-}

@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'feed_screen.dart';
 
 class FavoriteBooksScreen extends StatefulWidget {
+  const FavoriteBooksScreen({super.key});
+
   @override
   State<FavoriteBooksScreen> createState() => _FavoriteBooksScreenState();
 }
@@ -27,8 +28,8 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text('Kitap favorilerden kaldırıldı'),
-        backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+        content: const Text('Kitap favorilerden kaldırıldı'),
+        backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
         duration: const Duration(seconds: 2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
@@ -50,8 +51,8 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(150, 155, 210, 1.0),
-        title: Text('Favori Kitaplarım',textAlign: TextAlign.center,),
+        backgroundColor: const Color.fromRGBO(150, 155, 210, 1.0),
+        title: const Text('Favori Kitaplarım',textAlign: TextAlign.center,),
       ),
       body: Container(
         padding: const EdgeInsets.only(bottom: 10,right: 10,left: 10),
@@ -81,7 +82,7 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
@@ -89,13 +90,13 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
                 child: Text('Error: ${snapshot.error}'),
               );
             } else if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: Text('Veri Yok'),
               );
             } else {
               final books = snapshot.data!.docs;
               return ListView.builder(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 itemCount: books.length,
                 itemBuilder: (context, index) {
                   final bookName =
@@ -106,15 +107,15 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           behavior: SnackBarBehavior.floating,
-                          content: Text('Kitap kütüphaneye eklendi'),
-                          backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                          content: const Text('Kitap kütüphaneye eklendi'),
+                          backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
                           duration: const Duration(seconds: 2),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
                           action: SnackBarAction(
                             label: 'Geri al',
-                            textColor:   Color.fromRGBO(183, 220, 218, 1),
+                            textColor:   const Color.fromRGBO(183, 220, 218, 1),
                             onPressed: () {
                               // Code to undo the action
                             },
@@ -125,11 +126,11 @@ class _FavoriteBooksScreenState extends State<FavoriteBooksScreen> {
                         context,
                         MaterialPageRoute(builder: (context) => FeedPage(bookTitle: bookName)),
                       );
-                    }, icon: Icon(FontAwesomeIcons.bookBookmark, color: Color.fromRGBO(82, 87, 124, 1.0),size: 18,)),
-                    trailing: IconButton(onPressed: () => removeBookFromFavorites(bookId), icon: Icon(FontAwesomeIcons.trashCan, size: 18,color: Color.fromRGBO(
+                    }, icon: const Icon(FontAwesomeIcons.bookBookmark, color: Color.fromRGBO(82, 87, 124, 1.0),size: 18,)),
+                    trailing: IconButton(onPressed: () => removeBookFromFavorites(bookId), icon: const Icon(FontAwesomeIcons.trashCan, size: 18,color: Color.fromRGBO(
                         51, 91, 90, 1.0),)),
 
-                    title: Text(bookName, style: TextStyle(color: Color.fromRGBO(
+                    title: Text(bookName, style: const TextStyle(color: Color.fromRGBO(
                         71, 76, 121, 1.0),fontWeight: FontWeight.w700,fontStyle: FontStyle.italic, fontSize: 15),),
                   );
                 },
