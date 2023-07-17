@@ -145,20 +145,20 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
   içine detaylı bir şekilde eklenmiştir.
 - Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri,
   notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
-- Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
+- Figma Üzerindeki tasarımlarımız değişmedi .
   ![Figma Tasarımları](ProjectManagement/Sprint2Documents/tasarımlar.PNG)
 - Proje sürecinde tamamlanması gereken 300 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in  100 ile başlaması gerektiği kanaatine varılmıştır.
 
 - İş yükü tablo haline getirildi.
--
+
 ![Sprint 3](ProjectManagement/Sprint3Documents/sprint3.PNG)
 
 - Uygulama İçi Görseller.
--
+
 ![Uygulma İçi Görseller](ProjectManagement/Sprint3Documents/111111.PNG)
 
 - Uygulama İçi Görseller.
--
+
 ![Uygulma İçi Görseller](ProjectManagement/Sprint3Documents/222222.PNG)
 
 
