@@ -315,12 +315,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.09,
-                  ),
+
                   Container(
                     height: 100,
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.transparent,
@@ -336,7 +334,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color.fromRGBO(69, 74, 113, 1.0),
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500,
                                 shadows: [
                                   Shadow(

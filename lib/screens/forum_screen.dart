@@ -7,6 +7,7 @@ import '../model/added_message_card_model.dart';
 import 'kvkk_screen.dart';
 
 
+
 class ForumPage extends StatefulWidget {
   const ForumPage({super.key});
 
@@ -300,7 +301,6 @@ class _ForumPageState extends State<ForumPage> {
                               snapshot.data ?? 'Bilinmeyen Kullanıcı';
 
                           return Card(
-
                             color: const Color.fromRGBO(210, 241, 237, 1.0),
                             margin: const EdgeInsets.only(
                               right: 30,
@@ -314,7 +314,7 @@ class _ForumPageState extends State<ForumPage> {
                             ),
                             child: Container(
                               margin: const EdgeInsets.all(10),
-                              padding: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
                                 color: const Color.fromRGBO(196, 239, 237, 1.0),
                                 boxShadow: [
@@ -330,9 +330,7 @@ class _ForumPageState extends State<ForumPage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                  Spacer(),
                                   const Icon(
                                     FontAwesomeIcons.bookOpenReader,
                                     color: Color.fromRGBO(112, 118, 171, 1.0),
@@ -393,6 +391,7 @@ class _ForumPageState extends State<ForumPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 10,),
+                                  Spacer(),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -419,6 +418,7 @@ class _ForumPageState extends State<ForumPage> {
                                               Color.fromRGBO(88, 93, 141, 1.0),
                                         ),
                                       ),
+
                                       Text(
                                         '$likes',
                                         style: const TextStyle(
@@ -429,6 +429,7 @@ class _ForumPageState extends State<ForumPage> {
                                       const SizedBox(
                                         width: 30,
                                       ),
+
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: const Color.fromRGBO(

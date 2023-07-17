@@ -77,7 +77,7 @@ class _KvkkPageState extends State<KvkkPage> {
                               },
                             ),
                             const SizedBox(width: 10),
-                            const Expanded(
+                            Expanded(
                               child: Text(
                                 'Yukarıdaki bilgileri okudum ve onaylıyorum.',
                                 style: TextStyle(fontWeight: FontWeight.bold),
