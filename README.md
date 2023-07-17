@@ -166,9 +166,9 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 
 ### Sprint Review
 
-- Uygulamam Tamamlandı.
-- Adobe FireFly ücretsiz assetler kullanıldı.
-- Tüm sayfaların databasei tamamlandı.
+- Uygulama Tamamlandı.
+- Adobe FireFly ile ücretsiz assetler kullanıldı.
+- Tüm sayfaların database'i tamamlandı.
 - Tüm sayfaların tasarımı tamamlandı.
 
 
