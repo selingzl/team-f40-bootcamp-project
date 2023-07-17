@@ -112,29 +112,20 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 - Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri,
   notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
 - Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
-  ![Figma Tasarımları](ProjectManagement/Sprint1Documents/tasarımlar.PNG)
+  ![Figma Tasarımları](ProjectManagement/Sprint2Documents/tasarımlar.PNG)
 - Puan Tamamlama Mantığı: Toplamda proje boyunca tamamlanması gereken 300 puanlık backlog bulunmaktadır. 3 sprint'e
   bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
 
 - İş yükü tablo haline getirildi.
 - 
-  ![Sprint 2](ProjectManagement/Sprint1Documents/miroo.PNG)
+  ![Sprint 2](ProjectManagement/Sprint2Documents/miroo.PNG)
 
-- Profil Sayafası Oluşturuldu.
-- 
-  ![Profil](ProjectManagement/Sprint1Documents/profile.PNG)
+| ![Profil](ProjectManagement/Sprint2Documents/profile.PNG) | ![Kitaplar](ProjectManagement/Sprint2Documents/books.PNG) | ![Kitap Detay](ProjectManagement/Sprint2Documents/book_det.PNG) |
+|:---:|:---:|:---:|
+| Profil Sayfası Oluşturuldu. | Kitaplar Sayfası Oluşturuldu. | Kitap Detay Sayfası Oluşturuldu. |
 
-- Kitaplar Sayfası Oluşturuldu.
-- 
-  ![Kitaplar](ProjectManagement/Sprint1Documents/books.PNG)
-  
-- Kitap Detay Sayfası Oluşturuldu.
-- 
-  ![Kitap Detay](ProjectManagement/Sprint1Documents/book_det.PNG)
 
-- ![Uygulama İçi Görseller](ProjectManagement/Sprint1Documents/last_one.PNG)
 
-- ![Uygulama İçi Görseller](ProjectManagement/Sprint1Documents/last_two.PNG)
 
 ### Sprint Review
 
@@ -147,3 +138,40 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 ### Sprint Retrospective
 
 - İş yükü dağılımı değiştirildi.
+
+### Sprint 3 Çıktıları
+
+- Sprint notları: Sprint notları [product backlog](https://miro.com/app/board/uXjVM_hL6MI=/?share_link_id=525118540066)
+  içine detaylı bir şekilde eklenmiştir.
+- Daily Scrum: Daily scrum toplantıları Discord üzerinden çevrimiçi görüşmeler ile yapılmıştır. Toplantı özetleri,
+  notları ve ekran görüntülerinden bazıları product backlog içine yazılmıştır.
+- Figma Üzerinden Sayfalarımızın Tasarımlarını tamamladık .
+  ![Figma Tasarımları](ProjectManagement/Sprint2Documents/tasarımlar.PNG)
+- Proje sürecinde tamamlanması gereken 300 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in  100 ile başlaması gerektiği kanaatine varılmıştır.
+
+- İş yükü tablo haline getirildi.
+-
+![Sprint 3](ProjectManagement/Sprint3Documents/sprint3.PNG)
+
+- Uygulama İçi Görseller.
+-
+![Uygulma İçi Görseller](ProjectManagement/Sprint3Documents/111111.PNG)
+
+- Uygulama İçi Görseller.
+-
+![Uygulma İçi Görseller](ProjectManagement/Sprint3Documents/222222.PNG)
+
+
+
+
+### Sprint Review
+
+- Uygulamam Tamamlandı.
+- Adobe FireFly ücretsiz assetler kullanıldı.
+- Tüm sayfaların databasei tamamlandı.
+- Tüm sayfaların tasarımı tamamlandı.
+
+
+### Sprint Retrospective
+
+- Bazı sayfalardaki veri listelem biçimi değişti.
