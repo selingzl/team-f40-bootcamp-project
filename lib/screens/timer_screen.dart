@@ -277,16 +277,14 @@ class _RotatingImagesState extends State<RotatingImages>
 
     String getTimerTextasMin() {
       int milliseconds = _stopwatch.elapsedMilliseconds;
-      int seconds = (milliseconds / 1000).floor() % 60; // deneme iÃ§in
-      String secondsStr = (seconds < 10) ? '0$seconds' : seconds.toString();
       int minutes = (milliseconds / (1000 * 60)).floor() % 60;
       String min = (minutes < 10) ? '0$minutes' : minutes.toString();
 
-      return '$secondsStr';
+      return '$min';
     }
 
     Duration duration = _stopwatch.elapsed;
-    int second = duration.inSeconds;
+
     int minutes = duration.inMinutes;
     int hours = duration.inHours;
 
@@ -370,8 +368,7 @@ class _RotatingImagesState extends State<RotatingImages>
                                   _stopStopwatch();
                                   _resetStopwatch();
                                 });
-                                print(choosen);
-                                print(ifchoosen);
+
                                 Navigator.pop(context);
                               },
                               child: const Text('Tut'),
@@ -402,19 +399,25 @@ class _RotatingImagesState extends State<RotatingImages>
                       CoinProvider coinProvider =
                       Provider.of<CoinProvider>(context, listen: false);
                       print('timer started');
-                      timer = Timer.periodic(Duration(seconds: choosen), (timer) {
+                      timer = Timer.periodic(Duration(minutes: choosen), (timer) {
                         setState(() {
                           timer.cancel();
                           _animationController.stop();
                           _stopStopwatch();
                           int passedTime = int.parse(getTimerTextasMin());
-                          print(passedTime);
                           int hourtime = passedTime ~/ 60;
                           _resetStopwatch();
                           _isRotating = false;
 
+                          if (hourtime >= 1) {
+                            passedTime = passedTime +
+                                (hourtime *
+                                    60); //to get the hours+minutes value for reading a book which will be pushed to db.
+                          }
+                          minutes1 = passedTime;
+
                           if (!(userId != null && widget.bookName == "")) {
-                            if (passedTime >= 1 && passedTime < 20) {
+                            if (passedTime >= 10 && passedTime < 20) {
                               coinProvider.increaseCoin(5, userId!);
                             } else if (passedTime >= 20 && passedTime < 40) {
                               coinProvider.increaseCoin(30, userId!);
@@ -423,9 +426,10 @@ class _RotatingImagesState extends State<RotatingImages>
                             } else if (passedTime >= 60) {
                               coinProvider.increaseCoin(hourtime * 100, userId!);
                             }
+
                             addOrUpdateUserBook(); //*
-                            updateReadInfos(passedTime);
-                            addReadRecords(passedTime);
+                            updateReadInfos(minutes1);
+                            addReadRecords(minutes1);
                             fetchTodaysReadingTime(); //*
                           }
                           choosen = 0;
@@ -451,7 +455,7 @@ class _RotatingImagesState extends State<RotatingImages>
                           coinProvider.increaseCoin(0, userId!);
                         }
 
-                        if (second >= 1) {
+                        if (hours >= 1) {
                           minutes = minutes +
                               (hours *
                                   60); //to get the hours+minutes value for reading a book which will be pushed to db.
@@ -460,7 +464,7 @@ class _RotatingImagesState extends State<RotatingImages>
 
                         if (!(userId != null && widget.bookName == "")) {
                           //*hours olacak, kontrol amacli 'minutes' yapilabilir.
-                          if (second >= 1 && second < 20) {
+                          if (minutes >= 10 && minutes < 20) {
                             coinProvider.increaseCoin(5, userId!);
                           } else if (minutes >= 20 && minutes < 40) {
                             coinProvider.increaseCoin(30, userId!);
