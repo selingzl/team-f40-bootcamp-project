@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'forum_screen.dart';
+
 
 class KvkkPage extends StatefulWidget {
   const KvkkPage({Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class _KvkkPageState extends State<KvkkPage> {
                               },
                             ),
                             const SizedBox(width: 10),
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'Yukarıdaki bilgileri okudum ve onaylıyorum.',
                                 style: TextStyle(fontWeight: FontWeight.bold),

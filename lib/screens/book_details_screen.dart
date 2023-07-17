@@ -10,7 +10,7 @@ import 'package:read_reminder/screens/feed_screen.dart';
 class BookDetails extends StatelessWidget {
   late int index;
 
-  BookDetails({required this.index});
+  BookDetails({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class BookDetails extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
               colors: [
@@ -52,17 +52,17 @@ class BookDetails extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 70,),
-                Text(
+                const SizedBox(height: 70,),
+                const Text(
                   'Kitap Hakkında',
                   style: TextStyle(color: Color.fromRGBO(54, 56, 84, 1.0), fontWeight: FontWeight.w700, fontSize: 24),
                 ),
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 FutureBuilder<Map<String, dynamic>>(
                   future: getBookDetails(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [ SizedBox(
@@ -80,15 +80,13 @@ class BookDetails extends StatelessWidget {
                       var book = snapshot.data!;
                       var title = book['volumeInfo']['title'];
                       var author = book['volumeInfo']['authors'][0];
-                      var description = book['volumeInfo']['description'] != null
-                          ? book['volumeInfo']['description']
-                          : 'Kitap Açıklaması Bulunamadı!';
+                      var description = book['volumeInfo']['description'] ?? 'Kitap Açıklaması Bulunamadı!';
                       var imageLinks = book['volumeInfo']['imageLinks'] != null
                           ? book['volumeInfo']['imageLinks']['smallThumbnail']
                           : 'https://placekitten.com/600/800';
 
                       return Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -96,22 +94,22 @@ class BookDetails extends StatelessWidget {
                             Text(
                               title,
                               style:
-                              TextStyle(fontSize: 20, color: Color.fromRGBO(91, 93,
+                              const TextStyle(fontSize: 20, color: Color.fromRGBO(91, 93,
                                   140, 1.0), fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(height: 18),
+                            const SizedBox(height: 18),
                             Image.network(imageLinks),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               'Yazar: $author',
-                              style: TextStyle(fontSize: 16, color: Color.fromRGBO(54, 56, 84, 1.0), fontStyle: FontStyle.italic),
+                              style: const TextStyle(fontSize: 16, color: Color.fromRGBO(54, 56, 84, 1.0), fontStyle: FontStyle.italic),
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             Text(
                               description,
-                              style: TextStyle(fontSize: 16, color: Color.fromRGBO(54, 56, 84, 1.0)),
+                              style: const TextStyle(fontSize: 16, color: Color.fromRGBO(54, 56, 84, 1.0)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
@@ -122,15 +120,15 @@ class BookDetails extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         behavior: SnackBarBehavior.floating,
-                                        content: Text('Kitap kütüphaneye eklendi'),
-                                        backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                                        content: const Text('Kitap kütüphaneye eklendi'),
+                                        backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
                                         duration: const Duration(seconds: 2),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50),
                                         ),
                                         action: SnackBarAction(
                                           label: 'Geri al',
-                                          textColor: Color.fromRGBO(183, 220, 218, 1),
+                                          textColor: const Color.fromRGBO(183, 220, 218, 1),
                                           onPressed: () {
                                             // Code to undo the action
                                           },
@@ -140,10 +138,10 @@ class BookDetails extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       PageRouteBuilder(
-                                        transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                                        transitionDuration: const Duration(milliseconds: 500), // Geçiş süresi
                                         transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                           // Geçiş animasyonunu özelleştirin
-                                          var begin = Offset(0, 1.0);
+                                          var begin = const Offset(0, 1.0);
                                           var end = Offset.zero;
                                           var curve = Curves.ease;
 
@@ -164,7 +162,7 @@ class BookDetails extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: Text('Okumaya başla',style: TextStyle(color: Color.fromRGBO(
+                                  child: const Text('Okumaya başla',style: TextStyle(color: Color.fromRGBO(
                                       13, 84, 84, 1.0),fontWeight: FontWeight.bold, fontSize: 18, shadows: [
                                     Shadow(
                                       color: Colors.grey,
@@ -173,7 +171,7 @@ class BookDetails extends StatelessWidget {
                                     ),
                                   ],),
                                   ),),
-                                Icon(FontAwesomeIcons.bookmark, color:Color.fromRGBO(
+                                const Icon(FontAwesomeIcons.bookmark, color:Color.fromRGBO(
                                     13, 84, 84, 1.0), size: 16,shadows: [
                                   Shadow(
                                     color: Colors.grey,
@@ -187,7 +185,7 @@ class BookDetails extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return Center(child: Text('Veri bulunamadı'));
+                      return const Center(child: Text('Veri bulunamadı'));
                     }
                   },
                 ),

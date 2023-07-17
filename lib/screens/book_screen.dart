@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'feed_screen.dart';
+import '../model/user_book_card_model.dart';
 
 class BookPage extends StatefulWidget {
   const BookPage({Key? key}) : super(key: key);
@@ -100,7 +99,7 @@ class _BookPageState extends State<BookPage> {
               color: Color.fromRGBO(82, 87, 124, 1.0),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
@@ -123,8 +122,8 @@ class _BookPageState extends State<BookPage> {
                 context: context,
                 builder: (context) => AlertDialog(
                   backgroundColor:
-                      Color.fromRGBO(255, 255, 255, 0.8156862745098039),
-                  shape: RoundedRectangleBorder(
+                      const Color.fromRGBO(255, 255, 255, 0.8156862745098039),
+                  shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(32.0))),
                   title: const Text(
                     'Kitap Ekle',
@@ -133,59 +132,61 @@ class _BookPageState extends State<BookPage> {
                         fontWeight: FontWeight.w600,
                         color: Color.fromRGBO(135, 142, 205, 1)),
                   ),
-                  content: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color.fromRGBO(185, 187, 223, 1),
-                          Color.fromRGBO(187, 198, 240, 1),
-                          Color.fromRGBO(183, 220, 218, 1),
+                  content: SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromRGBO(185, 187, 223, 1),
+                            Color.fromRGBO(187, 198, 240, 1),
+                            Color.fromRGBO(183, 220, 218, 1),
+                          ],
+                        ),
+                      ),
+                      width: 400,
+                      padding: const EdgeInsets.all(40),
+                      margin: const EdgeInsets.all(5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            controller: _controller,
+                            decoration: const InputDecoration(
+                                labelText: 'Kitap İsmi',
+                                labelStyle: TextStyle(
+                                  color: Color.fromRGBO(82, 87, 124, 1.0),
+                                )),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            controller: _controllerB,
+                            decoration: const InputDecoration(
+                                labelText: 'Harcanan Zaman',
+                                labelStyle: TextStyle(
+                                  color: Color.fromRGBO(82, 87, 124, 1.0),
+                                )),
+                            keyboardType: TextInputType.number,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            controller: _controllerC,
+                            decoration: const InputDecoration(
+                                labelText: 'Notunuz',
+                                labelStyle: TextStyle(
+                                  color: Color.fromRGBO(82, 87, 124, 1.0),
+                                )),
+                          ),
                         ],
                       ),
-                    ),
-                    width: 400,
-                    padding: EdgeInsets.all(40),
-                    margin: EdgeInsets.all(5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextField(
-                          controller: _controller,
-                          decoration: const InputDecoration(
-                              labelText: 'Kitap İsmi',
-                              labelStyle: TextStyle(
-                                color: Color.fromRGBO(82, 87, 124, 1.0),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextField(
-                          controller: _controllerB,
-                          decoration: const InputDecoration(
-                              labelText: 'Harcanan Zaman',
-                              labelStyle: TextStyle(
-                                color: Color.fromRGBO(82, 87, 124, 1.0),
-                              )),
-                          keyboardType: TextInputType.number,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextField(
-                          controller: _controllerC,
-                          decoration: const InputDecoration(
-                              labelText: 'Notunuz',
-                              labelStyle: TextStyle(
-                                color: Color.fromRGBO(82, 87, 124, 1.0),
-                              )),
-                        ),
-                      ],
                     ),
                   ),
                   actions: [
@@ -246,10 +247,10 @@ class _BookPageState extends State<BookPage> {
             },
             child: const Icon(Icons.add, size: 20),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Flexible(
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: StreamBuilder<QuerySnapshot>(
                 stream: _usersBookCollection
                     .where('userId', isEqualTo: userId)
@@ -302,280 +303,6 @@ class _BookPageState extends State<BookPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class UserBookCard extends StatefulWidget {
-  final String bookId;
-  final String bookName;
-  final int spentTime;
-  final String comment;
-  final Function(String, String, int, String) onUpdate;
-
-  const UserBookCard({
-    required this.bookId,
-    required this.bookName,
-    required this.spentTime,
-    required this.comment,
-    required this.onUpdate,
-  });
-
-  @override
-  _UserBookCardState createState() => _UserBookCardState();
-}
-
-class _UserBookCardState extends State<UserBookCard> {
-  late String updatedBookName;
-  late int updatedSpentTime;
-  late String updatedComment;
-
-  @override
-  void initState() {
-    updatedBookName = widget.bookName;
-    updatedSpentTime = widget.spentTime;
-    updatedComment = widget.comment;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            contentPadding: EdgeInsets.only(top: 10.0),
-            title: const Text('Kitap Düzenle',
-                style: TextStyle(color: Color.fromRGBO(135, 142, 205, 1))),
-            content: Container(
-              width: 300,
-              padding: EdgeInsets.all(30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        updatedBookName = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      border: OutlineInputBorder(),
-                      labelText: 'Kitap İsmi',
-                      labelStyle: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromRGBO(82, 87, 124, 1.0),
-                      ),
-                      hintText: updatedBookName,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        updatedSpentTime = int.tryParse(value) ?? 0;
-                      });
-                    },
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      border: OutlineInputBorder(),
-                      labelText: 'Harcanan Zaman',
-                      labelStyle: TextStyle(
-                        color: Color.fromRGBO(82, 87, 124, 1.0),
-                      ),
-                      hintText: updatedSpentTime.toString(),
-                    ),
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color.fromRGBO(82, 87, 124, 1.0),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        updatedComment = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      border: OutlineInputBorder(),
-                      labelText: 'Notunuz',
-                      labelStyle: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromRGBO(82, 87, 124, 1.0),
-                      ),
-                      hintText: updatedComment,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      const Color.fromRGBO(135, 142, 205, 1)),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(vertical: 9.0, horizontal: 15.0),
-                  ),
-                  textStyle: MaterialStateProperty.all(
-                    const TextStyle(
-                        fontSize: 15.0, fontWeight: FontWeight.bold),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(51.16),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  widget.onUpdate(widget.bookId, updatedBookName,
-                      updatedSpentTime, updatedComment);
-                  Navigator.pop(context);
-                },
-                child: const Text('Kaydet'),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'İptal',
-                    style: TextStyle(
-                      color: Color.fromRGBO(82, 87, 124, 1.0),
-                    ),
-                  )),
-            ],
-          ),
-        );
-      },
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromRGBO(185, 187, 223, 1),
-                Color.fromRGBO(187, 198, 240, 1),
-                Color.fromRGBO(183, 220, 218, 1),
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                spreadRadius: 1,
-                offset: const Offset(0, 2),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(25.0),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(183, 220, 218, 1),
-                      foregroundColor: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      minimumSize: Size(40, 20),
-                      maximumSize: Size(50, 30),
-                      textStyle:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      elevation: 4),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 500),
-                        // Geçiş süresi
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          // Geçiş animasyonunu özelleştirin
-                          var begin = Offset(0, 1.0);
-                          var end = Offset.zero;
-                          var curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end);
-                          var curvedAnimation = CurvedAnimation(
-                            parent: animation,
-                            curve: curve,
-                          );
-
-                          return SlideTransition(
-                            position: tween.animate(curvedAnimation),
-                            child: child,
-                          );
-                        },
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return FeedPage(
-                              bookTitle:
-                                  updatedBookName); // İkinci sayfa widget'ını buraya yerleştirin
-                        },
-                      ),
-                    );
-                  },
-                  child: const Text('oku'),
-                ),
-                Text(
-                  '${widget.spentTime} dakika',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color.fromRGBO(72, 86, 215, 1),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  widget.bookName,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color.fromRGBO(70, 75, 121, 1.0),
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  widget.comment,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                    color: Color.fromRGBO(82, 87, 124, 1.0),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -3,11 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-
 import 'conversation_screen.dart';
 import 'feed_screen.dart';
 
 class UserListPage extends StatelessWidget {
+  const UserListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
@@ -25,8 +26,8 @@ class UserListPage extends StatelessWidget {
         body: Center(
       child: Scrollbar(
         child: Container(
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
@@ -37,21 +38,21 @@ class UserListPage extends StatelessWidget {
           ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 IconButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 500),
+                        transitionDuration: const Duration(milliseconds: 500),
                         // Geçiş süresi
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           // Geçiş animasyonunu özelleştirin
-                          var begin = Offset(1.0, 0.0);
+                          var begin = const Offset(1.0, 0.0);
                           var end = Offset.zero;
                           var curve = Curves.ease;
 
@@ -67,7 +68,7 @@ class UserListPage extends StatelessWidget {
                           );
                         },
                         pageBuilder: (context, animation, secondaryAnimation) {
-                          return FeedPage(); // İkinci sayfa widget'ını buraya yerleştirin
+                          return const FeedPage(); // İkinci sayfa widget'ını buraya yerleştirin
                         },
                       ),
                     );
@@ -78,7 +79,7 @@ class UserListPage extends StatelessWidget {
                     color: Color.fromRGBO(117, 125, 185, 1),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 )
               ],
@@ -89,12 +90,12 @@ class UserListPage extends StatelessWidget {
                   shadows: [
                     Shadow(
                       color: Colors.black.withOpacity(0.1),
-                      offset: Offset(0, 1),
+                      offset: const Offset(0, 1),
                       blurRadius: 5,
                     ),
                   ],
                   fontSize: 26,
-                  color: Color.fromRGBO(117, 125, 185, 1),
+                  color: const Color.fromRGBO(117, 125, 185, 1),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -106,7 +107,7 @@ class UserListPage extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   final conversationDocs = snapshot.data!.docs;
                   //=>'conversationMap' is used to prevent copy of data if more than one data is returned for the current user;
@@ -137,7 +138,7 @@ class UserListPage extends StatelessWidget {
                       final localDateTime = lastMessageDate
                           .toDate()
                           .toUtc()
-                          .add(Duration(hours: 3)); // Convert to UTC+3
+                          .add(const Duration(hours: 3)); // Convert to UTC+3
                       String formattedDateTime =
                           DateFormat('dd-MM-yyyy - HH:mm:ss')
                               .format(localDateTime);
@@ -156,7 +157,7 @@ class UserListPage extends StatelessWidget {
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
 
                           final userDoc = snapshot.data!.docs.first;
@@ -180,90 +181,88 @@ class UserListPage extends StatelessWidget {
                                     DateFormat('yyyy-MM-dd HH:mm:ss')
                                         .format(lastRead.toDate());*/
 
-                          return Container(
-                            child: ListTile(
-                              title: Container(
-                                margin: EdgeInsets.only(
-                                    right: 20, bottom: 5, top: 10),
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(207, 236, 234, 1.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    bottomLeft: Radius.circular(50),
-                                    bottomRight: Radius.circular(10),
-                                    topRight: Radius.circular(10),
+                          return ListTile(
+                            title: Container(
+                              margin: const EdgeInsets.only(
+                                  right: 20, bottom: 5, top: 10),
+                              padding: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(207, 236, 234, 1.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 2),
                                   ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      width: 50,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.network(
-                                          imageUrl,
-                                          width: 50,
-                                          height: 50,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 20),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          userName,
-                                          style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                97, 104, 154, 1.0),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w800,
-                                          ),
-                                        ),
-                                        Text(
-                                          'son mesaj: $formattedDateTime',
-                                          style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                67, 72, 108, 1.0),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                ],
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(10),
+                                  topRight: Radius.circular(10),
                                 ),
                               ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SendMessagePage(
-                                      senderId: currentUserUid,
-                                      receiverId: userId,
-                                      recipientName: userName,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(5),
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(100),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                        imageUrl,
+                                        width: 50,
+                                        height: 50,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
+                                  const SizedBox(width: 20),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        userName,
+                                        style: const TextStyle(
+                                          color: Color.fromRGBO(
+                                              97, 104, 154, 1.0),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      Text(
+                                        'son mesaj: $formattedDateTime',
+                                        style: const TextStyle(
+                                          color: Color.fromRGBO(
+                                              67, 72, 108, 1.0),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SendMessagePage(
+                                    senderId: currentUserUid,
+                                    receiverId: userId,
+                                    recipientName: userName,
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       );

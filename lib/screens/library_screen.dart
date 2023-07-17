@@ -5,7 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:read_reminder/book_details.dart';
+import 'package:read_reminder/screens/book_details_screen.dart';
+import '../model/book_model.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -59,22 +60,22 @@ class _LibraryScreenState extends State<LibraryScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text('Kitap favorilere eklendi'),
-          backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+          content: const Text('Kitap favorilere eklendi'),
+          backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
           duration: const Duration(seconds: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
           action: SnackBarAction(
             label: 'Geri al',
-            textColor: Color.fromRGBO(183, 220, 218, 1),
+            textColor: const Color.fromRGBO(183, 220, 218, 1),
             onPressed: () {
               removeFromFavorites(title, author);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   behavior: SnackBarBehavior.floating,
-                  content: Text('Kitap favorilerden kaldırıldı'),
-                  backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                  content: const Text('Kitap favorilerden kaldırıldı'),
+                  backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
                   duration: const Duration(seconds: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
@@ -89,8 +90,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text('Kitap favorilerde mevcut'),
-          backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+          content: const Text('Kitap favorilerde mevcut'),
+          backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
           duration: const Duration(seconds: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
@@ -109,9 +110,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
         .where('bookName', isEqualTo: bookName)
         .get();
 
-    querySnapshot.docs.forEach((doc) {
+    for (var doc in querySnapshot.docs) {
       doc.reference.delete();
-    });
+    }
 
     _loadFavoritesBooks();
   }
@@ -184,159 +185,157 @@ class _LibraryScreenState extends State<LibraryScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                child: Column(
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.star,
-                          color:  Color.fromRGBO(149, 252, 244, 1.0),
+              Column(
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.star,
+                        color:  Color.fromRGBO(149, 252, 244, 1.0),
+                      ),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      Text(
+                        'Hızlı Kitap Önerisi',
+                        style: TextStyle(
+                          color:  Color.fromRGBO(140, 252, 250, 1.0),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
                         ),
-                        SizedBox(
-                          width: 14,
-                        ),
-                        Text(
-                          'Hızlı Kitap Önerisi',
-                          style: TextStyle(
-                            color:  Color.fromRGBO(140, 252, 250, 1.0),
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          FontAwesomeIcons.star,
-                          color:  Color.fromRGBO(149, 252, 244, 1.0),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FutureBuilder<List<dynamic>>(
-                      future: getBookList(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          var bookList = snapshot.data;
-                          var randomBookIndex = random.nextInt(bookList!.length);
-                          var randomBook = bookList[randomBookIndex];
-                          var randomBookTitle = randomBook['volumeInfo']['title'];
-                          var randomBookAuthor = randomBook['volumeInfo']
-                                  ['authors'][0] ??
-                              'Yazar bilgisi mevcut değil';
-                          var randomImageLinks =
-                              randomBook['volumeInfo']['imageLinks'] != null
-                                  ? randomBook['volumeInfo']['imageLinks']
-                                      ['smallThumbnail']
-                                  : 'https://placekitten.com/600/800';
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        FontAwesomeIcons.star,
+                        color:  Color.fromRGBO(149, 252, 244, 1.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FutureBuilder<List<dynamic>>(
+                    future: getBookList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var bookList = snapshot.data;
+                        var randomBookIndex = random.nextInt(bookList!.length);
+                        var randomBook = bookList[randomBookIndex];
+                        var randomBookTitle = randomBook['volumeInfo']['title'];
+                        var randomBookAuthor = randomBook['volumeInfo']
+                                ['authors'][0] ??
+                            'Yazar bilgisi mevcut değil';
+                        var randomImageLinks =
+                            randomBook['volumeInfo']['imageLinks'] != null
+                                ? randomBook['volumeInfo']['imageLinks']
+                                    ['smallThumbnail']
+                                : 'https://placekitten.com/600/800';
 
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
-                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    // Geçiş animasyonunu özelleştirin
-                                    var begin = Offset(1.0, 0.0);
-                                    var end = Offset.zero;
-                                    var curve = Curves.ease;
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(milliseconds: 500), // Geçiş süresi
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  // Geçiş animasyonunu özelleştirin
+                                  var begin = const Offset(1.0, 0.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
 
-                                    var tween = Tween(begin: begin, end: end);
-                                    var curvedAnimation = CurvedAnimation(
-                                      parent: animation,
-                                      curve: curve,
-                                    );
+                                  var tween = Tween(begin: begin, end: end);
+                                  var curvedAnimation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: curve,
+                                  );
 
-                                    return SlideTransition(
-                                      position: tween.animate(curvedAnimation),
-                                      child: child,
-                                    );
-                                  },
-                                  pageBuilder: (context, animation, secondaryAnimation) {
-                                    return BookDetails(
-                                      index: randomBookIndex,
-                                    );// İkinci sayfa widget'ını buraya yerleştirin
-                                  },
-                                ),
-                              );
-
-                            },
-                            child: Container(
-                              height: 100,
-                              width: 180,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Color.fromRGBO(183, 220, 218, 1),
-                                    Color.fromRGBO(187, 198, 240, 1),
-                                    Color.fromRGBO(185, 187, 223, 1),
-                                  ],
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 10,
-                                    spreadRadius: 1,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(20),
+                                  return SlideTransition(
+                                    position: tween.animate(curvedAnimation),
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return BookDetails(
+                                    index: randomBookIndex,
+                                  );// İkinci sayfa widget'ını buraya yerleştirin
+                                },
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(height: 10),
-                                        Flexible(
-                                          child: Text(
-                                            randomBookTitle,
-                                            style: const TextStyle(color :  Color.fromRGBO(
-                                                150, 130, 185, 0.9921568627450981),
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          randomBookAuthor,
-                                          style: const TextStyle(color: Colors.black54,
-                                            fontStyle: FontStyle.italic,
-                                            fontSize: 11,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Image.network(
-                                    randomImageLinks,
-                                    height: 50,
-                                    width: 50,
-                                  ),
+                            );
+
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 180,
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromRGBO(183, 220, 218, 1),
+                                  Color.fromRGBO(187, 198, 240, 1),
+                                  Color.fromRGBO(185, 187, 223, 1),
                                 ],
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 10,
+                                  spreadRadius: 1,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text('Hata: ${snapshot.error}');
-                        }
-                        return const CircularProgressIndicator();
-                      },
-                    ),
-                  ],
-                ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 10),
+                                      Flexible(
+                                        child: Text(
+                                          randomBookTitle,
+                                          style: const TextStyle(color :  Color.fromRGBO(
+                                              150, 130, 185, 0.9921568627450981),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        randomBookAuthor,
+                                        style: const TextStyle(color: Colors.black54,
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Image.network(
+                                  randomImageLinks,
+                                  height: 50,
+                                  width: 50,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Hata: ${snapshot.error}');
+                      }
+                      return const CircularProgressIndicator();
+                    },
+                  ),
+                ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -386,10 +385,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                       Navigator.push(
                                         context,
                                         PageRouteBuilder(
-                                          transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                                          transitionDuration: const Duration(milliseconds: 500), // Geçiş süresi
                                           transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                             // Geçiş animasyonunu özelleştirin
-                                            var begin = Offset(1.0, 0.0);
+                                            var begin = const Offset(1.0, 0.0);
                                             var end = Offset.zero;
                                             var curve = Curves.ease;
 
@@ -418,7 +417,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Container(
-                                        padding: EdgeInsets.all(10),
+                                        padding: const EdgeInsets.all(10),
                                         height: 90,
                                         decoration: BoxDecoration(
                                           gradient: const LinearGradient(
@@ -487,11 +486,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                             ),
                                             Text(
                                               subtitle,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 11,
                                                   fontStyle: FontStyle.italic),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             Flexible(
@@ -537,9 +536,3 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 }
 
-class Book {
-  final String title;
-  final String author;
-
-  Book(this.title, this.author);
-}

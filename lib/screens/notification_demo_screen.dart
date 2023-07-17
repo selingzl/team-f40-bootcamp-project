@@ -42,8 +42,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color.fromRGBO(157, 213, 211, 1.0),
-          title: Row(
+          backgroundColor: const Color.fromRGBO(157, 213, 211, 1.0),
+          title: const Row(
             children: [
               Icon(Icons.done_all, color: Color.fromRGBO(
                   54, 56, 84, 1.0)),
@@ -58,10 +58,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               Navigator.push(
                 context,
                 PageRouteBuilder(
-                  transitionDuration: Duration(milliseconds: 500), // Geçiş süresi
+                  transitionDuration: const Duration(milliseconds: 500), // Geçiş süresi
                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
                     // Geçiş animasyonunu özelleştirin
-                    var begin = Offset(1.0, 0.0);
+                    var begin = const Offset(1.0, 0.0);
                     var end = Offset.zero;
                     var curve = Curves.ease;
 
@@ -77,12 +77,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     );
                   },
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return FeedPage(); // İkinci sayfa widget'ını buraya yerleştirin
+                    return const FeedPage(); // İkinci sayfa widget'ını buraya yerleştirin
                   },
                 ),
               );
 
-            }, icon:Icon(FontAwesomeIcons.arrowRight, size: 18,color: Color.fromRGBO(
+            }, icon:const Icon(FontAwesomeIcons.arrowRight, size: 18,color: Color.fromRGBO(
                 54, 56, 84, 1.0)))
           ]
 
@@ -114,7 +114,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           stream: _firestore.collection('notifications').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             final notifications = snapshot.data!.docs;
 
@@ -127,17 +127,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     '${sendTime.toDate().day}/${sendTime.toDate().month}/${sendTime.toDate().year} ${sendTime.toDate().hour}:${sendTime.toDate().minute}:${sendTime.toDate().second}';
 
                 return Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: ListTile(
-                    leading: Icon(Icons.notifications_active, color: Color.fromRGBO(
+                    leading: const Icon(Icons.notifications_active, color: Color.fromRGBO(
                         137, 140, 203, 1.0) ,),
-                    title: Text(notification['title'], style: TextStyle(color: Color.fromRGBO(
+                    title: Text(notification['title'], style: const TextStyle(color: Color.fromRGBO(
                         54, 56, 84, 1.0),fontWeight: FontWeight.w600),),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(notification['body'], style: TextStyle(fontSize: 15),),
-                        Text('Gönderilme zamanı: $formattedTime', style: TextStyle(fontStyle: FontStyle.italic,fontSize: 11),),
+                        Text(notification['body'], style: const TextStyle(fontSize: 15),),
+                        Text('Gönderilme zamanı: $formattedTime', style: const TextStyle(fontStyle: FontStyle.italic,fontSize: 11),),
                       ],
                     ),
                   ),

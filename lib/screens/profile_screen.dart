@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,12 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:read_reminder/screens/donateList_screen.dart';
-
+import '../provider/coin_provider.dart';
 import 'favorite_book_screen.dart';
 import 'login_screen.dart';
-import 'timer_screen.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
             .ref()
             .child('profile_images')
             .child('${DateTime.now().microsecondsSinceEpoch}.jpg');
-        await storageRef.putFile(file!);
+        await storageRef.putFile(file);
         final downloadURL = await storageRef.getDownloadURL();
         CollectionReference usersCollection =
             FirebaseFirestore.instance.collection('users');
@@ -157,10 +157,10 @@ class _ProfilePageState extends State<ProfilePage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
-            padding: EdgeInsets.all(20),
-            content: Text(
+            padding: const EdgeInsets.all(20),
+            content: const Text(
                 'Sizin adınıza ihtiyaç sahiplerine en kısa sürede kitap bağışında bulunacağız. İşlem tamamlandığında ReadMe! kedisi mail yoluya adınıza yapılan bağışın bilgilerini size ulaştırılacaktır :3 Okumaya devam!'),
-            backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+            backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
             duration: const Duration(seconds: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
@@ -194,25 +194,25 @@ class _ProfilePageState extends State<ProfilePage> {
   void _goToDonate() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DonateListPage()),
+      MaterialPageRoute(builder: (context) => const DonateListPage()),
     );
   }
 
   void _goToFav() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FavoriteBooksScreen()),
+      MaterialPageRoute(builder: (context) => const FavoriteBooksScreen()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    int hourtime = (totalFocusedTime / 60).toInt();
+    int hourtime = totalFocusedTime ~/ 60;
     int minutetime = totalFocusedTime - hourtime * 60;
 
     return Center(
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -227,7 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.black.withOpacity(0.2),
                       blurRadius: 4,
                       spreadRadius: 2,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -248,10 +248,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Center(
                 child: Text(username,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromRGBO(54, 56, 84, 1.0),
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Container(
                     height: 100,
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.transparent,
@@ -300,13 +300,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
                           '$hourtime s $minutetime dk',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromRGBO(69, 74, 113, 1.0),
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -316,7 +316,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.09,
                   ),
                   Container(
                     height: 100,
@@ -332,7 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Yapılan Bağışlar',
+                              'Bağışlar',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color.fromRGBO(69, 74, 113, 1.0),
@@ -348,7 +348,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             SizedBox(
-                              width: 5,
+                              width: 10,
                             ),
                             Icon(
                               FontAwesomeIcons.book,
@@ -380,6 +380,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: 80,
                     width: MediaQuery.of(context).size.width * 0.40,
+
                     color: Colors.transparent,
                     child: Center(
                       child: Column(
@@ -407,7 +408,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text(
                                 '$orderOfUser.',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color.fromRGBO(69, 74, 113, 1.0),
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -502,9 +503,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       : ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             behavior: SnackBarBehavior.floating,
-                            content: Text(
+                            content: const Text(
                                 'Bağış yapmak için yeterli coininiz bulunmamaktadır!'),
-                            backgroundColor: Color.fromRGBO(84, 90, 128, 1.0),
+                            backgroundColor: const Color.fromRGBO(84, 90, 128, 1.0),
                             duration: const Duration(seconds: 2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
@@ -530,7 +531,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   _signOut();
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
                 child: const Icon(

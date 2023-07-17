@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:read_reminder/provider/coin_provider.dart';
 import 'package:read_reminder/screens/feed_screen.dart';
 import 'package:read_reminder/screens/intro_screen.dart';
 import 'package:read_reminder/screens/timer_screen.dart';
@@ -93,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen>
       context,
       MaterialPageRoute(
         builder: (context) =>
-        firebaseAuth.currentUser != null ? FeedPage() : IntroScreen(),
+        firebaseAuth.currentUser != null ? const FeedPage() : IntroScreen(),
       ),
     );
   }
@@ -154,9 +155,9 @@ class MyApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         initialRoute: '/',
         routes: {
-          '/': (context) => SplashScreen(),
-          '/first': (context) => TimerPage(),
-          '/feed': (context) => FeedPage(),
+          '/': (context) => const SplashScreen(),
+          '/first': (context) => const TimerPage(),
+          '/feed': (context) => const FeedPage(),
           // routes
         },
         debugShowCheckedModeBanner: false,
