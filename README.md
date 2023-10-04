@@ -174,4 +174,4 @@ Uygulama tasarımı için örnekler oluşturuldu.Uygulama içerisinde kullanıla
 
 ### Sprint Retrospective
 
-- Bazı sayfalardaki veri listelem biçimi değişti.
+- Bazı sayfalardaki veri listeleme biçimi değiştirildi.
